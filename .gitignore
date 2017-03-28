@@ -1,0 +1,9 @@
+*.log
+node_modules
+.npminstall.done
+.svn
+.DS_Store
+*.diff
+*.zip
+assets
+README.html
