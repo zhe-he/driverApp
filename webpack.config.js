@@ -75,7 +75,15 @@ module.exports = {
 	].concat(entryHtmls),
 	module: {
 		rules: [
-			{test: /\.html$/,exclude:/node_modules/,use: ['pug-loader']},
+			{
+				test: /\.html$/,
+				exclude:/node_modules/,
+				use: [
+					{
+						loader: 'html-loader'
+					}
+				]
+			},
 			{
 				test: /\.js$/,
 				exclude:/(node_modules|lib)/,
