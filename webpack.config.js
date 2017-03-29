@@ -119,7 +119,7 @@ module.exports = {
 						loader: 'vue-loader',
 						options: {
 							preserveWhitespace: false,
-							postcss: [autoprefixer({browsers: ['last 7 versions']})],
+							postcss: [autoprefixer({browsers: ['last 9 versions']})],
 							loaders: {
 								// 'ts': 'vue-ts-loader',
 								'js': 'babel-loader?presets[]=es2015'
