@@ -10,7 +10,7 @@ const autoprefixer = require('autoprefixer');
 
 
 const DIST = 'assets';
-var commonJs = ['whatwg-fetch','babel-polyfill',"fastclick","js/lib/autosize.js"];
+var commonJs = ['whatwg-fetch','babel-polyfill',"js/lib/fastclick.js","js/lib/autosize.js"];
 var files = fs.readdirSync('js/page');
 var entryFiles = {};
 for (var i = 0; i < files.length; i++) {
