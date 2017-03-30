@@ -3,7 +3,10 @@ import "css/test.scss";
 import Vue from "vue";
 
 window.addEventListener("DOMContentLoaded",()=>{
-    new Vue({
-        el: "#app"
-    })
+    console.log(11);
+    console.log(11);
+    console.log(11);
+    console.log(11);
+    console.log(11);
+    console.log(11);
 },false);
