@@ -41,24 +41,11 @@ return [
 	{
 		"lat": 37, 	
 		"lng": 127, 	
+        "time": 1490934526117   
 	},{同上},{同上},...
 ] 	
 
-1. 获取当前位置 	
-window.DriverApp.callNative("getPosition") 	
-无论成功与否，请回传方法 	
-window.DriverApp.nativeCallback("sentPosition",Object) 	
-Object {
-	"status": 1,    // 状态,1代表用户同意定位并定位成功,2代表同意定位并定位失败,3代表用户拒绝定位   
-    "lat":39.93909242059091,  // 纬度,没有传0
-    "lng":116.43035530958362 // 精度,没有传0 
-} 	
 
-1. 获取司机当前签到状态   
-window.DriverApp.getNativeParam("getSign")  
-return {
-    "status": 0 // 0 自动签到失败， 1 自动签到成功
-}   
 
 1. 告诉客户端继续自动签到  
 window.DriverApp.callNative("autoSign")     
@@ -69,5 +56,15 @@ window.DriverApp.getNativeParam("getAutoCheckNumber")
 return {
     "number": "111111" // 没有传 ""  
 }   
+
+1. 获取个人中心的消息列表  
+window.DriverApp.getNativeParam('getSystemMsg')   
+return [{
+    "id": 1,
+    "title": "标题",
+    "content": "内容",  // 可能获取不到？？？ 
+    "status": 0 // 0 未读 1 已读
+    "time": 1490934526117   
+},{同上},{同上}]   
 
 ####### 暂定以上，有问题再后续沟通 	
