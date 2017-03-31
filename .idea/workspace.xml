@@ -2,28 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7b549013-2911-434b-a28e-c58ce4020d67" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/chenggong.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/icon_not repaired@2x.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/icon_not repaired@3x.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/jinggao.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/zhengjian4.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/css/credentials.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/device.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/html/credentials.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/lib/fastclick.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/page/credentials.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/css/test2.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/html/test2.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/js/page/test2.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/base.scss" afterPath="$PROJECT_DIR$/css/base.scss" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/myRepairs.scss" afterPath="$PROJECT_DIR$/css/myRepairs.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/reset.scss" afterPath="$PROJECT_DIR$/css/reset.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/test1.scss" afterPath="$PROJECT_DIR$/css/test1.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/myRepairs.html" afterPath="$PROJECT_DIR$/html/myRepairs.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/test1.html" afterPath="$PROJECT_DIR$/html/test1.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/page/test1.js" afterPath="$PROJECT_DIR$/js/page/test1.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpack.config.js" afterPath="$PROJECT_DIR$/webpack.config.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -44,7 +24,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="myRepairs.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="myRepairs.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/html/myRepairs.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="660">
@@ -54,11 +34,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="myRepairs.scss" pinned="false" current-in-tab="false">
+      <file leaf-file-name="myRepairs.scss" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/css/myRepairs.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="726">
-              <caret line="33" column="21" lean-forward="false" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="21" />
+            <state relative-caret-position="550">
+              <caret line="25" column="41" lean-forward="false" selection-start-line="25" selection-start-column="41" selection-end-line="25" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -103,8 +83,8 @@
         <option value="$PROJECT_DIR$/html/artificialRepair.html" />
         <option value="$PROJECT_DIR$/css/artificialRepair.scss" />
         <option value="$PROJECT_DIR$/webpack.config.js" />
-        <option value="$PROJECT_DIR$/css/myRepairs.scss" />
         <option value="$PROJECT_DIR$/html/myRepairs.html" />
+        <option value="$PROJECT_DIR$/css/myRepairs.scss" />
       </list>
     </option>
   </component>
@@ -391,12 +371,12 @@
       <workItem from="1490689415868" duration="1128000" />
       <workItem from="1490691803050" duration="1157000" />
       <workItem from="1490695083133" duration="2277000" />
-      <workItem from="1490844295651" duration="21599000" />
+      <workItem from="1490844295651" duration="22106000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26161000" />
+    <option name="totallyTimeSpent" value="26668000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1440" y="0" width="1080" height="1920" extended-state="0" />
@@ -521,9 +501,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
           <caret line="8" column="23" lean-forward="true" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#24#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -655,9 +633,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
           <caret line="8" column="23" lean-forward="false" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#24#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -780,18 +756,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/css/myRepairs.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="726">
-          <caret line="33" column="21" lean-forward="false" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/html/myRepairs.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="660">
           <caret line="50" column="41" lean-forward="false" selection-start-line="50" selection-start-column="41" selection-end-line="50" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/myRepairs.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="25" column="41" lean-forward="false" selection-start-line="25" selection-start-column="41" selection-end-line="25" selection-end-column="41" />
           <folding />
         </state>
       </provider>
