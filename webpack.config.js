@@ -61,7 +61,7 @@ module.exports = {
 	entry: entryFiles,
 	// 入口文件输出配置
 	output: {
-		publicPath: '',
+		publicPath: '../',
 		path: path.resolve(__dirname, DIST),
 		filename: 'js/[name].js'
 	},
@@ -72,6 +72,9 @@ module.exports = {
 			minChunks: 3
 		}),
 	    new ExtractTextPlugin('css/[name].css'),
+	    new CopyWebpackPlugin([
+			{from: 'images/tmp/**/*'}
+		])
 	].concat(entryHtmls),
 	module: {
 		rules: [
@@ -147,7 +150,7 @@ module.exports = {
 						loader:'url-loader',
 						options: {
 							limit: 8192,
-							name: 'images/[name].[ext]?[hash]'
+							name: '[path][name].[ext]?[hash]'
 						}
 					}
 				]
