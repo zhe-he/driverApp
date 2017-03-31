@@ -10,7 +10,7 @@ header{
 	height: .88rem;
 }
 .succ{
-	@include bg("icon_been_repaired.png");
+	@include bg2("icon_been_repaired");
 	position: absolute;
 	top:-.14rem;
 	right:-.12rem;
@@ -23,7 +23,7 @@ header{
 }
 .err{
 	@extend .succ;
-	@include bg("icon_not_repaired.png");
+	@include bg2("icon_not_repaired");
 }
 .content {
 	ul {
