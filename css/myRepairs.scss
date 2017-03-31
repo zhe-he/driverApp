@@ -22,16 +22,8 @@ header{
 	font-size:.24rem;
 }
 .err{
+	@extend .succ;
 	@include bg("icon_not_repaired.png");
-	position: absolute;
-	top:-.14rem;
-	right:-.12rem;
-	width: 1.12rem;
-	height:.66rem;
-	color: #fff;
-	line-height: .66rem;
-	text-align: center;
-	font-size:.24rem;
 }
 .content {
 	ul {
@@ -68,24 +60,6 @@ header{
 				font-size: .28rem;
 				color: #7d7d7d;
 				line-height: .4rem;
-				img {
-					position: absolute;
-					top: -.13rem;
-					right: -.1rem;
-					width: 1.12rem;
-					height: .6rem;
-				}
-				span {
-					position: absolute;
-					top: -.02rem;
-					right: 0;
-					font-size: .24rem;
-					color: #fff;
-					width: .92rem;
-					height: .45rem;
-					line-height: .40rem;
-					text-align: center;
-				}
 			}
 		}
 	}
