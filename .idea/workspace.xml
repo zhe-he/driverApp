@@ -2,18 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7b549013-2911-434b-a28e-c58ce4020d67" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/button.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/icon_been repaired@2x.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/icon_been repaired@3x.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/css/artificialRepair.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/html/artificialRepair.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/page/artificialRepair.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/page/myRepairs.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/icon_been repaired.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/icon_not repaired.png" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/chenggong.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/icon_not repaired@2x.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/icon_not repaired@3x.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/jinggao.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/zhengjian4.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/css/credentials.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/device.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/html/credentials.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/lib/fastclick.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/page/credentials.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/css/test2.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/html/test2.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/js/page/test2.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/base.scss" afterPath="$PROJECT_DIR$/css/base.scss" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/myRepairs.scss" afterPath="$PROJECT_DIR$/css/myRepairs.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/reset.scss" afterPath="$PROJECT_DIR$/css/reset.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/test1.scss" afterPath="$PROJECT_DIR$/css/test1.scss" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/myRepairs.html" afterPath="$PROJECT_DIR$/html/myRepairs.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/test1.html" afterPath="$PROJECT_DIR$/html/test1.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/page/test1.js" afterPath="$PROJECT_DIR$/js/page/test1.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpack.config.js" afterPath="$PROJECT_DIR$/webpack.config.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -35,58 +44,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="myRepairs.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="myRepairs.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/html/myRepairs.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="704">
-              <caret line="32" column="33" lean-forward="false" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
+            <state relative-caret-position="660">
+              <caret line="50" column="41" lean-forward="false" selection-start-line="50" selection-start-column="41" selection-end-line="50" selection-end-column="41" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="myRepairs.scss" pinned="false" current-in-tab="true">
+      <file leaf-file-name="myRepairs.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/css/myRepairs.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="5" column="6" lean-forward="false" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="icon_been_repaired.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/images/icon_been_repaired.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="base.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/css/base.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="7" column="18" lean-forward="false" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="reset.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/css/reset.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="webpack.config.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/webpack.config.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="594">
-              <caret line="144" column="22" lean-forward="false" selection-start-line="144" selection-start-column="22" selection-end-line="144" selection-end-column="22" />
+            <state relative-caret-position="726">
+              <caret line="33" column="21" lean-forward="false" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -130,9 +102,9 @@
         <option value="$PROJECT_DIR$/js/page/artificialRepair.js" />
         <option value="$PROJECT_DIR$/html/artificialRepair.html" />
         <option value="$PROJECT_DIR$/css/artificialRepair.scss" />
-        <option value="$PROJECT_DIR$/html/myRepairs.html" />
         <option value="$PROJECT_DIR$/webpack.config.js" />
         <option value="$PROJECT_DIR$/css/myRepairs.scss" />
+        <option value="$PROJECT_DIR$/html/myRepairs.html" />
       </list>
     </option>
   </component>
@@ -344,6 +316,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets/images" />
       <recent name="$PROJECT_DIR$/images" />
       <recent name="$PROJECT_DIR$/js/page" />
       <recent name="$PROJECT_DIR$/css" />
@@ -418,12 +391,12 @@
       <workItem from="1490689415868" duration="1128000" />
       <workItem from="1490691803050" duration="1157000" />
       <workItem from="1490695083133" duration="2277000" />
-      <workItem from="1490844295651" duration="19974000" />
+      <workItem from="1490844295651" duration="21599000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24536000" />
+    <option name="totallyTimeSpent" value="26161000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1440" y="0" width="1080" height="1920" extended-state="0" />
@@ -670,14 +643,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/css/test1.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/test1.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -751,22 +716,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/css/artificialRepair.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="30" column="33" lean-forward="false" selection-start-line="30" selection-start-column="33" selection-end-line="30" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/html/myRepairs.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="704">
-          <caret line="32" column="33" lean-forward="false" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/html/artificialRepair.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
@@ -779,15 +728,18 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webpack.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="144" column="22" lean-forward="false" selection-start-line="144" selection-start-column="22" selection-end-line="144" selection-end-column="22" />
-          <folding />
+          <folding>
+            <marker date="1490929005000" expanded="true" signature="241:304" ph="{...}" />
+            <marker date="1490929005000" expanded="true" signature="306:350" ph="{...}" />
+            <marker date="1490929005000" expanded="true" signature="416:464" ph="{...}" />
+            <marker date="1490929005000" expanded="true" signature="543:589" ph="{...}" />
+            <marker date="1490929005000" expanded="true" signature="593:617" ph="{...}" />
+            <marker date="1490929005000" expanded="true" signature="622:642" ph="{...}" />
+            <marker date="1490929005000" expanded="true" signature="659:711" ph="{...}" />
+            <marker date="1490929005000" expanded="true" signature="722:738" ph="{...}" />
+            <marker date="1490929005000" expanded="true" signature="745:773" ph="{...}" />
+            <marker date="1490929005000" expanded="true" signature="786:820" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -804,10 +756,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/css/myRepairs.scss">
+    <entry file="file://$PROJECT_DIR$/css/test1.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="110">
-          <caret line="5" column="6" lean-forward="false" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/artificialRepair.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="30" column="33" lean-forward="false" selection-start-line="30" selection-start-column="33" selection-end-line="30" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webpack.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="880">
+          <caret line="144" column="22" lean-forward="false" selection-start-line="144" selection-start-column="22" selection-end-line="144" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/myRepairs.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="726">
+          <caret line="33" column="21" lean-forward="false" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/html/myRepairs.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="50" column="41" lean-forward="false" selection-start-line="50" selection-start-column="41" selection-end-line="50" selection-end-column="41" />
           <folding />
         </state>
       </provider>

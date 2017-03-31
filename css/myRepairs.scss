@@ -3,17 +3,35 @@
 body{
 	font-family: "PingFangSC-Light";
 	font-size: .34rem;
-	//background-color: black;
+	background-color: black;
 }
 header{
 	width:100%;
 	height: .88rem;
 }
-.fixed{
+.succ{
 	@include bg("icon_been_repaired.png");
-	display: block;
+	position: absolute;
+	top:-.14rem;
+	right:-.12rem;
 	width: 1.12rem;
 	height:.66rem;
+	color: #fff;
+	line-height: .66rem;
+	text-align: center;
+	font-size:.24rem;
+}
+.err{
+	@include bg("icon_not_repaired.png");
+	position: absolute;
+	top:-.14rem;
+	right:-.12rem;
+	width: 1.12rem;
+	height:.66rem;
+	color: #fff;
+	line-height: .66rem;
+	text-align: center;
+	font-size:.24rem;
 }
 .content {
 	ul {

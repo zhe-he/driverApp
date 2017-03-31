@@ -32,7 +32,7 @@
 }
 
 // 1px 的解决方案
-$line_color: #e5e4e3;
+$line_color: #D9D9D9;
 $radiuswidth: 0.04rem;
 $ui_value: 1px solid $line_color;
 %ui-border{
@@ -209,5 +209,34 @@ $ui_value: 1px solid $line_color;
 	}
 	%ui-border-n{
 		background: none;
+	}
+}
+
+
+.common-top{
+	height: 0.88rem;
+	> div{
+		// @include common-fixed;
+		width: 100%;
+		display: flex;
+		> *{
+			display: block;
+			height: 0.88rem;
+			line-height: 0.88rem;
+			text-align: center;
+			color: #fff;
+		}
+		a{
+			width: 0.8rem;
+		}
+		h1{
+			width: 5.46rem; 
+			font-size: 0.36rem;
+			text-indent: 0.22rem;
+		}
+		i{
+			width: 1.24rem;
+			font-size: 0.32rem;
+		}
 	}
 }
