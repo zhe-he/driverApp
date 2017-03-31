@@ -1,24 +1,5 @@
-html,body{
-	height: 100%;
-	font-size: 16px;
+.t{
+	height: 100px;
+	width: 100px;
+	background: greenyellow;
 }
-#app{
-	position: relative;
-	height: 100%;
-}
-.flex{
-	display: flex;
-	box-align: center;
-	align-items: center;
-	.flex-child{
-		display: block;
-		flex: 1;
-	} 
-}
-
-.flex2{
-	@extend .flex;
-	box-orient: vertical;
-	flex-direction: column;
-}
-
