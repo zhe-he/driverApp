@@ -11,10 +11,10 @@
 		url('../images/#{$img}') 2x,
 		url('../images/#{$img}') 3x);
 	} @else {
-		background-image: url('../images/#{$img}@2x.png');
+		background-image: url('../images/#{$img}\@2x.png');
 		background-image: -webkit-image-set(
-		url('../images/#{$img}@2x.png') 2x,
-		url('../images/#{$img}@3x.png') 3x);
+		url('../images/#{$img}\@2x.png') 2x,
+		url('../images/#{$img}\@3x.png') 3x);
 	}
 	background-size: $x $y;
 }
