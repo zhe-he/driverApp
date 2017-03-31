@@ -27,7 +27,7 @@ return {
 }   
 
 1. 清除本地缓存 	
-window.DriverApp.callNative("cleanCatch",Object) 	
+window.DriverApp.callNative("cleanCache",Object) 	
 
 1. 版本更新 	
 window.DriverApp.callNative("updateApp",Object) 	
@@ -51,10 +51,17 @@ return [
 window.DriverApp.callNative("autoSign")     
 当自动签到失败，或正在自动签到时，用户点击签到按钮，会调用此方法    
 
-1. 获取设备自动检测单号(连接成功十分钟自检后台返回的单号)   
+1. 获取设备自动检测单号(连接成功十分钟app自检后台返回的单号)   
 window.DriverApp.getNativeParam("getAutoCheckNumber") 
 return {
     "number": "111111" // 没有传 ""  
+}   
+
+1. 提交设备H5自动检测单号(连接十分钟之内进入自检页面H5自检后台返回的单号)   
+window.DriverApp.callNative("sendCheckNumber",Object) 
+Object {
+    "callbackId": "sendCheckNumber",
+    "number": "111111" 
 }   
 
 1. 获取个人中心的消息列表  

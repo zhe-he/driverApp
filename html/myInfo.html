@@ -6,48 +6,41 @@
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <meta content="telephone=no" name="format-detection">
-    <title>完善信息</title>
+    <title>个人信息</title>
 </head>
 <body>
-    <div id="credentials" v-cloak>
+    <div id="myInfo" v-cloak>
         <header class="common-top">
             <div>
                 <a href="javascript:;"></a>
-                <h1>完善信息</h1>
+                <h1>个人信息</h1>
                 <i></i>
             </div>
         </header>
         <section class="credentials-box">
             <div class="credentials-item">
                 <span>公司名称</span>
-                <b v-show="isDisabled">{{company}}</b>
-                <input v-show="!isDisabled" v-model="company" maxlength="20" type="text" />
+                <b>{{company}}</b>
             </div>
             <div class="credentials-item">
                 <span>司机姓名</span>
-                <b v-show="isDisabled">{{driverName}}</b>
-                <input v-show="!isDisabled" v-model="driverName" maxlength="8" type="text" />
+                <b>{{driverName}}</b>
             </div>
             <div class="credentials-item">
                 <span>联系电话</span>
-                <b v-show="isDisabled">{{driverTel}}</b>
-                <input v-show="!isDisabled" v-model="driverTel" maxlength="11" type="tel" />
+                <b>{{driverTel}}</b>
             </div>
             <div class="credentials-item">
                 <span>驾驶证号</span>
-                <b v-show="isDisabled">{{driverNumber}}</b>
-                <input v-show="!isDisabled" v-model="driverNumber" type="text" />
+                <b>{{driverNumber}}</b>
             </div>
             <div class="credentials-photo">
                 <p>驾驶证照片（照片为驾驶证信息主页）</p>
-                <a @click="changePic()" href="javascript:;">
-                    <input type="file" accept="image/*" />
-                    <img :src="driverPic?driverPic:'../images/tmp/zhengjian4.png'" />
+                <a href="javascript:;">
+                    <img :src="driverPic" />
                 </a>
             </div>
         </section>
-        <p :class="['credentials-tip',credentials_status]" v-html="credentials_message"></p>
-        <a @click="commit()" class="credentials-btn a_c" href="javascript:;" v-text="isDisabled?'修改信息':'完成'"></a>
     </div>
 </body>
 </html>

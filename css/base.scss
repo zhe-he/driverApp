@@ -1,3 +1,7 @@
+$blackColor: #242424;
+$greyColor: #7d7d7d;
+
+
 @mixin bg($img,$x:100%,$y:100%){
 	background-repeat: no-repeat;
 	background-image: url('../images/#{$img}');
@@ -228,11 +232,16 @@ $ui_value: 1px solid $line_color;
 		}
 		a{
 			width: 0.8rem;
+			&.goBack{
+				@include bg2('back',0.24rem,0.44rem);
+				background-position: center center;
+			}
 		}
 		h1{
 			width: 5.46rem; 
 			font-size: 0.36rem;
 			text-indent: 0.22rem;
+			font-weight: normal;
 		}
 		i{
 			width: 1.24rem;

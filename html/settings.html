@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,initial-scale=1.0">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <title>设置</title>
+</head>
+<body>
+    <div id="settings" cloak>
+        <header class="common-top">
+            <div>
+                <a @click="goBack()" class="goBack" href="javascript:;"></a>
+                <h1>设置</h1>
+                <i></i>
+            </div>
+        </header>
+
+        <nav class="settings-box">
+            <a @click="cleanCache()" href="javascript:;" class="settings-item">
+                <p>清除本地缓存</p>
+                <i></i>
+            </a>
+            <a @click="updateApp()" href="javascript:;" :class="['settings-item active',isCanUpdate?'active':'']">
+                <p>版本更新</p>
+                <i></i>
+            </a>
+            <a href="aboutUs.html" class="settings-item">
+                <p>关于我们</p>
+                <i></i>
+            </a>
+        </nav>
+        <a @click="signOut()" class="settings-signOut a_c" href="javascript:;">注销</a>
+    </div>
+</body>
+</html>
