@@ -17,7 +17,11 @@
       <div>
           <dl>
               <dt>车牌号：</dt>
-              <dd><input type="text"></dd>
+              <dd>
+                  <span>
+                      <input type="text" placeholder="请输入车牌号">
+                  </span>
+              </dd>
           </dl>
           <dl>
               <dt>报修时间：</dt>
@@ -27,8 +31,12 @@
               <dt class="faultDesc">故障描述：</dt>
               <dd></dd>
           </dl>
-          <textarea name="faultDesc" id="faultDesc"></textarea>
+          <div>
+              <textarea id="faultDesc" name="faultDesc" ></textarea>
+              <span id="count" class="dxj-txt" >0/50</span>
+          </div>
       </div>
+      <i>提交</i>
 
   </div>
 </body>
