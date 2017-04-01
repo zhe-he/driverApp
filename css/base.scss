@@ -1,5 +1,6 @@
 $blackColor: #242424;
 $greyColor: #7d7d7d;
+$blueColor: #3283ff;
 
 
 @mixin bg($img,$x:100%,$y:100%){
@@ -216,10 +217,11 @@ $ui_value: 1px solid $line_color;
 	}
 }
 
+$shadowColor: rgba(31,120,255,0.8);
 %common-shadow{
 	background-color: #fff;
 	border-radius: 0.06rem;
-	box-shadow: 0 0 0.1rem rgba(31,120,255,0.8);
+	box-shadow: 0 0 0.1rem $shadowColor;
 }
 
 .common-top{
