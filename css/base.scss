@@ -216,6 +216,11 @@ $ui_value: 1px solid $line_color;
 	}
 }
 
+%common-shadow{
+	background-color: #fff;
+	border-radius: 0.06rem;
+	box-shadow: 0 0 0.1rem rgba(31,120,255,0.8);
+}
 
 .common-top{
 	height: 0.88rem;
@@ -248,4 +253,7 @@ $ui_value: 1px solid $line_color;
 			font-size: 0.32rem;
 		}
 	}
+}
+.height30{
+	height: 0.3rem;
 }
