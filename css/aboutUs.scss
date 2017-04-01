@@ -2,8 +2,7 @@
 .aboutUs-box{
     width: 6.9rem;
     margin: 0.6rem auto 0;
-    background-color: #fff;
-    border-radius: 0.06rem;
+    @extend %common-shadow;
     padding: 0.6rem 0.48rem 1.65rem;
     box-sizing: border-box;
 

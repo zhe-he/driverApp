@@ -10,8 +10,7 @@
         height: 0.98rem;
         line-height: 0.98rem;
         margin: 0 auto 0.2rem;
-        border-radius: 0.06rem;
-        background-color: #fff;
+        @extend %common-shadow;
         text-indent: 0.3rem;
         font-size: 0.34rem;
         color: $blackColor;
