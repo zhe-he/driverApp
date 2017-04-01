@@ -1,7 +1,11 @@
 ## app-h5-connect 	
-v1.1版 	
+v1.1.1版 	
 
 ### 特别说明，字符串一律用双引号 	
+
+#### userAgent标识(x.x.x为版本号)    
+ios: iOSApp/wangfanDriver x.x.x     
+android: AndroidApp/wangfanDriver x.x.x     
 
 #### H5调native方法 	
 获取app数据，window.DriverApp.getNativeParam("标志名") 	
@@ -21,6 +25,7 @@ window.nativeCallback("名字"[,"参数"])
 1. 获取用户基本信息     
 window.DriverApp.getNativeParam("baseInfo")     
 return {
+    "host": "",     
     "token": "",
     "userid": "",
     "tel": 15000000000
