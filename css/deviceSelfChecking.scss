@@ -1,0 +1,105 @@
+@import "base";
+body{
+	color:#242424;
+	font-family: "PingFangSC-Light";
+	font-size: .34rem;
+	background-color: black;
+}
+header{
+	width:100%;
+	height: .88rem;
+}
+
+.content{
+	border-radius: .06rem;
+	width: 6.3rem;
+	height:10.07rem;
+	background-color: #fff;
+	margin: 0 auto;
+	padding: .42rem .3rem .85rem;
+	position: relative;
+	>div{
+		p{
+			line-height: .62rem;
+		}
+		dl{
+			color: #7d7d7d;
+			display: flex;
+			font-size: .3rem;
+			line-height: .62rem;
+			dt{
+				flex: 1;
+			}
+			dd{
+				flex:3;
+			}
+		}
+	}
+	>div{
+		>span{
+			line-height: .82rem;
+		}
+		ul{
+			line-height: .82rem;
+			li{
+				position: relative;
+				span{
+					color: #247BFF;
+				}
+				>p{
+					position: absolute;
+					line-height: .82rem;
+					top: 0;
+					right:.67rem;
+					>i{
+						position: absolute;
+						width:.398rem;
+						height:.398rem;
+						right:-.67rem;
+						top:.21rem;
+					}
+				}
+
+
+			}
+		}
+	}
+
+	>b{
+		display: block;
+		border: 1px solid #dfdfdf;
+		margin:.3rem 0;
+	}
+	.bottomBtn{
+		background-image: linear-gradient(-140deg,#1860FF 11%,#37ACFF 92%);
+		border-radius: .71rem;
+		color: #fff;
+		height:.88rem;
+		line-height: .88rem;
+		margin:0 auto;
+		position: absolute;
+		bottom: .85rem;
+		text-align: center;
+		width:6.3rem;
+		box-shadow: 0 .1rem .1rem rgba(31,120,255,.4);
+		b{
+			position: relative;
+			>u{
+				@include bg2("icon_refresh");
+				position: absolute;
+				top:.035rem;
+				left: -.5rem;
+				width:.4rem;
+				height: .41rem;
+			}
+		}
+
+	}
+
+}
+.normal{
+	@include bg2("normal");
+}
+.err{
+	@include bg2("icon_fail");
+}

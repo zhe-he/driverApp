@@ -74,7 +74,9 @@ header{
 	}
 
 		i{
-			@include bg2("button");
+			border-radius: .71rem;
+			background-image: linear-gradient(-140deg,#1860FF 11%,#37ACFF 92%);
+			box-shadow: 0 .1rem .1rem rgba(31,120,255,.4);
 			color: #fff;
 			display: block;
 			height:.88rem;
