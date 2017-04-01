@@ -9,18 +9,50 @@ header{
 	width:100%;
 	height: .88rem;
 }
+.message{
+	@include bg2("xinfeng");
+	width: .4rem;
+	height: .34rem;
+	position: absolute;
+	top:.12rem;
+	left:0;
+}
+.new{
+	position: absolute;
+	top:.04rem;
+	right:.36rem;
+	width: .16rem;
+	height: .16rem;
+	border-radius: .08rem;
+	background-color: $redColor;
+}
+.select{
+	width: .4rem;
+	height: .4rem;
+	border-radius: .4rem;
+	border:3px solid #D5D7E2;
+	position: absolute;
+	top:0;
+	left:0;
+}
+.selected{
+	@include bg2("normal");
+	width: .508rem;
+	height: .496rem;
+	position: absolute;
+	top:0;
+	left:0;
+}
 
 .content {
 	ul{
 		width: 6.9rem;
 		margin:0 auto;
 		li{
-			background-color: #fff;
-			border-radius: .06rem;
 			padding: .3rem;
 			line-height: .58rem;
 			margin-top: .2rem;
-			box-shadow: 0 0 .1rem rgba(31,120,255,.2);
+			@extend %common-shadow;
 			p{
 				position: relative;
 				padding-left:.7rem;
@@ -37,7 +69,7 @@ header{
 				}
 				span{
 					font-size:.28rem;
-					color: #979797;
+					color: $greyColor2;
 					line-height: .42rem;
 					padding-right: .1rem;
 				}
@@ -56,48 +88,25 @@ footer{
 	bottom: 0;
 	>span{
 		float: right;
-		color: #f43531;
+		color: $redColor;
 	}
 	b{
-		color: #979797;
+		color: $greyColor2;
 		padding-left: .6rem;
 		position: relative;
-		>i.select{
+		>i{
+			@extend .select;
 			top:-.04rem;
 		}
 	}
+	.allSelected{
+		color: #1E77FF;
+		i{
+			border: none;
+			@extend .selected;
+		}
+	}
 }
-.message{
-	@include bg2("xinfeng");
-	width: .4rem;
-	height: .34rem;
-	position: absolute;
-	top:.12rem;
-	left:0;
-}
-.new{
-	position: absolute;
-	top:.04rem;
-	right:.36rem;
-	width: .16rem;
-	height: .16rem;
-	border-radius: .08rem;
-	background-color: #F43531;
-}
-.select{
-	width: .4rem;
-	height: .4rem;
-	border-radius: .4rem;
-	border:3px solid #D5D7E2;
-	position: absolute;
-	top:0;
-	left:0;
-}
-.selected{
-	@include bg2("normal");
-	width: .508rem;
-	height: .496rem;
-	position: absolute;
-	top:0;
-	left:0;
+.hide{
+	display: none;
 }

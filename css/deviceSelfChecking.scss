@@ -11,20 +11,18 @@ header{
 }
 
 .content{
-	border-radius: .06rem;
 	width: 6.3rem;
 	height:10.07rem;
-	background-color: #fff;
 	margin: 0 auto;
 	padding: .42rem .3rem .85rem;
 	position: relative;
-	box-shadow: 0 0 .1rem rgba(31,120,255,.2);
+	@extend %common-shadow;
 	>div{
 		p{
 			line-height: .62rem;
 		}
 		dl{
-			color: #7d7d7d;
+			color: $greyColor;
 			display: flex;
 			font-size: .3rem;
 			line-height: .62rem;
@@ -72,17 +70,15 @@ header{
 		margin:.3rem 0;
 	}
 	.bottomBtn{
-		background-image: linear-gradient(-140deg,#1860FF 11%,#37ACFF 92%);
-		border-radius: .71rem;
 		color: #fff;
 		height:.88rem;
 		line-height: .88rem;
 		margin:0 auto;
-		position: absolute;
-		bottom: .85rem;
+		position: fixed;
+		bottom: 1.85rem;
 		text-align: center;
 		width:6.3rem;
-		box-shadow: 0 .1rem .1rem rgba(31,120,255,.4);
+		@extend %common-shadowBtn;
 		b{
 			position: relative;
 			>u{

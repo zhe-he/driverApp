@@ -10,18 +10,16 @@ header{
 }
 
 .content{
-	border-radius: .06rem;
 	width: 6.9rem;
-	background-color: #fff;
 	margin: 0 auto;
 	padding-bottom: .85rem;
-	box-shadow: 0 0 .1rem rgba(31,120,255,.2);
+	@extend %common-shadow;
 	div{
 		padding:.5rem .3rem;
 		dl{
 			line-height:.7rem;
 			display: flex;
-			color: #242424;
+			color: $blackColor;
 			dt{
 				flex:3;
 			}
@@ -29,13 +27,13 @@ header{
 				flex:6;
 
 				span{
-					color: #7d7d7d;
+					color: $greyColor;
 					display: block;
 					height: .6rem;
 					line-height: .6rem;
 					padding: 0 .3rem;
 					width:3.92rem;
-					border: 1px solid #979797;
+					border: 1px solid $greyColor2;
 					border-radius: 1rem;
 					input{
 						border: hidden;
@@ -43,7 +41,7 @@ header{
 						background-color: transparent;
 					}
 					.write{
-						color: #242424;
+						color: $blackColor;
 						font-size: .34rem;
 					}
 				}
@@ -59,7 +57,7 @@ header{
 			position: relative;
 			#faultDesc{
 				border-radius: .06rem;
-				color: #242424;
+				color: $blackColor;
 				font-size: .36rem;
 				height: 4.74rem;
 				line-height: .5rem;
@@ -74,10 +72,8 @@ header{
 		}
 	}
 
-		i{
-			border-radius: .71rem;
-			background-image: linear-gradient(-140deg,#1860FF 11%,#37ACFF 92%);
-			box-shadow: 0 .1rem .1rem rgba(31,120,255,.4);
+	.bottomBtn{
+			@extend %common-shadowBtn;
 			color: #fff;
 			display: block;
 			height:.88rem;

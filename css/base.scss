@@ -1,6 +1,8 @@
 $blackColor: #242424;
 $greyColor: #7d7d7d;
+$greyColor2: #979797;
 $blueColor: #3283ff;
+$redColor: #F43531;
 
 
 @mixin bg($img,$x:100%,$y:100%){
@@ -222,6 +224,13 @@ $shadowColor: rgba(31,120,255,0.8);
 	background-color: #fff;
 	border-radius: 0.06rem;
 	box-shadow: 0 0 0.1rem $shadowColor;
+}
+
+$shadowColorBtn: rgba(31,120,255,0.4);
+%common-shadowBtn{
+	background-image: linear-gradient(-140deg,#1860FF 11%,#37ACFF 92%);
+	border-radius: .71rem;
+	box-shadow: 0 .1rem .1rem $shadowColorBtn;
 }
 
 .common-top{
