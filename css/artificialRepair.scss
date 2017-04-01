@@ -2,7 +2,7 @@
 body{
 	font-family: "PingFangSC-Light";
 	font-size: .34rem;
-	background-color: black;
+	background-color: #F8FDFF;
 }
 header{
 	width:100%;
@@ -15,6 +15,7 @@ header{
 	background-color: #fff;
 	margin: 0 auto;
 	padding-bottom: .85rem;
+	box-shadow: 0 0 .1rem rgba(31,120,255,.2);
 	div{
 		padding:.5rem .3rem;
 		dl{

@@ -3,7 +3,7 @@
 body{
 	font-family: "PingFangSC-Light";
 	font-size: .34rem;
-	background-color: black;
+	background-color: #F8FDFF;
 }
 header{
 	width:100%;
@@ -37,6 +37,7 @@ header{
 			border-radius: .06rem;
 			position: relative;
 			margin-top: .3rem;
+			box-shadow: 0 0 .1rem rgba(31,120,255,.2);
 			dl {
 				line-height: .48rem;
 				display: flex;
