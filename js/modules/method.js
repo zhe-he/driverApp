@@ -100,6 +100,50 @@ const getPosition = (opts) => {
         }
     }
 };
+const jsonp = (json) => {
+    json.data=json.data||{};
+    json.timeout=json.timeout||0;
+    
+
+    var callback = json.data.jsonp || 'callback';
+
+    //data.cb分配
+    var name='jsonp_'+Math.random();
+    name=name.replace('.', '');
+    
+    json.data[callback]=name;
+    
+    
+    var arr=[];
+    for(var i in json.data){
+        arr.push(i+'='+encodeURIComponent(json.data[i]));
+    }
+    
+    window[json.data[callback]]=function (data){
+        json.success && json.success(data);
+        
+        //用完了
+        oHead.removeChild(oS);
+        window[json.data[callback]]=null;
+        
+        clearTimeout(timer);
+    };
+    
+    var oS=document.createElement('script');
+    oS.src=json.url+'?'+arr.join('&');
+    
+    var oHead=document.getElementsByTagName('head')[0];
+    oHead.appendChild(oS);
+    
+    if(json.timeout){
+        var timer=setTimeout(function (){
+            oHead.removeChild(oS);
+            window[json.data[callback]]=null;
+            
+            json.error && json.error();
+        }, json.timeout);
+    }
+};
 
 export {
     isIos,
@@ -113,4 +157,5 @@ export {
     dataFormat,
     format2Time,
     getPosition,
+    jsonp
 };

@@ -49,14 +49,14 @@ if (isTest) {
                             "id": 1,
                             "title": "标题",
                             "content": "内容",
-                            "status": 0
+                            "status": 0,
                             "time": Date.now()
                         },
                         {
                             "id": 2,
                             "title": "标题",
                             "content": "内容",
-                            "status": 1
+                            "status": 1,
                             "time": Date.now()-12*3600*1000
                         }
                     ]

@@ -179,6 +179,8 @@ module.exports = {
 		extensions: ['.ts','.js','.vue'],
 		alias: {
 			"vue": 				"js/lib/vue.common.js",
+			"nativeA": 			"js/data/nativeA.js",
+			"method": 			"js/modules/method.js",
 		}
 	}
 };
