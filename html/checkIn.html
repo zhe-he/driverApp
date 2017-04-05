@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,initial-scale=1.0">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <title>签到</title>
+</head>
+<body>
+
+    <div id="checkIn" v-cloak class="checkIn">
+        <header class="common-top">
+            <div>
+                <a class="goBack" href="javascript:;"></a>
+                <h1>签到</h1>
+                <i></i>
+            </div>
+        </header>
+
+        <div class="checkIn-column">
+            <nav class="checkIn-header">
+                <a href="javascript:;"></a>
+                <a href="javascript:;">2017年3月</a>
+                <a href="javascript:;"></a>
+            </nav>
+            <div class="checkIn-calendar">
+                <ul>
+                    <li>日</li>
+                    <li>一</li>
+                    <li>二</li>
+                    <li>三</li>
+                    <li>四</li>
+                    <li>五</li>
+                    <li>六</li>
+                </ul>
+                <ol class="clearfix checkIn-date">
+                    <li :class="{'cur':index==10,'manual':index<20,'auto':index<15}" v-for="(item,index) in 31">{{item}}</li>
+                </ol>
+            </div>
+        </div>
+        <div class="checkIn-icon">
+            <span>人工签到</span>
+            <span>自动签到</span>
+            <span>当前位置</span>
+        </div>
+        <p class="checkIn-msg">当前车辆签到不成功，请尝试重新签到。</p>
+        
+        <a class="checkIn-login a_c" href="javascript:;">签到</a>
+    </div>
+</body>
+</html>

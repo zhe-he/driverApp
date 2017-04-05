@@ -70,14 +70,11 @@ header{
 		margin:.3rem 0;
 	}
 	.bottomBtn{
-		color: #fff;
+		position: fixed;
+		width:6.3rem;
 		height:.88rem;
 		line-height: .88rem;
-		margin:0 auto;
-		position: fixed;
 		bottom: 1.85rem;
-		text-align: center;
-		width:6.3rem;
 		@extend %common-shadowBtn;
 		b{
 			position: relative;
