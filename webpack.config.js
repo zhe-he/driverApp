@@ -181,6 +181,7 @@ module.exports = {
 			"vue": 				"js/lib/vue.common.js",
 			"nativeA": 			"js/data/nativeA.js",
 			"method": 			"js/modules/method.js",
+			"eventHub": 		'js/modules/eventHub.js',
 		}
 	}
 };
