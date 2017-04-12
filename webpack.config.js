@@ -61,7 +61,7 @@ module.exports = {
 	entry: entryFiles,
 	// 入口文件输出配置
 	output: {
-		publicPath: '../',
+		publicPath: '',
 		path: path.resolve(__dirname, DIST),
 		filename: 'js/[name].js'
 	},
