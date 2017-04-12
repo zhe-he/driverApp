@@ -50,8 +50,9 @@ return [
         "time": 1490934526117   
     },{同上},{同上},...
 ]   
+如果没有 返回当前的位置 return [{...}]
 
-1. 获取当前位置(GPS)   
+1. 获取当前位置(GPS,暂未使用)   
 window.DriverApp.callNative("getLocation",Object)   
 客户端回传  sendLocation   
 window.nativeCallback("sendLocation", Object)    
@@ -76,7 +77,7 @@ Object {
 
 
 ##### 消息（systemMessage.html）    
-1. 获取个人中心的消息列表(news feed)  
+1. 获取个人中心的消息列表(news feed,暂不使用)  
 window.DriverApp.getNativeParam('getSystemMsg')   
 return [{   
     "id": 1,    
