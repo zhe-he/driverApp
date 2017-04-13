@@ -1,0 +1,31 @@
+@import "base";
+.messageContent{
+    width: 6.9rem;
+    margin: 0.6rem auto 0;
+    @extend %common-shadow;
+    padding: 0.6rem 0.48rem 1.65rem;
+    box-sizing: border-box;
+
+    > h2{
+        line-height: 0.48rem;
+        font-size: 0.34rem;
+        color: $blackColor; 
+        font-weight: normal;
+    }
+    >h3{
+        text-align: right;
+        padding:0 .36rem .3rem 0;
+        >span{
+            font-size: .28rem;
+            line-height: .43rem;
+            color: $greyColor2;
+            font-weight: normal;
+        }
+    }
+    > p{
+        font-size: 0.32rem;
+        line-height: 0.6rem;
+        text-align: justify;
+        color: $greyColor;
+    }
+}
