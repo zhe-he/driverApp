@@ -34,13 +34,9 @@
     position: fixed;
     bottom: 1.1rem;
     left: 50%;
-    width: 6rem;
+    width: 6.9rem;
     height: 0.88rem;
     line-height: 0.88rem;
-    color: #fff;
-    font-size: 0.34rem;
-    margin-left: -3rem;
-    background-image: linear-gradient(-168deg,#1860FF,#37d2ff);
-    border-radius: 0.44rem;
-    text-align: center;
+    @extend %common-shadowBtn;
+    margin-left: -3.45rem;
 }
