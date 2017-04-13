@@ -74,8 +74,8 @@ header{
 		height:.88rem;
 		line-height: .88rem;
 		margin:0 auto;
-		position: fixed;
-		bottom: 1.85rem;
+		position: absolute;
+		bottom: .85rem;
 		text-align: center;
 		width:6.3rem;
 		@extend %common-shadowBtn;
