@@ -2,6 +2,7 @@ import "css/credentials.scss";
 
 import Vue from "vue";
 
+import commonTop from "common-top";
 const RETEL = /^1[3-9]\d{9}$/;
 window.addEventListener("DOMContentLoaded",()=>{
     new Vue({
@@ -62,6 +63,9 @@ window.addEventListener("DOMContentLoaded",()=>{
                 }
                 
             }
+        },
+        components: {
+            commonTop
         }
     })
 },false);

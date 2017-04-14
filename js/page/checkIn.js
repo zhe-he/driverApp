@@ -1,5 +1,6 @@
 import "css/checkIn.scss";
 import Vue from "vue";
+import commonTop from "common-top";
 import {dataFormat} from 'method';
 
 Vue.filter('yearMonth',time=>dataFormat(time,'YYYY年MM月'));
@@ -51,6 +52,9 @@ window.addEventListener("DOMContentLoaded",()=>{
                     this.isCheckIn = true;
                 }
             }
+        },
+        components: {
+            commonTop
         }
     });
 },false);

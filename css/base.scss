@@ -239,7 +239,9 @@ $shadowColorBtn: rgba(31,120,255,0.4);
 .common-top{
 	height: 0.88rem;
 	> div{
+		// z-index: 100;
 		// @include common-fixed;
+		// @include bg2('bg3',100%,auto);
 		width: 100%;
 		display: flex;
 		> *{
@@ -270,4 +272,58 @@ $shadowColorBtn: rgba(31,120,255,0.4);
 }
 .height30{
 	height: 0.3rem;
+}
+
+$lineColor: #D5D5D5;
+.common-msg-mask{
+    z-index: 990;
+    @include common-fixed;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+.common-msg{
+    z-index: 1000;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 6.4rem;
+    margin-left: -3.2rem;
+    margin-top: -1.3rem;
+    border-radius: 0.4rem;
+    background-color: #fff;
+    > p{
+        padding: 0.6rem 0 0.3rem;
+        color: $blackColor;
+        font-size: 0.34rem;
+        line-height: 0.36rem;
+        text-align: center;
+    }
+    > nav{
+        border-top: 1px solid $lineColor;
+        display: flex;
+        > a{
+            display: block;
+            flex: 1;
+            height: 1.1rem;
+            line-height: 1.1rem;
+            text-align: center;
+            font-size: 0.34rem;
+            color: #1E77FF;
+            &:nth-child(1){
+                border-right: 1px solid $lineColor;
+                color: $greyColor;
+            }
+        }
+    }
+}
+
+
+html,body{
+	height: 100%;
+}
+body{
+	@include bg2('bg3',100%,auto);
+	background-position: center -0.56rem;
+	background-color: #F6FCFF;
+	background-attachment:fixed;
 }

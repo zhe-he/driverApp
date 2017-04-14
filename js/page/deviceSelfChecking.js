@@ -2,6 +2,8 @@
  * Created by yangshuang on 2017/3/31.
  */
 import "css/deviceSelfChecking.scss";
+import Vue from "vue";
+import commonTop from "common-top";
 import {getN,callN} from "nativeA";
 import {jsonp} from "method";
 
@@ -36,5 +38,10 @@ window.addEventListener("DOMContentLoaded",()=>{
         })
     }
 */
-    
+    new Vue({
+        el: "#deviceSelf",
+        components: {
+            commonTop
+        }
+    });
 },false);

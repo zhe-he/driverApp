@@ -25,7 +25,7 @@ Object.assign(entryFiles,{
 
 function htmlplugin(htmlname,entryname){
 	return new HtmlWebpackPlugin({
-		filename: htmlname,
+		filename: `html/${htmlname}`,
 		template: `html/${htmlname}`,
 		favicon: 'images/favicon.ico',
 		minify: {
@@ -61,7 +61,7 @@ module.exports = {
 	entry: entryFiles,
 	// 入口文件输出配置
 	output: {
-		publicPath: '',
+		publicPath: '../',
 		path: path.resolve(__dirname, DIST),
 		filename: 'js/[name].js'
 	},
@@ -182,6 +182,8 @@ module.exports = {
 			"nativeA": 			"js/data/nativeA.js",
 			"method": 			"js/modules/method.js",
 			"eventHub": 		'js/modules/eventHub.js',
+			"msg": 				'js/modules/msg.vue',
+			"common-top": 		'js/modules/common-top.vue',
 		}
 	}
 };

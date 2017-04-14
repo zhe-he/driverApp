@@ -10,34 +10,35 @@
     <title>人工报修</title>
 </head>
 <body>
-  <header>
+    <div id="artificialRepair">
+        <common-top :back-type="0" title="人工报修"></common-top>
+        
+        <div class="content">
+            <div>
+                <dl>
+                    <dt>车牌号：</dt>
+                    <dd>
+                        <span>
+                            <input type="text" placeholder="请输入车牌号">
+                        </span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>报修时间：</dt>
+                    <dd>2017-02-03  12:38:45</dd>
+                </dl>
+                <dl>
+                    <dt class="faultDesc">故障描述：</dt>
+                    <dd></dd>
+                </dl>
+                <div>
+                    <textarea id="faultDesc" name="faultDesc" ></textarea>
+                    <span id="count" class="dxj-txt" >0/50</span>
+                </div>
+            </div>
+            <a class="a_c bottomBtn">提交</a>
 
-  </header>
-  <div class="content">
-      <div>
-          <dl>
-              <dt>车牌号：</dt>
-              <dd>
-                  <span>
-                      <input type="text" placeholder="请输入车牌号">
-                  </span>
-              </dd>
-          </dl>
-          <dl>
-              <dt>报修时间：</dt>
-              <dd>2017-02-03  12:38:45</dd>
-          </dl>
-          <dl>
-              <dt class="faultDesc">故障描述：</dt>
-              <dd></dd>
-          </dl>
-          <div>
-              <textarea id="faultDesc" name="faultDesc" ></textarea>
-              <span id="count" class="dxj-txt" >0/50</span>
-          </div>
-      </div>
-      <a class="a_c bottomBtn">提交</a>
-
-  </div>
+        </div>
+    </div>
 </body>
 </html>

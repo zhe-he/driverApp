@@ -1,41 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,initial-scale=1.0">
-    <meta content="yes" name="apple-mobile-web-app-capable">
-    <meta content="black" name="apple-mobile-web-app-status-bar-style">
-    <meta content="telephone=no" name="format-detection">
-    <!--<script src="../js/lib/autosize.js"></script>-->
-    <title>系统消息</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,initial-scale=1.0">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<!--<script src="../js/lib/autosize.js"></script>-->
+<title>系统消息</title>
 </head>
 <body>
-  <header>
+    <div id="systemMsg">
+        <header class="common-top">
+            <div>
+                <a class="goBack" href="javascript:;"></a>
+                <h1>系统消息</h1>
+                <i>编辑</i>
+            </div>
+        </header>
 
-  </header>
-  <div class="content">
-    <ul>
-        <li>
-            <p>
-                <i class="message"></i>
-                因为现在的手机大部分都不能...
-                <u><b class="new"></b></u>
-            </p>
-            <p><span>2017.01.01</span><span>10:11:11</span></p>
-        </li>
-        <li>
-            <p>
-                <i class="select"></i>
-                阿里大文娱全资收购大麦网...
-                <u><b></b></u>
-            </p>
-            <p><span>2017.01.01</span><span>10:11:11</span></p>
-        </li>
-    </ul>
-  </div>
-  <footer>
-      <b class="allSelected"><i></i>全选</b>
-      <span>删除</span>
-  </footer>
+        <div class="content">
+            <ul>
+                <li>
+                    <p>
+                        <i class="message"></i>
+                        因为现在的手机大部分都不能...
+                        <u><b class="new"></b></u>
+                    </p>
+                    <p><span>2017.01.01</span><span>10:11:11</span></p>
+                </li>
+                <li>
+                    <p>
+                        <i class="select"></i>
+                        阿里大文娱全资收购大麦网...
+                        <u><b></b></u>
+                    </p>
+                    <p><span>2017.01.01</span><span>10:11:11</span></p>
+                </li>
+            </ul>
+        </div>
+        <footer>
+            <b class="allSelected"><i></i>全选</b>
+            <span @click="test()">删除</span>
+        </footer>
+
+        <msg></msg>
+    </div>
 </body>
 </html>

@@ -10,13 +10,7 @@
 </head>
 <body>
     <div id="settings" cloak>
-        <header class="common-top">
-            <div>
-                <a @click="goBack()" class="goBack" href="javascript:;"></a>
-                <h1>设置</h1>
-                <i></i>
-            </div>
-        </header>
+        <common-top :back-type="3" title="设置"></common-top>
 
         <nav class="settings-box">
             <a @click="cleanCache()" href="javascript:;" class="settings-item">

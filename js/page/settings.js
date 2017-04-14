@@ -1,5 +1,6 @@
 import "css/settings.scss";
 import Vue from "vue";
+import commonTop from "common-top";
 
 window.addEventListener("DOMContentLoaded",()=>{
 
@@ -12,9 +13,6 @@ window.addEventListener("DOMContentLoaded",()=>{
             this.isCanUpdate = true;
         },
         methods: {
-            goBack(){
-
-            },
             cleanCache(){
 
             },
@@ -24,6 +22,9 @@ window.addEventListener("DOMContentLoaded",()=>{
             signOut(){
                 
             }
+        },
+        components: {
+            commonTop
         }
     })
 },false);

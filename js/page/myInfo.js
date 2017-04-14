@@ -1,6 +1,7 @@
 import "css/credentials.scss";
 
 import Vue from "vue";
+import commonTop from "common-top";
 
 window.addEventListener("DOMContentLoaded",()=>{
     new Vue({
@@ -16,6 +17,9 @@ window.addEventListener("DOMContentLoaded",()=>{
 
         },
         methods: {
+        },
+        components: {
+            commonTop
         }
     })
 },false);

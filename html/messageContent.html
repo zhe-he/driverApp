@@ -6,17 +6,11 @@
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <meta content="telephone=no" name="format-detection">
-    <title>消息内容</title>
+    <title>系统消息</title>
 </head>
 <body>
     <div id="messageContent" cloak>
-        <header class="common-top">
-            <div>
-                <a class="goBack" href="javascript:history.go(-1);"></a>
-                <h1>系统消息</h1>
-                <i></i>
-            </div>
-        </header>
+        <common-top :back-type="0" title="系统消息"></common-top>
 
         <nav class="messageContent">
             <h2>阿里大文娱全资收购大麦网 派高管张宇出任CEO</h2>

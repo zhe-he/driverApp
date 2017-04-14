@@ -1,13 +1,10 @@
 @import "base";
 body{
-	color:#242424;
-	font-family: "PingFangSC-Light";
-	font-size: .34rem;
-	background-color:#F8FDFF;
+	color: $blackColor;
 }
-header{
-	width:100%;
-	height: .88rem;
+
+.content{
+	padding-top: 0.55rem;
 }
 .message{
 	@include bg2("xinfeng");
