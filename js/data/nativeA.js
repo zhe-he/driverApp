@@ -5,7 +5,7 @@ const isWarn = true; // 是否开启测试警告
 const TESTUID = 1; // 测试uID
 const TESTUNIONID = ''; // 测试集团uid
 const TESTTOKEN = '65e1866dbbddfc987268ab1b2e30b8b8'; // 测试token
-const TESTHOST = 'http://10.10.39.66:8081'; // host地址
+const TESTHOST = 'http://localhost:8081'; // host地址
 const TESTTEL = 13000000000; // 测试手机号
 const PLATFORM = isAndroid?'Android':'ios'; // 测试型号
 
