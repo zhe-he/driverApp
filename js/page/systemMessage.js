@@ -21,7 +21,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         },
         methods: {
             test(){
-                eventHub.$emit('msg-show',true,'此处为测试弹窗');
+                eventHub.$emit('msg-show','此处为测试弹窗');
             }
         },
         components: {

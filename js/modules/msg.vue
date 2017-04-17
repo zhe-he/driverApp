@@ -1,6 +1,6 @@
 <template>
     <section v-if="isShow">
-        <div class="common-msg-mask"></div>
+        <div @click="cancel()" class="common-msg-mask"></div>
         <div class="common-msg">
             <p v-html="msg"></p>
             <nav>
@@ -21,8 +21,8 @@
             }
         },
         mounted(){
-            eventHub.$on('msg-show',(bool,msg='')=>{
-                this.isShow = !!bool;
+            eventHub.$on('msg-show',(msg='')=>{
+                this.isShow = true;
                 this.msg = msg;
             });
         },

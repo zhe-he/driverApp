@@ -3,8 +3,8 @@ import {isIos, isAndroid, dataFormat} from "method";
 var isTest = !/(iOSApp|AndroidApp)\/wangfanDriver\s+(\d\.?)+/i.test(window.navigator.userAgent);
 const isWarn = true; // 是否开启测试警告
 const TESTUSERID = ''; // 测试userID
-const TESTTOKEN = ''; // 测试token
-const TESTHOST = ''; // host地址
+const TESTTOKEN = '65e1866dbbddfc987268ab1b2e30b8b8'; // 测试token
+const TESTHOST = '10.10.39.66:8081'; // host地址
 const TESTTEL = 13000000000; // 测试手机号
 
 const PLATFORM = isAndroid?'Android':'ios'; // 测试型号
@@ -39,7 +39,8 @@ if (isTest) {
                 case "getAutoCheckNumber":
                     isWarn && console.warn("获取设备自检单号");
                     return {
-                        "number": Math.random()<0.5?"111111":""
+                        "id": 1,
+                        "number": "432423"
                     }
                     break;
                 case "getSystemMsg":
