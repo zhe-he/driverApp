@@ -1,6 +1,8 @@
-### 接口交互文档   
-1. [app-h5-connect](http://10.10.254.11/wangfan/driverApp/blob/master/doc/app-h5-connect.md)     
-1. [driver](http://10.10.254.11/wangfan/driverApp/blob/master/doc/driver.xlsx)     
+### 文档   
+1. [app&h5交互文档](http://10.10.254.11/wangfan/driverApp/tree/master/doc/app-h5-connect.md)     
+1. [后台接口文档](http://10.10.254.11/wangfan/driverApp/blob/master/doc/interface.doc)     
+1. [h5项目排期](http://10.10.254.11/wangfan/driverApp/blob/master/doc/h5-schedule.xlsx)     
+1. [测试排期](http://10.10.254.11/wangfan/driverApp/blob/master/doc/test-scheduling.xlsx)     
 
 ### 如何使用
 1. 执行 `(c)npm install`      
