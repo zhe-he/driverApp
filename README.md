@@ -8,6 +8,7 @@
 1. 执行 `(c)npm install`      
 1. 开发 `npm run server`  
 1. 打包 `npm run build`   
+1. 测试服务器 `npm test`   
 
 ##### 如有问题，请联系[zhe-he](mailto:hezhe@ihangmei.com)     
 

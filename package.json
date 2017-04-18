@@ -1,6 +1,6 @@
 {
   "name": "driverApp",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "This guy is too lazy to leave anything",
   "scripts": {
     "start": "webpack --progress --colors",
@@ -8,7 +8,7 @@
     "prebuild": "rm -rf assets",
     "build": "webpack -p --progress --colors",
     "server": "node server --3337",
-    "interface": "node interface-test --8081"
+    "test": "supervisor interface-test --8081"
   },
   "author": {
     "name": "zhe-he",
@@ -74,7 +74,6 @@
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-beta.1",
     "express": "^4.15.2",
-    "multer": "^1.3.0",
-    "supervisor": "^0.12.0"
+    "multer": "^1.3.0"
   }
 }
