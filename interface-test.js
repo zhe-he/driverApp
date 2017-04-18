@@ -27,14 +27,40 @@ app.use(cookieSession({
 // get post file cookie session
 // console.log(req.query,req.body,req.files,req.cookies,req.session);
 
-app.use('/test',function (req,res){
-	var data = req.query || req.body;
-	var callback = req.query.callback;
-	
+//  设备接口
+//  获取设备SN、MAC
 
-	res.setHeader('Access-Control-Allow-Origin','*');
-	res.send({"message":"","data":{}});
-	
+app.use('/api/getinfo',function (req,res){
+    var data = req.query || req.body;
+    var message = {
+        "DMAVer":"20170414",
+        "portalVer":"T_2.7.3",
+        "jarSize":4005079,
+        "jarModified":1492421659000,
+        "deviceMac":"00:F8:F9:0A:11:F9",
+        "deviceSN":"GD200A161004601",
+        "deviceType":"GD200",
+        "deviceIP":"112.96.252.21",
+        "userMac":"9c:4e:36:13:f9:14", //  78:4f:43:53:99:2c
+        "ip":"192.168.17.27"
+    };
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.send(message);
+});
+
+//  设备检测
+app.use('/op/health',function (req,res){
+    var data = req.query || req.body;
+
+    var message = {
+        "Compass": "OK",
+        "Portal": "OK",
+        "WIFI": "OK",
+        "4G": "4G: service not running"
+    };
+
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.send(message);
 });
 
 // 3.5.3 查询报修详情
@@ -78,12 +104,14 @@ app.use('/app-dms/driver/editUserInfo',function (req,res){
     var message = {
         "code": 0,
         "message":"ok"
-      }
+    };
 
     res.setHeader('Access-Control-Allow-Origin','*');
     res.send(message);
 });
 
+const LAST_SIGN_TYPE = Math.random()*2|0+1;
+const LAST_SIGN_TIME = Math.random()>1?Date.now():Date.now()-24*3600*1000;
 // 3.2.7 查询用户详情
 app.use('/app-dms/driver/getUserInfo',function (req,res){
     var data = req.query || req.body;
@@ -104,11 +132,11 @@ app.use('/app-dms/driver/getUserInfo',function (req,res){
             "avatar": "xxx",
             "audit_reason": 1,
             "audit_status": 1,
-            "last_sign_type": 1,
-            "last_sign_time": "xx",
+            "last_sign_type": LAST_SIGN_TYPE,
+            "last_sign_time": LAST_SIGN_TIME,
             "status": t
         }
-    }
+    };
 
     res.setHeader('Access-Control-Allow-Origin','*');
     res.send(message);
@@ -131,7 +159,7 @@ app.use('/app-crm/company/lists',function (req,res){
             "list": list,
             "total": number
         }
-    }
+    };
     res.setHeader('Access-Control-Allow-Origin','*');
     res.send(message);
 });
@@ -150,45 +178,67 @@ app.use('/app-dms/device/getVelByField',function (req,res){
             "cmp_name": "xxx",
             "mdriving_license_img": "http://img.zcool.cn/community/01033456f114f932f875a94467912f.jpg@900w_1l_2o_100sh.jpg"
         }
-    }
-
-    res.setHeader('Access-Control-Allow-Origin','*');
-    res.send(message);
-});
-//  获取设备SN、MAC
-app.use('/api/getinfo',function (req,res){
-    var data = req.query || req.body;
-
-    var message = {
-        "DMAVer":"20170306T",
-        "portalVer":"T_2.7.3",
-        "jarSize":4005689,
-        "jarModified":1488869704000,
-        "deviceMac":"58:69:6C:7E:C8:C8",
-        "deviceSN":"HMAPA01160700537",
-        "deviceType":"RUIJIE_TRAIN",
-        "deviceIP":"112.96.252.70",
-        "userMac":"78:4f:43:53:99:2c",
-        "ip":"192.168.0.166"};
-
-    res.setHeader('Access-Control-Allow-Origin','*');
-    //setTimeout(function () {
-        res.send(message);
-    //},Math.random()*1000)
-
-
-});
-//  设备检测
-app.use('/op/health',function (req,res){
-    var data = req.query || req.body;
-
-    var message = {
-        "Compass": "OK",
-        "Portal": "OK",
-        "WIFI": "OK",
-        "4G": "4G: service not running"
     };
 
     res.setHeader('Access-Control-Allow-Origin','*');
     res.send(message);
 });
+
+// 3.4.1 获取签到列表
+app.use('/app-dms/sign/top',function (req,res){
+    var data = req.query || req.body;
+    let yearMonth = data.month.split('-');
+    let date = new Date(yearMonth[0],yearMonth[1],0);
+    let days = date.getDate();
+    let d = [];
+    let today = new Date();
+    let cur = 999999;
+    let isCheck = false;
+    if (yearMonth[0]==today.getFullYear() && yearMonth[1]==today.getMonth()+1) {
+        cur = today.getDate();
+
+        let lt = new Date(LAST_SIGN_TIME);
+        if (lt.getDate()==cur) {
+            isCheck = true;
+        }
+    }
+
+    for (var i = 0; i < days; i++) {
+        let y = date.getFullYear();
+        let m = date.getMonth()+1;
+        let t = Math.random()*3|0;
+        if (i+1>=cur) {
+            t = 0;
+        }
+        if (isCheck && i+1==cur) {
+            t = LAST_SIGN_TYPE;
+        }
+        d[i] = {
+            date: `${y}-${toDou(m)}-${toDou(i+1)}`,
+            type: t
+        };
+    }
+    let message = {
+        "code": 0,
+        "message":'ok',
+        "data": d
+    };
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.send(message);
+});
+
+// 3.4.2 添加接口
+app.use('/app-dms/sign/add',function (req,res){
+    var data = req.query || req.body;
+    let message = {
+        "code": 0,
+        "message":'ok'
+    };
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.send(message);
+});
+
+
+function toDou(n){
+    return n<10?'0'+n:''+n;
+}

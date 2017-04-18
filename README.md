@@ -1,6 +1,7 @@
 ### 文档   
 1. [app&h5交互文档](http://10.10.254.11/wangfan/driverApp/tree/master/doc/app-h5-connect.md)     
 1. [后台接口文档](http://10.10.254.11/wangfan/driverApp/blob/master/doc/interface.doc)     
+1. [产品说明文档](http://10.10.254.11/wangfan/driverApp/blob/master/doc/product-doc.pdf)     
 1. [h5项目排期](http://10.10.254.11/wangfan/driverApp/blob/master/doc/h5-schedule.xlsx)     
 1. [测试排期](http://10.10.254.11/wangfan/driverApp/blob/master/doc/test-scheduling.xlsx)     
 

@@ -30,7 +30,8 @@
                     <li>六</li>
                 </ul>
                 <ol class="clearfix checkIn-date">
-                    <li :class="{'cur':item-tempDays==curDate}" v-for="(item,index) in (tempDays+monthDays)" :key="index">{{item-tempDays|plus}}</li>
+                    <li v-for="item in tempDays" :key="item-30"></li>
+                    <li :class="{'cur':(index+1)==curDate,'auto':list.type==1,'manual':list.type==2}" v-for="(list,index) in checkList" :key="index">{{index+1}}</li>
                 </ol>
             </div>
         </div>
