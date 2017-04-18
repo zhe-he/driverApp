@@ -14,22 +14,25 @@
 
         <div class="content">
             <ul>
-                <li v-for="i in 10">
+                <li v-for="item in repairList">
                     <dl>
                         <dt>报修编号：</dt>
-                        <dd>BX000001</dd>
+                        <dd>{{item.number}}</dd>
                     </dl>
                     <dl>
                         <dt>报修时间：</dt>
-                        <dd>2016-12-23</dd>
+                        <dd>{{item.ctime}}</dd>
                     </dl>
                     <dl>
                         <dt>故障描述：</dt>
-                        <dd>设备无法连接WiFi</dd>
+                        <dd v-if="item.content.type==2">{{item.content.describe}}</dd>
+                        <dd v-else></dd>
                     </dl>
                     <p>
-                        <i class="submit">已修复</i>
-                        人工报修
+                        <i class="submit" v-if="item.status==1">已提交</i>
+                        <i class="succ" v-if="item.status==2">已修复</i>
+                        <span v-if="item.type==2">人工报修</span>
+                        <span v-if="item.type==1">自动报修</span>
                     </p>
                 </li>
             </ul>

@@ -90,13 +90,42 @@ app.use('/Driver/report/getReport',function (req,res){
 
         }
     };
-
-
     res.setHeader('Access-Control-Allow-Origin','*');
     res.send(test);
 
 });
-
+// 3.5.1 获取报修列表
+app.use('/Driver/report/lists',function (req,res){
+    var data = req.query || req.body;
+    var message = {
+        "code": 0,
+        "data": {
+            "total": 12,
+            "list": [{
+                "id": 1,
+                "number": "BX000001",
+                "plate_num": "xxx",
+                "content":{
+                    "type":2,
+                    "describe":"设备无法连接WIFI"
+                },
+                "type": 1 ,//1-自动 2-手动
+                "status": 1,//1-未修复 2-已修复
+                "ctime": "2017-04-17 11:36:54"
+            },{
+                "id": 2,
+                "number": "BX000002",
+                "plate_num": "xxx",
+                "content": "xxx",
+                "type": 2 ,
+                "status": 2,
+                "ctime": "2017-04-11"
+            }]
+        }
+    };
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.send(message);
+});
 // 3.2.5 修改用户信息
 app.use('/app-dms/driver/editUserInfo',function (req,res){
     var data = req.query || req.body;
