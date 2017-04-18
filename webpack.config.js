@@ -180,6 +180,8 @@ module.exports = {
 		alias: {
 			"vue": 				"js/lib/vue.common.js",
 			"nativeA": 			"js/data/nativeA.js",
+			"device": 			"js/data/device.js",
+			"errcode": 			"js/data/errcode.json",
 			"method": 			"js/modules/method.js",
 			"eventHub": 		'js/modules/eventHub.js',
 			"msg": 				'js/modules/msg.vue',
