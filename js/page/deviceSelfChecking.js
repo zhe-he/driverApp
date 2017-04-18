@@ -6,22 +6,57 @@ import Vue from "vue";
 import commonTop from "common-top";
 import {getN,callN} from "nativeA";
 import {jsonp} from "method";
+import {URL_GETINFO,URL_HEALTH} from "device";
 
 window.addEventListener("DOMContentLoaded",()=>{
     const BASEINFO = getN('baseInfo');
     const NUMBER = getN('getAutoCheckNumber');
-    if(NUMBER){
-        console.log(NUMBER);
-        fetch(BASEINFO.host+'/Driver/report/getReport?id=1',{
-            cache:"no-cache"
-        }).then(response=>response.json()).
-            then(data=>{
-                console.log(data);
-        })
-    }else{
-        console.log('NO');
-        console.log(NUMBER);
-    }
+    var fnObj = {
+        "getDetail":{
+            "dtime":"",
+            "plate_num":"",
+            "plate_sn":"",
+            "protal":"",
+            "compass":"",
+            "wifi":"",
+            "status":""
+        }
+
+    };
+    new Vue({
+        el: "#deviceSelf",
+        data:fnObj,
+        beforeCreate(){
+            var _this=this;
+            if(NUMBER){
+                console.log(NUMBER);
+                fetch(BASEINFO.host+'/Driver/report/getReport?id=1',{
+                    cache:"no-cache"
+                }).then(response=>response.json()).
+                then(data=>{
+                    console.log(data);
+                    var result=data.data;
+                    if(data.code==0){
+                        _this.getDetail=result.content;
+                        _this.getDetail.status=result.status;
+                    }
+
+
+                })
+            }else{
+                console.log('NO');
+                console.log(NUMBER);
+            }
+        },
+        methods:{
+
+        },
+        components: {
+            commonTop
+        }
+    });
+
+
     /*if (NUMBER) {
         fetch(BASEINFO.host+'/get/',{
             method:"post",
@@ -50,10 +85,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         })
     }
 */
-    new Vue({
-        el: "#deviceSelf",
-        components: {
-            commonTop
-        }
-    });
+
+
+
 },false);

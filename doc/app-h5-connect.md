@@ -126,5 +126,15 @@ Object {
 }   
 
 
+##### 设备自检
+需要得到的"content"的json
+"content"{
+    "dtime":"xxxx-xx-xx xx:xx:xx",//检测时间
+    "plate_num":"xxx",//车牌号
+    "plate_sn":"xxx",//设备SN
+    "wifi":1,//wifi链接 0-异常 1-正常
+    "portal":1,//Portal页面 0-异常 1-正常
+    "compass":1,//北斗定位 0-异常 1-正常
+}
 
 ####### 暂定以上，有问题再后续沟通 	

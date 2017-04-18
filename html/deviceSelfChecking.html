@@ -17,7 +17,7 @@
                 <p>请在WiFi状态下：进行设备每日检测</p>
                 <dl>
                     <dt>检测时间：</dt>
-                    <dd>2017-01-11 12:23:10</dd>
+                    <dd>{{getDetail.dtime}}</dd>
                 </dl>
             </div>
             <b></b>
@@ -25,30 +25,40 @@
                 <span>当前监测情况：</span>
                 <ul>
                     <li>
-                        车牌号：<span>豫A12345</span>
+                        车牌号：<span>{{getDetail.plate_num}}</span>
                         <p>
-                            <span>已报修</span>
-                            <i class="normal"></i>
+                            <span></span>
+                            <i v-if="getDetail.plate_num" class="normal"></i>
+                            <i v-else class="err"></i>
                         </p>
                     </li>
                     <li>
-                        设备SN：<span>6012313</span>
+                        设备SN：<span>{{getDetail.plate_sn}}</span>
                         <p>
                             <span></span>
-                            <i ></i>
+                            <i v-if="getDetail.plate_sn" class="normal"></i>
+                            <i v-else class="err"></i>
                         </p>
                     </li>
                     <li>
                         WiFi连接 <span></span>
                         <p>
-                            <span>已报修</span>
-                            <i class="err"></i>
+                            <span v-if="getDetail.wifi==0&&getDetail.status==1">已报修</span>
+                            <i v-if="getDetail.wifi==1" class="normal"></i>
+                            <i v-else class="err"></i>
                         </p>
                     </li>
                     <li>Portal页面 <span></span>
                         <p>
                             <span></span>
-                            <i></i>
+                            <i v-if="getDetail.portal==1" class="normal"></i>
+                            <i v-else class="err"></i>
+                        </p>
+                    <li>北斗定位 <span></span>
+                        <p>
+                            <span></span>
+                            <i v-if="getDetail.compass==1" class="normal"></i>
+                            <i v-else class="err"></i>
                         </p>
                     </li>
                 </ul>

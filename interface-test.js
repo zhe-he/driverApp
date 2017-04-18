@@ -9,7 +9,6 @@ const cookieParser=require('cookie-parser');
 const cookieSession=require('cookie-session');
 const consolidate=require('consolidate');
 var multer=multerLib({dest:'upload'});
-
 var app=express();
 var port = process.argv[2]?process.argv[2].replace('--',''):8081;
 app.listen(port);
@@ -50,10 +49,19 @@ app.use('/Driver/report/getReport',function (req,res){
             "id": 111,
             "number": "44223",
             "plate_num": "辽C·L8765",
-            "SN_num": "6012313" ,
-            "wifi" : 1,
-            "protal": 1,
-            "ctime": '2017-01-11 12:23:10'
+            "content": {
+                "dtime":"2017-01-11 12:23:10",//检测时间
+                "plate_num":"辽C·L8765",//车牌号
+                "plate_sn":"HMAPA01160700537",//设备SN
+                "wifi":1,//wifi链接 0-异常 1-正常
+                "portal":1,//Portal页面 0-异常 1-正常
+                "compass":1,//北斗定位 0-异常 1-正常
+            },
+            "type": 1,
+            "status": 1,//1-已报修 2-已处理
+            "ctime": 'xxx',
+            "utime": "xxx"
+
         }
     };
 
@@ -147,4 +155,40 @@ app.use('/app-dms/device/getVelByField',function (req,res){
     res.setHeader('Access-Control-Allow-Origin','*');
     res.send(message);
 });
+//  获取设备SN、MAC
+app.use('/api/getinfo',function (req,res){
+    var data = req.query || req.body;
 
+    var message = {
+        "DMAVer":"20170306T",
+        "portalVer":"T_2.7.3",
+        "jarSize":4005689,
+        "jarModified":1488869704000,
+        "deviceMac":"58:69:6C:7E:C8:C8",
+        "deviceSN":"HMAPA01160700537",
+        "deviceType":"RUIJIE_TRAIN",
+        "deviceIP":"112.96.252.70",
+        "userMac":"78:4f:43:53:99:2c",
+        "ip":"192.168.0.166"};
+
+    res.setHeader('Access-Control-Allow-Origin','*');
+    //setTimeout(function () {
+        res.send(message);
+    //},Math.random()*1000)
+
+
+});
+//  设备检测
+app.use('/op/health',function (req,res){
+    var data = req.query || req.body;
+
+    var message = {
+        "Compass": "OK",
+        "Portal": "OK",
+        "WIFI": "OK",
+        "4G": "4G: service not running"
+    };
+
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.send(message);
+});
