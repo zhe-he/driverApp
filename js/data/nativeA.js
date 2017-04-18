@@ -78,7 +78,7 @@ if (isTest) {
                 case "signOut":
                     isWarn && console.warn("用户注销",param);
                     break;
-                case "autoSign":
+                case "autoCheckIn":
                     isWarn && console.warn("告知客户端自动签到",param);
                     break;
                 case "sendCheckNumber":

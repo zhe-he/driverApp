@@ -60,6 +60,8 @@ app.use('/app-dms/driver/editUserInfo',function (req,res){
     res.send(message);
 });
 
+const LAST_SIGN_TYPE = Math.random()*2|0+1;
+const LAST_SIGN_TIME = Math.random()>1?Date.now():Date.now()-24*3600*1000;
 // 3.2.7 查询用户详情
 app.use('/app-dms/driver/getUserInfo',function (req,res){
     var data = req.query || req.body;
@@ -80,8 +82,8 @@ app.use('/app-dms/driver/getUserInfo',function (req,res){
             "avatar": "xxx",
             "audit_reason": 1,
             "audit_status": 1,
-            "last_sign_type": 1,
-            "last_sign_time": "xx",
+            "last_sign_type": LAST_SIGN_TYPE,
+            "last_sign_time": LAST_SIGN_TIME,
             "status": t
         }
     };
@@ -131,3 +133,61 @@ app.use('/app-dms/device/getVelByField',function (req,res){
     res.setHeader('Access-Control-Allow-Origin','*');
     res.send(message);
 });
+
+// 3.4.1 获取签到列表
+app.use('/app-dms/sign/top',function (req,res){
+    var data = req.query || req.body;
+    let yearMonth = data.month.split('-');
+    let date = new Date(yearMonth[0],yearMonth[1],0);
+    let days = date.getDate();
+    let d = [];
+    let today = new Date();
+    let cur = 999999;
+    let isCheck = false;
+    if (yearMonth[0]==today.getFullYear() && yearMonth[1]==today.getMonth()+1) {
+        cur = today.getDate();
+
+        let lt = new Date(LAST_SIGN_TIME);
+        if (lt.getDate()==cur) {
+            isCheck = true;
+        }
+    }
+
+    for (var i = 0; i < days; i++) {
+        let y = date.getFullYear();
+        let m = date.getMonth()+1;
+        let t = Math.random()*3|0;
+        if (i+1>=cur) {
+            t = 0;
+        }
+        if (isCheck && i+1==cur) {
+            t = LAST_SIGN_TYPE;
+        }
+        d[i] = {
+            date: `${y}-${toDou(m)}-${toDou(i+1)}`,
+            type: t
+        };
+    }
+    let message = {
+        "code": 0,
+        "message":'ok',
+        "data": d
+    };
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.send(message);
+});
+
+// 3.4.2 添加接口
+app.use('/app-dms/sign/add',function (req,res){
+    var data = req.query || req.body;
+    let message = {
+        "code": 0,
+        "message":'ok'
+    };
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.send(message);
+});
+
+function toDou(n){
+    return n<10?'0'+n:''+n;
+}
