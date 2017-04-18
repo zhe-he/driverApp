@@ -12,13 +12,12 @@ window.addEventListener("DOMContentLoaded",()=>{
     const NUMBER = getN('getAutoCheckNumber');
     if(NUMBER){
         console.log(NUMBER);
-        fetch(BASEINFO.host+'/Driver/report/getReport',{
-            method:"post",
-            headers:{
-                "Content-type":"application:/x-www-form-urlencoded:charset=UTF-8"
-            },
-            body:`id=${NUMBER.id}&userid=${BASEINFO.userid}`
-        });
+        fetch(BASEINFO.host+'/Driver/report/getReport?id=1',{
+            cache:"no-cache"
+        }).then(response=>response.json()).
+            then(data=>{
+                console.log(data);
+        })
     }else{
         console.log('NO');
         console.log(NUMBER);

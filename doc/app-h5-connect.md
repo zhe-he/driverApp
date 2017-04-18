@@ -24,7 +24,8 @@ window.DriverApp.getNativeParam("baseInfo")
 return {    
     "host": "",      
     "token": "",    
-    "userid": "",   
+    "uid": "",     
+    "union_id": "",      
     "tel": 15000000000  
 }  
 
