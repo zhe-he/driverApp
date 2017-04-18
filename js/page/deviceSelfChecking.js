@@ -47,9 +47,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     console.log(data);
                     var result=data.data;
                     if(data.code==0){
-                        if(result.type==1){
-                            _this.getDetail=result.content;
-                        }
+                        _this.getDetail=result.content;
                         _this.getDetail.status=result.status;
                     }
                 })
