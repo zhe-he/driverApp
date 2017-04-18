@@ -16,6 +16,10 @@
 	@extend .succ;
 	@include bg2("icon_not_repaired");
 }
+.submit{
+	@extend .succ;
+	@include bg2("icon_been_submitted");
+}
 .content {
 	ul {
 		width: 6.9rem;

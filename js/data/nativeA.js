@@ -42,7 +42,7 @@ if (isTest) {
                     isWarn && console.warn("获取设备自检单号");
                     return {
                         "id": 1,
-                        "number": "432423"
+                        "number": ""
                     }
                     break;
                 case "getSystemMsg":

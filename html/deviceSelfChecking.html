@@ -44,19 +44,29 @@
                         WiFi连接 <span></span>
                         <p>
                             <span v-if="getDetail.wifi==0&&getDetail.status==1">已报修</span>
+                            <template v-else>
+                                <span v-if="getDetail.wifi==0&&getDetail.status==2">已处理</span>
+                            </template>
+
                             <i v-if="getDetail.wifi==1" class="normal"></i>
                             <i v-else class="err"></i>
                         </p>
                     </li>
                     <li>Portal页面 <span></span>
                         <p>
-                            <span></span>
+                            <span v-if="getDetail.portal==0&&getDetail.status==1">已报修</span>
+                            <template v-else>
+                                <span v-if="getDetail.portal==0&&getDetail.status==2">已处理</span>
+                            </template>
                             <i v-if="getDetail.portal==1" class="normal"></i>
                             <i v-else class="err"></i>
                         </p>
                     <li>北斗定位 <span></span>
                         <p>
-                            <span></span>
+                            <span v-if="getDetail.compass==0&&getDetail.status==1">已报修</span>
+                            <template v-else>
+                                <span v-if="getDetail.compass==0&&getDetail.status==2">已处理</span>
+                            </template>
                             <i v-if="getDetail.compass==1" class="normal"></i>
                             <i v-else class="err"></i>
                         </p>
@@ -64,7 +74,7 @@
                 </ul>
             </div>
 
-            <a class="a_c bottomBtn">
+            <a class="a_c bottomBtn" v-if="getDetail.status==2" @click="selfCheck">
                 <b><u></u>自检刷新</b>
             </a>
 

@@ -79,12 +79,12 @@ app.use('/Driver/report/getReport',function (req,res){
                 "dtime":"2017-01-11 12:23:10",//检测时间
                 "plate_num":"辽C·L8765",//车牌号
                 "plate_sn":"HMAPA01160700537",//设备SN
-                "wifi":1,//wifi链接 0-异常 1-正常
+                "wifi":0,//wifi链接 0-异常 1-正常
                 "portal":1,//Portal页面 0-异常 1-正常
                 "compass":1,//北斗定位 0-异常 1-正常
             },
             "type": 1,
-            "status": 1,//1-已报修 2-已处理
+            "status": 2,//1-已报修 2-已处理
             "ctime": 'xxx',
             "utime": "xxx"
 
@@ -173,7 +173,7 @@ app.use('/app-dms/device/getVelByField',function (req,res){
         "data": {
             "equ_sn": "xx",
             "equ_mac": "xxx",
-            "plate_num": "xxx",
+            "plate_num": "豫A12345",
             "cmp_id": 2 ,
             "cmp_name": "xxx",
             "mdriving_license_img": "http://img.zcool.cn/community/01033456f114f932f875a94467912f.jpg@900w_1l_2o_100sh.jpg"
