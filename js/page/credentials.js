@@ -1,3 +1,11 @@
+/**
+ * 代码说明
+ * 1. 获取当前用户是否在审核中
+ * 1. 如果不在审核中，获取当前wifi的sn，通过sn获取公司名称等默认信息
+ * 1. 如果在审核中，仅仅赋值
+ * 1. 输入公司名称会向后台进行模糊查询并在前面显示列表
+ */
+
 const querystring = require('querystring');
 import "css/credentials.scss";
 
@@ -8,6 +16,8 @@ import {URL_GETINFO} from "device";
 import commonTop from "common-top";
 import lrz from "lrz";
 const RETEL = /^1[3-9]\d{9}$/;
+
+
 window.addEventListener("DOMContentLoaded",()=>{
     const BASEINFO = getN("baseInfo");
 
@@ -37,19 +47,18 @@ window.addEventListener("DOMContentLoaded",()=>{
         methods: {
             // 获取设备信息
             getEqu(){
-                fetch(URL_GETINFO,{
+                return fetch(URL_GETINFO,{
                     cache: 'no-cache'
                 })
                     .then(response=>response.json())
                     .then(data=>{
                         this.equ_sn = data.deviceSN;
                         this.equ_mac = data.deviceMac;
-                    })
-                    .catch(err=>console.log(err));
+                    });
             },
             // 获取车辆信息
             getBus(){
-                fetch(BASEINFO.host+'/app-dms/device/getVelByField',{
+                return fetch(BASEINFO.host+'/app-dms/device/getVelByField',{
                     method: "POST",
                     mode: "cors",
                     headers:{
@@ -61,8 +70,11 @@ window.addEventListener("DOMContentLoaded",()=>{
                     })
                 })
                     .then(response=>response.json())
-                    .then(data=>{
-                        console.log(data);
+                    .then(message=>{
+                        if (message.code===0) {
+                            this.cid = message.data.cmp_id;
+                            this.cmp_name = message.data.cmp_name;
+                        }
                     })
                     .catch(e=>console.log(e));
             },
@@ -73,7 +85,6 @@ window.addEventListener("DOMContentLoaded",()=>{
                 })
                     .then(response=>response.json())
                     .then(message=>{
-                        console.log(clone(message));
                         if (message.code==0) {
                             let data = message.data;
                             if (data.status>0){
@@ -87,6 +98,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                                 this.credentials_status = 'success';
                             }else{
                                 this.isDisabled = false;
+                                this.setDefault();
                             }
                             if (data.status == 1) {
                                 this.alertMsg('success','您的资料已经提交成功！<br/>资料正在审核中...');
@@ -100,7 +112,6 @@ window.addEventListener("DOMContentLoaded",()=>{
             },
             // 获取公司列表
             getCmp(){
-                console.log(this.cmp_name);
                 if (this.cmp_name.length>=3) {
                     this.cmp_list_switch = true;
                     fetch(BASEINFO.host+'/app-crm/company/lists',{
@@ -110,18 +121,25 @@ window.addEventListener("DOMContentLoaded",()=>{
                             "Content-Type": "application/x-www-form-urlencoded"
                         },
                         body: querystring.stringify({
-                            cmp_name: this.cmp_name,
-                            size: 20
+                            cmp_name: this.cmp_name
                         })
                     })
                         .then(response=>response.json())
                         .then(message=>{
                             if (message.code == 0) {
-                                this.cmp_list = message.data.list;
+                                this.cmp_list = message.data.list.map(item=>{
+                                    let re = new RegExp(this.cmp_name,'gi');
+                                    item.cmp_name2 = item.cmp_name.replace(re,`<span>${this.cmp_name}</span>`);
+                                    return item;
+                                });
                             }
                         })
                         .catch(e=>console.log(e))
                 }
+            },
+            // 设置默认信息
+            setDefault(){
+                this.getEqu().then(this.getBus).catch(e=>console.log(e));
             },
             // 设置公司
             setCmp(list){
@@ -153,7 +171,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     this.isDisabled = false;
                 }else{
                     let { cmp_name,name,mobile,license,license_photo } = this.$data;
-                    if (cmp_name.trim()==='') {
+                    if (!cid) {
                         this.alertMsg('error','请填写公司名称');
                         return false;
                     }
@@ -207,5 +225,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         components: {
             commonTop
         }
-    })
+    });
+
+
 },false);

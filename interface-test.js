@@ -28,14 +28,23 @@ app.use(cookieSession({
 // get post file cookie session
 // console.log(req.query,req.body,req.files,req.cookies,req.session);
 
-app.use('/test',function (req,res){
-	var data = req.query || req.body;
-	var callback = req.query.callback;
-	
-
-	res.setHeader('Access-Control-Allow-Origin','*');
-	res.send({"message":"","data":{}});
-	
+// 设备接口
+app.use('/api/getinfo',function (req,res){
+    var data = req.query || req.body;
+    var message = {
+        "DMAVer":"20170414",
+        "portalVer":"T_2.7.3",
+        "jarSize":4005079,
+        "jarModified":1492421659000,
+        "deviceMac":"00:F8:F9:0A:11:F9",
+        "deviceSN":"GD200A161004601",
+        "deviceType":"GD200",
+        "deviceIP":"112.96.252.21",
+        "userMac":"9c:4e:36:13:f9:14",
+        "ip":"192.168.17.27"
+    };
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.send(message);
 });
 
 // 3.2.5 修改用户信息
@@ -45,7 +54,7 @@ app.use('/app-dms/driver/editUserInfo',function (req,res){
     var message = {
         "code": 0,
         "message":"ok"
-      }
+    };
 
     res.setHeader('Access-Control-Allow-Origin','*');
     res.send(message);
@@ -75,7 +84,7 @@ app.use('/app-dms/driver/getUserInfo',function (req,res){
             "last_sign_time": "xx",
             "status": t
         }
-    }
+    };
 
     res.setHeader('Access-Control-Allow-Origin','*');
     res.send(message);
@@ -98,7 +107,7 @@ app.use('/app-crm/company/lists',function (req,res){
             "list": list,
             "total": number
         }
-    }
+    };
     res.setHeader('Access-Control-Allow-Origin','*');
     res.send(message);
 });
@@ -117,7 +126,7 @@ app.use('/app-dms/device/getVelByField',function (req,res){
             "cmp_name": "xxx",
             "mdriving_license_img": "http://img.zcool.cn/community/01033456f114f932f875a94467912f.jpg@900w_1l_2o_100sh.jpg"
         }
-    }
+    };
 
     res.setHeader('Access-Control-Allow-Origin','*');
     res.send(message);

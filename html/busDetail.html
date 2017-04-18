@@ -15,18 +15,18 @@
         <div class="busDetail-content">
             <div class="busDetail-info">
                 <h2>车辆档案</h2>
-                <p><span>车牌号：</span><a href="javascript:;">豫A1234</a></p>
+                <p><span>车牌号：</span><a href="javascript:;">{{plate_num}}</a></p>
                 <div class="busDetail-pic">
                     <span>行驶证：</span>
                     <div class="imgbox">
-                       <img src="../images/tmp/zhengjian4.png"> 
+                       <img :src="license_img?license_img:'../images/tmp/zhengjian4.png'"> 
                     </div>
                 </div>
             </div>
             <div class="busDetail-archives">
                 <h2>车载数字中心设备档案</h2>
-                <p><span>S/N:</span><span>M634579500</span></p>
-                <p><span>SAN:</span><span>80867530761</span></p>
+                <p><span>S/N:</span><span>{{equ_sn}}</span></p>
+                <p><span>MAC:</span><span>{{equ_mac}}</span></p>
             </div>
         </div>
     </div>

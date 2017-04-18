@@ -8,7 +8,7 @@
     "prebuild": "rm -rf assets",
     "build": "webpack -p --progress --colors",
     "server": "node server --3337",
-    "test": "supervisor interface-test --8081"
+    "test": "supervisor interface-test"
   },
   "author": {
     "name": "zhe-he",
