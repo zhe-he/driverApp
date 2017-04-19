@@ -63,6 +63,23 @@ app.use('/op/health',function (req,res){
     res.send(message);
 });
 
+// 获取设备连接人数
+app.use('/op/userstats',function (req,res){
+    var data = req.query || req.body;
+    let message = {"all":300, "now":10};
+
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.send(message);
+});
+// 获取设备gps信息
+app.use('/op/gpsinfo',function (req,res){
+    var data = req.query || req.body;
+    let message =  { "lat": "30.12345", "lon": "114.12345", "sog": "20", "cog": "0" };
+    
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.send(message);
+});
+
 // 3.5.3 查询报修详情
 app.use('/Driver/report/getReport',function (req,res){
     var data = req.query || req.body;
@@ -271,7 +288,7 @@ app.use('/app-crm/company/lists',function (req,res){
     res.send(message);
 });
 // 3.3.2 查询车辆信息
-app.use('/app-dms/device/getVelByField',function (req,res){
+app.use('/app-dms/vehicle/getVelByField',function (req,res){
     var data = req.query || req.body;
 
     var message = {

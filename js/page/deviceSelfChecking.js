@@ -91,7 +91,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                             _this.getDetail.plate_num=data.data.plate_num;
                         }).catch(e=>console.log(e));
                     })
-                    .catch(e=>console.log(e))
+                    .catch(e=>console.log(e));
                 //获取设备检测详情
                 fetch(URL_HEALTH,{
                     cache:"no-cache"

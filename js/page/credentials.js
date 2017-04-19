@@ -58,7 +58,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             },
             // 获取车辆信息
             getBus(){
-                return fetch(BASEINFO.host+'/app-dms/device/getVelByField',{
+                return fetch(BASEINFO.host+'/app-dms/vehicle/getVelByField',{
                     method: "POST",
                     mode: "cors",
                     headers:{
