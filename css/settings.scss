@@ -15,8 +15,6 @@
         font-size: 0.34rem;
         color: $blackColor;
 
-        @include bg2('Stroke',0.14rem,0.24rem);
-        background-position: 6.5rem center;
         &.active > i{
             position: absolute;
             top: 50%;
@@ -26,6 +24,20 @@
             margin-top: -0.08rem;
             border-radius: 50%;
             background-color: #f43531;
+        }
+        &.bg{
+            @include bg2('Stroke',0.14rem,0.24rem);
+            background-position: 6.5rem center;
+        }
+        > span{
+            position: absolute;
+            top: 0;
+            right: 0.24rem;
+            font-size: 0.3rem;
+            line-height: 0.98rem;
+            width: 30%;
+            text-align: right;
+            color: $greyColor;
         }
     }
 }
