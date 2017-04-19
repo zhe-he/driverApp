@@ -72,7 +72,7 @@ app.use('/op/userstats',function (req,res){
     res.send(message);
 });
 // 获取设备gps信息
-app.use('/op/userstats',function (req,res){
+app.use('/op/gpsinfo',function (req,res){
     var data = req.query || req.body;
     let message =  { "lat": "30.12345", "lon": "114.12345", "sog": "20", "cog": "0" };
     
