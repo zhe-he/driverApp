@@ -50,11 +50,17 @@ body{
 			line-height: .58rem;
 			margin-top: .2rem;
 			@extend %common-shadow;
-			p{
+			h3{
 				position: relative;
-				padding-left:.7rem;
+				//padding-left:.7rem;
+				font-size: .34rem;
+				font-weight: normal;
 				>i.select,>i.selected{
 					top:.04rem;
+				}
+				>p{
+					padding-right: 1rem;
+					@include eps;
 				}
 				u{
 					@include bg2("Stroke");
@@ -64,6 +70,9 @@ body{
 					top:.17rem;
 					right:0;
 				}
+			}
+			p{
+				padding-left:.7rem;
 				span{
 					font-size:.28rem;
 					color: $greyColor2;

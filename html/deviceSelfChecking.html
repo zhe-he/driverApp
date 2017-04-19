@@ -18,7 +18,7 @@
                 <p>请在WiFi状态下：进行设备每日检测</p>
                 <dl>
                     <dt>检测时间：</dt>
-                    <dd>{{getDetail.dtime}}</dd>
+                    <dd>{{getDetail.dtime | ymdhms}}</dd>
                 </dl>
             </div>
             <b></b>
@@ -29,11 +29,7 @@
                         车牌号：<span>{{getDetail.plate_num}}</span>
                         <p>
                             <span></span>
-                            <i v-if="getDetail.hasNumber==false"></i>
-                            <template v-else>
-                                <i v-if="getDetail.plate_num" class="normal"></i>
-                                <i v-else class="err"></i>
-                            </template>
+                            <i :class="[getDetail.hasNumber==false?'':getDetail.plate_num?'normal':'err']"></i>
 
                         </p>
                     </li>
@@ -41,11 +37,7 @@
                         设备SN：<span>{{getDetail.plate_sn}}</span>
                         <p>
                             <span></span>
-                            <i v-if="getDetail.hasNumber==false"></i>
-                            <template v-else>
-                                <i v-if="getDetail.plate_sn" class="normal"></i>
-                                <i v-else class="err"></i>
-                            </template>
+                            <i :class="[getDetail.hasNumber==false?'':getDetail.plate_sn?'normal':'err']"></i>
                         </p>
                     </li>
                     <li>
@@ -55,11 +47,7 @@
                             <template v-else>
                                 <span v-if="getDetail.wifi==0&&getDetail.status==2">已处理</span>
                             </template>
-                            <i v-if="getDetail.hasNumber==false"></i>
-                            <template v-else>
-                                <i v-if="getDetail.wifi==1" class="normal"></i>
-                                <i v-else class="err"></i>
-                            </template>
+                            <i :class="[getDetail.hasNumber==false?'':getDetail.wifi==1?'normal':'err']"></i>
                         </p>
                     </li>
                     <li>Portal页面 <span></span>
@@ -68,11 +56,7 @@
                             <template v-else>
                                 <span v-if="getDetail.portal==0&&getDetail.status==2">已处理</span>
                             </template>
-                            <i v-if="getDetail.hasNumber==false"></i>
-                            <template v-else>
-                                <i v-if="getDetail.portal==1" class="normal"></i>
-                                <i v-else class="err"></i>
-                            </template>
+                            <i :class="[getDetail.hasNumber==false?'':getDetail.portal==1?'normal':'err']"></i>
                         </p>
                     <li>北斗定位 <span></span>
                         <p>
@@ -80,11 +64,7 @@
                             <template v-else>
                                 <span v-if="getDetail.compass==0&&getDetail.status==2">已处理</span>
                             </template>
-                            <i v-if="getDetail.hasNumber==false"></i>
-                            <template v-else>
-                                <i v-if="getDetail.compass==1" class="normal"></i>
-                                <i v-else class="err"></i>
-                            </template>
+                            <i :class="[getDetail.hasNumber==false?'':getDetail.compass==1?'normal':'err']"></i>
                         </p>
                     </li>
                 </ul>

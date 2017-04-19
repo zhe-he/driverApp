@@ -76,7 +76,8 @@ app.use('/Driver/report/getReport',function (req,res){
             "number": "44223",
             "plate_num": "辽C·L8765",
             "content": {
-                "dtime":"2017-01-11 12:23:10",//检测时间
+                "type" : 1,
+                "dtime":"1492600167612",//检测时间
                 "plate_num":"辽C·L8765",//车牌号
                 "plate_sn":"HMAPA01160700537",//设备SN
                 "wifi":0,//wifi链接 0-异常 1-正常
@@ -144,6 +145,63 @@ app.use('/Driver/report/add',function (req,res){
     if(callback){
         message = `${callback}(${JSON.stringify(message)})`;
     }
+    res.send(message);
+});
+// 3.6.3 查询消息详情
+app.use('/app-dms/message/detail',function (req,res){
+    var data = req.query || req.body;
+
+    var message = {
+        "code": 0,
+        "message":"ok",
+        "data": {
+            "id": 1,
+            "title": "阿里大文娱全资收购大麦网 派高管张宇出任CEO",
+            "author": "xx",
+            "cover": "xxx" ,
+            "description": "xxx",
+            "content":"大麦网官方今日宣布正式加入阿里巴巴大家庭，阿里巴巴大文娱CEO俞永福也转发微博称，欢迎大麦同学加入阿里大家庭。",
+            "status": 0,
+            "ctime": "2017.01.01 10:11:11"
+        }
+    };
+
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.send(message);
+});
+// 3.6.2 获取消息列表
+app.use('/app-dms/message/lists',function (req,res){
+    var data = req.query || req.body;
+
+    var message = {
+        "code": 0,
+        "message":'ok',
+        "data": {
+            "list":[
+                {
+                    "id": 1,
+                    "title": "因为现在的手机大部分都不能因为现在的手机大部分都不能因为现在的手机大部分都不能",
+                    "author": "xx",
+                    "cover": "xxx" ,
+                    "description": "xxx",
+                    "status": 0,
+                    "ctime": "2017.04.01 10:11:11"
+                },
+                {
+                    "id": 2,
+                    "title": "阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网",
+                    "author": "xx",
+                    "cover": "xxx" ,
+                    "description": "xxx",
+                    "status": 1,//0-未读 1-已读
+                    "ctime": "2017.04.11 16:31:22"
+                }
+    ],
+    total:100
+    }
+};
+
+    res.setHeader('Access-Control-Allow-Origin','*');
     res.send(message);
 });
 // 3.2.5 修改用户信息

@@ -142,6 +142,7 @@ Object {
 ##### 设备自检
 需要得到的"content"的json
 "content"{
+    "type":1,//1-json 2-描述
     "dtime":"xxxx-xx-xx xx:xx:xx",//检测时间
     "plate_num":"xxx",//车牌号
     "plate_sn":"xxx",//设备SN

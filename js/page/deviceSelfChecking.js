@@ -6,7 +6,7 @@ import Vue from "vue";
 import commonTop from "common-top";
 import {getN,callN} from "nativeA";
 import msg from "msg";
-import {jsonp,dataFormat} from "method";
+import {dataFormat} from "method";
 import eventHub from "eventHub";
 import {URL_GETINFO,URL_HEALTH} from "device";
 
@@ -26,6 +26,12 @@ window.addEventListener("DOMContentLoaded",()=>{
         }
 
     };
+    Vue.filter('ymdhms',str=>{
+        console.log(str);
+        var data=Number(str);
+        str=dataFormat(data,'YYYY-MM-dd hh:mm:ss');
+        return str;
+    })
     new Vue({
         el: "#deviceSelf",
         data:fnObj,
@@ -39,13 +45,15 @@ window.addEventListener("DOMContentLoaded",()=>{
         },
         mounted(){
             var _this=this;
-
+            var ms=new Date().getTime();
+            console.log(ms);
             if(NUMBER){
                 // console.log(NUMBER);
                 fetch(BASEINFO.host+'/Driver/report/getReport?id=1',{
                     cache:"no-cache"
-                }).then(response=>response.json()).
-                then(data=>{
+                })
+                    .then(response=>response.json())
+                    .then(data=>{
                     console.log(data);
                     var result=data.data;
                     if(data.code==0){
@@ -62,25 +70,28 @@ window.addEventListener("DOMContentLoaded",()=>{
         methods:{
             selfCheck () {
                 var date=new Date(),_this=this;
-                date=dataFormat(date,'YYYY-MM-dd hh:mm:ss')
+                date=dataFormat(date,'YYYY-MM-dd hh:mm:ss');
                 this.getDetail.dtime=date;
                 //获取设备sn
                 fetch(URL_GETINFO,{
                     cache:"no-cache"
-                }).then(response=>response.json()).
-                then(data=>{
+                })
+                    .then(response=>response.json())
+                    .then(data=>{
                     console.log(data);
                     _this.getDetail.plate_sn=data.deviceSN;
-                    });
-                //根据sn获取车牌号
-                fetch(BASEINFO.host+'/app-dms/device/getVelByField?equ_sn='+_this.getDetail.plate_sn,{
-                    cache:"no-cache"
-                }).then(response=>response.json()).
-                then(data=>{
-                    console.log(data);
-                    _this.getDetail.plate_num=data.data.plate_num;
-
-                });
+                    })
+                    .then(()=>{
+                        //根据sn获取车牌号
+                        fetch(BASEINFO.host+'/app-dms/device/getVelByField?equ_sn='+_this.getDetail.plate_sn,{
+                            cache:"no-cache"
+                        }).then(response=>response.json()).
+                        then(data=>{
+                            console.log(data);
+                            _this.getDetail.plate_num=data.data.plate_num;
+                        }).catch(e=>console.log(e));
+                    })
+                    .catch(e=>console.log(e))
                 //获取设备检测详情
                 fetch(URL_HEALTH,{
                     cache:"no-cache"

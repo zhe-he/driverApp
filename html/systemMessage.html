@@ -15,35 +15,36 @@
             <div>
                 <a class="goBack" href="javascript:;"></a>
                 <h1>系统消息</h1>
-                <i>编辑</i>
+                <!--<i>编辑</i>-->
             </div>
         </header>
 
         <div class="content">
             <ul>
-                <li>
-                    <p>
+                <li v-for="item in messageList">
+                    <a href="messageContent.html?id=1">
+                        <h3>
+                            <i class="message"></i>
+                            <p>{{item.title}}</p>
+                            <u><b :class="[item.status==0?'new':'']"></b></u>
+                        </h3>
+                        <p><span>{{item.ctime}}</span></p>
+                    </a>
+                </li>
+                <!--<li>
+                    <h3>
                         <i class="message"></i>
-                        因为现在的手机大部分都不能...
-                        <u><b class="new"></b></u>
-                    </p>
-                    <p><span>2017.01.01</span><span>10:11:11</span></p>
-                </li>
-                <li>
-                    <p>
-                        <i class="select"></i>
-                        阿里大文娱全资收购大麦网...
+                        <p>阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网</p>
                         <u><b></b></u>
-                    </p>
-                    <p><span>2017.01.01</span><span>10:11:11</span></p>
-                </li>
+                    </h3>
+                    <p><span>2017.01.01 10:11:11</span></p>
+                </li>-->
             </ul>
         </div>
-        <footer>
+        <!--<footer>
             <b class="allSelected"><i></i>全选</b>
             <span @click="test()">删除</span>
-        </footer>
-
+        </footer>-->
         <msg></msg>
     </div>
 </body>
