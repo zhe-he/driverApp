@@ -17,24 +17,25 @@
         data(){
             return {
                 isShow: false,
-                msg: ''
+                msg: '',
+                type: 0
             }
         },
         mounted(){
-            eventHub.$on('msg-show',(msg='')=>{
-
+            eventHub.$on('msg-show',(msg='',type)=>{
                 this.isShow = true;
                 this.msg = msg;
+                this.type = type;
             });
         },
         methods: {
             cancel(){
                 this.isShow = false;
-                eventHub.$emit('msg-cancel',this.msg);
+                eventHub.$emit('msg-cancel',this.msg,this.type);
             },
             confirm(){
                 this.isShow = false;
-                eventHub.$emit('msg-confirm',this.msg);
+                eventHub.$emit('msg-confirm',this.msg,this.type);
             }
         }
     }

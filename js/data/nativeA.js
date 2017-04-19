@@ -64,6 +64,12 @@ if (isTest) {
                         }
                     ]
                     break;
+                case "getCache":
+                    isWarn && console.warn("获取缓存数据大小");
+                    return {
+                        "size": "1.23M"
+                    }
+                    break;
                 default:
                     isWarn && console.warn(`没有找到flag:${flag},请确保有${flag}的测试数据`);
                     break;
@@ -85,6 +91,9 @@ if (isTest) {
                     break;
                 case "sendCheckNumber":
                     isWarn && console.warn("提交设备H5自动检测单号",param);
+                    break;
+                case "msg":
+                    isWarn && console.warn("弹窗",param);
                     break;
                 default:
                     isWarn && console.warn(`没有找到flag:${flag},请确保有${flag}的测试数据`,param);

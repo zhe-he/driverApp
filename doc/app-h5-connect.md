@@ -36,6 +36,13 @@ Object {
     "dotId": "xxx"      
 }   
 
+1. 文案提示     
+window.DriverApp.callNative("msg", Object)  
+Object {    
+    "callbackId": "msg",    
+    "content": "加载失败..."      
+}   
+
 ##### 签到（checkin.html）    
 1. 告诉客户端继续自动签到  
 window.DriverApp.callNative("autoCheckIn")     
@@ -92,6 +99,12 @@ return [{
 ##### 设置（settings.html）     
 1. 清除本地缓存(clean cache)  
 window.DriverApp.callNative("cleanCache",Object)    
+
+1. 获取本地缓存大小     
+window.DriverApp.getNativeParam("getCache")    
+return {    
+    "size": "1.34M"    // 没有传"0M"     
+}   
 
 1. 版本更新(update)     
 window.DriverApp.callNative("updateApp",Object)     
