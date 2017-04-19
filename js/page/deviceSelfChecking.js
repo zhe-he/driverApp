@@ -71,7 +71,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     _this.getDetail.plate_sn=data.deviceSN;
                     });
                 //根据sn获取车牌号
-                fetch(BASEINFO.host+'/app-dms/device/getVelByField?equ_sn='+_this.getDetail.plate_sn,{
+                fetch(BASEINFO.host+'/app-dms/vehicle/getVelByField?equ_sn='+_this.getDetail.plate_sn,{
                     cache:"no-cache"
                 }).then(response=>response.json()).
                 then(data=>{
