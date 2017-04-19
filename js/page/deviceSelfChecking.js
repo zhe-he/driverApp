@@ -5,6 +5,7 @@ import "css/deviceSelfChecking.scss";
 import Vue from "vue";
 import commonTop from "common-top";
 import {getN,callN} from "nativeA";
+import msg from "msg";
 import {jsonp,dataFormat} from "method";
 import eventHub from "eventHub";
 import {URL_GETINFO,URL_HEALTH} from "device";
@@ -20,7 +21,8 @@ window.addEventListener("DOMContentLoaded",()=>{
             "protal":"",
             "compass":"",
             "wifi":"",
-            "status":""
+            "status":"",
+            "hasNumber":true
         }
 
     };
@@ -35,7 +37,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                 console.log('取消',msg);
             });
         },
-        beforeCreate(){
+        mounted(){
             var _this=this;
 
             if(NUMBER){
@@ -53,8 +55,8 @@ window.addEventListener("DOMContentLoaded",()=>{
                 })
             }else{
                 console.log("222");
-                eventHub.$emit('msg-show','此处为测试弹窗');
-
+                _this.getDetail.hasNumber=false;
+                eventHub.$emit('msg-show','设备日检需要连接往返WIFI！');
             }
         },
         methods:{
@@ -90,13 +92,11 @@ window.addEventListener("DOMContentLoaded",()=>{
                     _this.getDetail.portal=data.Portal=="OK"?'1':'0';
                 });
                 _this.getDetail.status='';
-            },
-            test(){
-                eventHub.$emit('msg-show','此处为测试弹窗');
             }
         },
         components: {
-            commonTop
+            commonTop,
+            msg
         }
     });
 

@@ -126,6 +126,26 @@ app.use('/Driver/report/lists',function (req,res){
     res.setHeader('Access-Control-Allow-Origin','*');
     res.send(message);
 });
+// 3.5.2 添加报修
+app.use('/Driver/report/add',function (req,res){
+    var data = req.query || req.body;
+    var callback = data.callback;
+    var message = {
+        "code": 0,
+        "message": "ok",
+        "data":{
+            "id":1,
+            "number":"xxx",
+            "ctime":"xxx"
+        }
+    };
+    res.setHeader('Access-Control-Allow-Origin','*');
+    // res.setHeader('charset','UTF-8');
+    if(callback){
+        message = `${callback}(${JSON.stringify(message)})`;
+    }
+    res.send(message);
+});
 // 3.2.5 修改用户信息
 app.use('/app-dms/driver/editUserInfo',function (req,res){
     var data = req.query || req.body;

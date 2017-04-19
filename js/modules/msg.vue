@@ -22,6 +22,7 @@
         },
         mounted(){
             eventHub.$on('msg-show',(msg='')=>{
+
                 this.isShow = true;
                 this.msg = msg;
             });
