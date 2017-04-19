@@ -230,7 +230,7 @@ app.use('/app-crm/company/lists',function (req,res){
     res.send(message);
 });
 // 3.3.2 查询车辆信息
-app.use('app-dms/vehicle/getVelByField',function (req,res){
+app.use('/app-dms/vehicle/getVelByField',function (req,res){
     var data = req.query || req.body;
 
     var message = {
