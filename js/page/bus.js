@@ -8,7 +8,7 @@ import {URL_GETINFO,URL_USERS,URL_GPS} from "device";
 
 window.addEventListener("DOMContentLoaded",()=>{
     const BASEINFO = getN('baseInfo');
-    var map;
+    var map,CONVERTOR;
     new Vue({
         el: "#bus",
         data: {
@@ -18,14 +18,45 @@ window.addEventListener("DOMContentLoaded",()=>{
             connect_num: " ", // 当前连接用户人数
             gpsList: []     // 行驶轨迹             
         },
+        watch: {
+            gpsList: {
+                handler(val){
+                    map.clearOverlays();
+                    var point = new BMap.Point(val[0].lng, val[0].lat);
+                    var marker = new BMap.Marker(point); 
+                    map.addOverlay(marker);
+                    map.centerAndZoom(point,14);
+                },
+                deep: true
+            }
+        },
         mounted(){
             this.getEqu().then(this.getBus).catch(e=>console.log(e));
             this.getUserstats();
             this.$nextTick(()=>{
                 this.mapInit();
+
+                this.getGpsList();
+                setInterval(()=>{
+                    this.getGpsList();
+                },1000*60);
             });
         },
         methods: {
+            // 获取行驶轨迹
+            getGpsList(){
+                fetch(URL_GPS,{
+                    cache: "no-cache"
+                })
+                    .then(response=>response.json())
+                    .then(message=>{
+                        this.gpsList = [{
+                            lat: message.lat,
+                            lng: message.lon
+                        }]
+                    })
+                    .catch(e=>console.log(e));
+            },
             // 获取当前连接用户
             getUserstats(){
                 fetch(URL_USERS,{
@@ -83,9 +114,8 @@ window.addEventListener("DOMContentLoaded",()=>{
             mapInit(){
                 map = new BMap.Map("car-map");    // 创建Map实例
                 map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
-                map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
                 map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
-                map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+                CONVERTOR = new BMap.Convertor(); // 实际坐标转换百度坐标对象
             }
         },
         components: {
