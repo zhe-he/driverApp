@@ -16,11 +16,11 @@ var entryFiles = {};
 for (var i = 0; i < files.length; i++) {
 	var name = files[i].substring(0,files[i].lastIndexOf('.'));
 	if (name===''){continue}
-	entryFiles[name] = commonJs.concat(`js/page/${files[i]}`);
+	entryFiles[name] = `js/page/${files[i]}`;
 }
 Object.assign(entryFiles,{
 	// 自定义
-	// name: '入口js'
+	vendor: commonJs
 });
 
 function htmlplugin(htmlname,entryname){
@@ -35,7 +35,7 @@ function htmlplugin(htmlname,entryname){
 		},
 		inject: "head",
 		hash: true,
-		chunks: ["common",entryname]
+		chunks: ["common","vendor",entryname]
 	});
 }
 var htmls = fs.readdirSync('html');
@@ -68,11 +68,11 @@ module.exports = {
 	// 插件项
 	plugins: [
 		new webpack.optimize.CommonsChunkPlugin({
-			name: "common",
-			minChunks: 3
+			name: ["common","vendor"],
+			minChunks: 2
 		}),
-	    new ExtractTextPlugin('css/[name].css'),
-	    new CopyWebpackPlugin([
+		new ExtractTextPlugin('css/[name].css'),
+		new CopyWebpackPlugin([
 			{from: 'images/tmp/**/*'}
 		])
 	].concat(entryHtmls),
@@ -185,6 +185,7 @@ module.exports = {
 			"method": 			"js/modules/method.js",
 			"eventHub": 		'js/modules/eventHub.js',
 			"msg": 				'js/modules/msg.vue',
+			"loading": 			'js/modules/loading.vue',
 			"common-top": 		'js/modules/common-top.vue',
 		}
 	}

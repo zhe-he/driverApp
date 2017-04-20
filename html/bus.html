@@ -11,6 +11,7 @@
 </head>
 <body>
     <div id="bus">
+        <loading v-if="isWaiting"></loading>
         <common-top :back-type="-1" title="车辆"></common-top>
         
         <div class="height30"></div>

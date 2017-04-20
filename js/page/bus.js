@@ -3,6 +3,7 @@ const querystring = require('querystring');
 import "css/bus.scss";
 import Vue from "vue";
 import commonTop from "common-top";
+import loading from "loading";
 import {getN} from "nativeA";
 import {URL_GETINFO,URL_USERS,URL_GPS} from "device";
 
@@ -12,6 +13,7 @@ window.addEventListener("DOMContentLoaded",()=>{
     new Vue({
         el: "#bus",
         data: {
+            isWaiting: true,
             equ_sn: "",     // 设备sn
             equ_mac: "",    // 设备mac
             plate_num: "",  // 车牌号
@@ -31,7 +33,10 @@ window.addEventListener("DOMContentLoaded",()=>{
             }
         },
         mounted(){
-            this.getEqu().then(this.getBus).catch(e=>console.log(e));
+            this.getEqu().then(this.getBus).catch(e=>{
+                console.log(e);
+                this.isWaiting = false;
+            });
             this.getUserstats();
             this.$nextTick(()=>{
                 this.mapInit();
@@ -75,6 +80,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                 })
                     .then(response=>response.json())
                     .then(data=>{
+                        this.isWaiting = false;
                         this.equ_sn = data.deviceSN;
                         this.equ_mac = data.deviceMac;
                     });
@@ -119,7 +125,8 @@ window.addEventListener("DOMContentLoaded",()=>{
             }
         },
         components: {
-            commonTop
+            commonTop,
+            loading
         }
     })
 },false);
