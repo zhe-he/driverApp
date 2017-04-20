@@ -30,7 +30,7 @@ if (isTest) {
                         "tel": TESTTEL
                     }
                     break;
-                case "getDriveLine": 
+                case "getDriveLine":  // 移除
                     isWarn && console.warn("获取行驶轨迹");
                     return {
                         "lat": 37,
@@ -45,7 +45,7 @@ if (isTest) {
                         "number": ""
                     }
                     break;
-                case "getSystemMsg":
+                case "getSystemMsg": // 移除
                     isWarn && console.warn("获取个人中心的消息列表");
                     return [
                         {
@@ -94,6 +94,9 @@ if (isTest) {
                     break;
                 case "msg":
                     isWarn && console.warn("弹窗",param);
+                    break;
+                case "back":
+                    isWarn && console.warn("返回",param);
                     break;
                 default:
                     isWarn && console.warn(`没有找到flag:${flag},请确保有${flag}的测试数据`,param);

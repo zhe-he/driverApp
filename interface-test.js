@@ -213,10 +213,10 @@ app.use('/app-dms/message/lists',function (req,res){
                     "status": 1,//0-未读 1-已读
                     "ctime": "2017.04.11 16:31:22"
                 }
-    ],
-    total:100
-    }
-};
+            ],
+            "total": 100
+        }
+    };
 
     res.setHeader('Access-Control-Allow-Origin','*');
     res.send(message);
