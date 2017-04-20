@@ -44,31 +44,52 @@ window.addEventListener("DOMContentLoaded",()=>{
             });
         },
         mounted(){
-            var _this=this;
+            var _this=this,plate_sn='';
             var ms=new Date().getTime();
             console.log(ms);
-            if(NUMBER){
-                // console.log(NUMBER);
-                fetch(BASEINFO.host+'/Driver/report/getReport?id=1',{
-                    cache:"no-cache"
-                })
-                    .then(response=>response.json())
-                    .then(data=>{
-                    console.log(data);
-                    var result=data.data;
-                    if(data.code==0){
-                        _this.getDetail=result.content;
-                        _this.getDetail.status=result.status;
-                    }
-                })
+            if(NUMBER.isChecked==1){
+                if(NUMBER.callbackId){
+                    fetch(BASEINFO.host+'/Driver/report/getReport?id=1',{
+                        cache:"no-cache"
+                    })
+                        .then(response=>response.json())
+                        .then(data=>{
+                            console.log(data);
+                            var result=data.data;
+                            if(data.code==0){
+                                _this.getDetail=result.content;
+                                _this.getDetail.status=result.status;
+                            }
+                        })
+                }else{
+                    fetch(URL_GETINFO,{
+                        cache:"no-cache"
+                    })
+                        .then(response=>response.json())
+                        .then(data=>{
+                            console.log(data);
+                            plate_sn=data.deviceSN;
+                            // plate_sn='HMAPA01160700537';
+                        })
+                        .then(()=>{
+                            if(plate_sn==NUMBER.plate_sn){
+                                _this.getDetail.dtime=NUMBER.dtime;
+                                _this.getDetail.plate_sn=plate_sn;
+                                _this.getPlateNum();
+                                _this.getDetail.wifi=1;
+                                _this.getDetail.portal=1;
+                                _this.getDetail.compass=1;
+                            }else{
+                                _this.noCheck();
+                            }
+                        })
+                }
             }else{
-                console.log("222");
-                _this.getDetail.hasNumber=false;
-                eventHub.$emit('msg-show','设备日检需要连接往返WIFI！');
+                _this.noCheck();
             }
         },
         methods:{
-            selfCheck () {
+            selfCheck (){
                 var date=new Date(),_this=this;
                 date=dataFormat(date,'YYYY-MM-dd hh:mm:ss');
                 this.getDetail.dtime=date;
@@ -80,29 +101,72 @@ window.addEventListener("DOMContentLoaded",()=>{
                     .then(data=>{
                     console.log(data);
                     _this.getDetail.plate_sn=data.deviceSN;
+                    _this.getDetail.dtime=new Date().getTime();
                     })
+                    .then(()=>{_this.getPlateNum();})
+                    .then(()=>{_this.getHealth();})
                     .then(()=>{
-                        //根据sn获取车牌号
-                        fetch(BASEINFO.host+'/app-dms/device/getVelByField?equ_sn='+_this.getDetail.plate_sn,{
-                            cache:"no-cache"
-                        }).then(response=>response.json()).
-                        then(data=>{
-                            console.log(data);
-                            _this.getDetail.plate_num=data.data.plate_num;
-                        }).catch(e=>console.log(e));
+                        if(!_this.getDetail.plate_num || !_this.getDetail.plate_sn || _this.getDetail.wifi!=1 || _this.getDetail.portal!=1 || _this.getDetail.compass!=1){
+                            var content={
+                                "type" : 2,
+                                    "dtime":_this.getDetail.dtime,
+                                    "plate_num":_this.getDetail.plate_num,
+                                    "plate_sn":_this.getDetail.plate_sn,
+                                    "wifi":_this.getDetail.wifi,
+                                    "portal":_this.getDetail.portal,
+                                    "compass":_this.getDetail.compass
+                            };
+
+                            fetch(BASEINFO.host+'/Driver/report/add',{
+                                method:"POST",
+                                mode: "cors",
+                                headers:{
+                                    "Content-Type": "application/x-www-form-urlencoded"
+                                },
+                                body: `userid=${BASEINFO.userid}&plate_num=${_this.getDetail.plate_num}&content=${JSON.stringify(content)}&type=2`
+                            })
+                                .then(response=>response.json())
+                                .then(data=>{
+                                    console.log(data);
+                                })
+                                .catch(e=>console.log(e));
+                        }
                     })
                     .catch(e=>console.log(e));
+
+                _this.getDetail.status='';
+            },
+            getPlateNum(){
+                var _this=this;
+                //根据sn获取车牌号
+                fetch(`${BASEINFO.host}/app-dms/vehicle/getVelByField?equ_sn='${_this.getDetail.plate_sn}'`,{
+                    cache:"no-cache"
+                })
+                    .then(response=>response.json())
+                    .then(data=>{
+                        console.log(data);
+                        _this.getDetail.plate_num=data.data.plate_num;
+                    }).catch(e=>console.log(e));
+            },
+            getHealth(){
+                var _this=this;
                 //获取设备检测详情
                 fetch(URL_HEALTH,{
                     cache:"no-cache"
-                }).then(response=>response.json()).
-                then(data=>{
+                })
+                    .then(response=>response.json())
+                    .then(data=>{
                     console.log(data);
                     _this.getDetail.compass=data.Compass=="OK"?'1':'0';
                     _this.getDetail.wifi=data.WIFI=="OK"?'1':'0';
                     _this.getDetail.portal=data.Portal=="OK"?'1':'0';
-                });
-                _this.getDetail.status='';
+                })
+                    .catch(e=>console.log(e));
+            },
+            noCheck(){
+                this.getDetail.hasNumber=false;//置空
+                // this.getDetail.dtime=new Date().getTime();
+                callN('msg',{content:"设备日检需要连接往返WIFI！"});
             }
         },
         components: {

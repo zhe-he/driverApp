@@ -90,6 +90,7 @@ Object {
     "number": "111111",
     "plate_sn":"xxxx",//设备SN
     "isChecked":1,//当日用户是否自检过 1-是 0-否
+    "dtime":1488728378 //检测时间
 }   
 1. 后台接口说明(/Driver/report/getReport)需要得到的"content"的json
 "content"{
@@ -101,7 +102,6 @@ Object {
     "portal":1,//Portal页面 0-异常 1-正常
     "compass":1,//北斗定位 0-异常 1-正常
 }
-
 ##### 消息（systemMessage.html）    
 1. 获取个人中心的消息列表(news feed,移除)  
 window.DriverApp.getNativeParam('getSystemMsg')   
