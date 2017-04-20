@@ -69,6 +69,7 @@ Object {
     "lat":39.93909242059091,  // 纬度,没有传0
     "lng":116.43035530958362 // 精度,没有传0  
 }   
+##### 设备日检
 
 1. 获取设备自动检测单号(连接成功十分钟app自检后台返回的单号,health check)   
 window.DriverApp.getNativeParam("getAutoCheckNumber") 
@@ -80,9 +81,20 @@ return {
 window.DriverApp.callNative("sendCheckNumber",Object) 
 Object {    
     "callbackId": "sendCheckNumber",    
-    "number": "111111"      
+    "number": "111111",
+    "plate_sn":"xxxx",//设备SN
+    "isChecked":1,//当日用户是否自检过 1-是 0-否
 }   
-
+1. 后台接口说明(/Driver/report/getReport)需要得到的"content"的json
+"content"{
+    "type":1,//1-json 2-描述
+    "dtime":"xxxx-xx-xx xx:xx:xx",//检测时间
+    "plate_num":"xxx",//车牌号
+    "plate_sn":"xxx",//设备SN
+    "wifi":1,//wifi链接 0-异常 1-正常
+    "portal":1,//Portal页面 0-异常 1-正常
+    "compass":1,//北斗定位 0-异常 1-正常
+}
 
 ##### 消息（systemMessage.html）    
 1. 获取个人中心的消息列表(news feed,暂不使用)  
@@ -139,16 +151,6 @@ Object {
 }   
 
 
-##### 设备自检
-需要得到的"content"的json
-"content"{
-    "type":1,//1-json 2-描述
-    "dtime":"xxxx-xx-xx xx:xx:xx",//检测时间
-    "plate_num":"xxx",//车牌号
-    "plate_sn":"xxx",//设备SN
-    "wifi":1,//wifi链接 0-异常 1-正常
-    "portal":1,//Portal页面 0-异常 1-正常
-    "compass":1,//北斗定位 0-异常 1-正常
-}
+
 
 ####### 暂定以上，有问题再后续沟通 	
