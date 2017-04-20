@@ -185,6 +185,7 @@ module.exports = {
 			"method": 			"js/modules/method.js",
 			"eventHub": 		'js/modules/eventHub.js',
 			"msg": 				'js/modules/msg.vue',
+			"loading": 			'js/modules/loading.vue',
 			"common-top": 		'js/modules/common-top.vue',
 		}
 	}
