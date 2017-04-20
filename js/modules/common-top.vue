@@ -9,6 +9,7 @@
 </template>
 
 <script>
+    import {callN} from "nativeA";
     export default {
         props: {
             title: {
@@ -27,9 +28,9 @@
                         break;
                     case 1:
                         // go app index-page
-                        break;
                     case 3: 
                         // go app my-page
+                        callN("back",{type:this.backType})
                         break;
                 }
             }

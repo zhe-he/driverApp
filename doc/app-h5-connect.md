@@ -42,6 +42,12 @@ Object {
     "callbackId": "msg",    
     "content": "加载失败..."      
 }   
+1. 后退   
+window.DriverApp.callNative("back", Object)     
+Object {    
+    "callbackId": "back",   
+    "type": 1   // 1-首页，3-个人中心      
+}   
 
 ##### 签到（checkin.html）    
 1. 告诉客户端继续自动签到  
@@ -49,7 +55,7 @@ window.DriverApp.callNative("autoCheckIn")
 当自动签到失败，或正在自动签到时，用户点击签到按钮，会调用此方法 
 
 ##### 车辆（bus.html busDetail.html）   
-1. 获取本次行驶轨迹     
+1. 获取本次行驶轨迹（移除）     
 window.DriverApp.getNativeParam("getDriveLine")     
 return [
     {   
@@ -60,7 +66,7 @@ return [
 ]   
 如果没有 返回当前的位置 return [{...}]
 
-1. 获取当前位置(GPS,暂未使用)   
+1. 获取当前位置(GPS,移除)   
 window.DriverApp.callNative("getLocation",Object)   
 客户端回传  sendLocation   
 window.nativeCallback("sendLocation", Object)    
@@ -97,7 +103,7 @@ Object {
 }
 
 ##### 消息（systemMessage.html）    
-1. 获取个人中心的消息列表(news feed,暂不使用)  
+1. 获取个人中心的消息列表(news feed,移除)  
 window.DriverApp.getNativeParam('getSystemMsg')   
 return [{   
     "id": 1,    

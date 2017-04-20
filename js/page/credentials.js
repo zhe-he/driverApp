@@ -29,7 +29,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             cmp_list: [],       // 公司联想集合
             cmp_list_switch: false, // 公司联系显示隐藏 true显示
             name: '', // 司机姓名
-            mobile: BASEINFO.tel, // 司机电话
+            mobile: '', // 司机电话
             license: '', // 驾驶证号
             license_photo: '', // 驾驶证照片
             isDisabled: false,
@@ -89,7 +89,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                             let data = message.data;
                             if (data.status>0){
                                 this.cmp_name = data.cmp_name;
-                                this.cid = data.cid;
+                                this.cid = data.cmp_id;
                                 this.name = data.name;
                                 this.mobile = data.mobile+'';
                                 this.license = data.license;
@@ -139,6 +139,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             },
             // 设置默认信息
             setDefault(){
+                this.mobile = BASEINFO.tel;
                 this.getEqu().then(this.getBus).catch(e=>console.log(e));
             },
             // 设置公司
@@ -171,7 +172,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     this.isDisabled = false;
                 }else{
                     let { cmp_name,name,mobile,license,license_photo } = this.$data;
-                    if (!cid) {
+                    if (!this.cid) {
                         this.alertMsg('error','请填写公司名称');
                         return false;
                     }
