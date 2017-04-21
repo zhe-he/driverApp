@@ -13,7 +13,9 @@ import {URL_GETINFO,URL_HEALTH} from "device";
 window.addEventListener("DOMContentLoaded",()=>{
     const BASEINFO = getN('baseInfo');
     const NUMBER = getN('getAutoCheckNumber');
+    const WIFI = getN('wifi');
     var fnObj = {
+        "isWifi":WIFI.wangfan,
         "getDetail":{
             "dtime":"",
             "plate_num":"",

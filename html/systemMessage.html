@@ -22,7 +22,7 @@
         <div class="content">
             <ul>
                 <li v-for="item in messageList">
-                    <a href="messageContent.html?id=1">
+                    <a :href="['messageContent.html?id='+item.id]">
                         <h3>
                             <i class="message"></i>
                             <p>{{item.title}}</p>
@@ -31,14 +31,6 @@
                         <p><span>{{item.ctime}}</span></p>
                     </a>
                 </li>
-                <!--<li>
-                    <h3>
-                        <i class="message"></i>
-                        <p>阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网</p>
-                        <u><b></b></u>
-                    </h3>
-                    <p><span>2017.01.01 10:11:11</span></p>
-                </li>-->
             </ul>
         </div>
         <!--<footer>

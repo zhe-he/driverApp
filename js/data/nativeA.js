@@ -43,7 +43,7 @@ if (isTest) {
                     return {
                         "callbackId": 1,
                         "number": "",
-                        "isChecked":1,
+                        "isChecked":1,//是否经过自检 1-是 0-否
                         "plate_sn":"HMAPA01160700537",
                         "dtime":1492600167612
                     }
@@ -71,6 +71,13 @@ if (isTest) {
                     isWarn && console.warn("获取缓存数据大小");
                     return {
                         "size": "1.23M"
+                    }
+                    break;
+                case "wifi":
+                    isWarn && console.warn("获取网络状态");
+                    return {
+                        "open": 0,
+                        "wangfan":1,
                     }
                     break;
                 default:
