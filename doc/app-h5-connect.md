@@ -48,6 +48,12 @@ Object {
     "callbackId": "back",   
     "type": 1   // 1-首页，3-个人中心      
 }   
+1. 获取网络状态   
+window.DriverApp.getNativeParam("wifi")     
+return {    
+    "open":     0,  // wifi 是否打开  0关1开  
+    "wangfan":  0,  // 是否为往返wifi 0否1是   
+}   
 
 ##### 签到（checkin.html）    
 1. 告诉客户端继续自动签到  
