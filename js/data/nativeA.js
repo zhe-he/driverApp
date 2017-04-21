@@ -107,15 +107,19 @@ if (isTest) {
 }
 
 
+// alert('是否有版本号：'+!isTest);
 function getN(flag){
+    // alert('调用方法'+flag);
     if (isIos || isTest) {
         return window.DriverApp.getNativeParam(flag);
     }else{
         var a = window.DriverApp.getNativeParam(flag);
+        alert('返回数据:'+a);
         return a?JSON.parse(a):'';
     }
 }
 function callN(flag,param){
+    // alert('调用方法'+flag+',传递参数'+JSON.stringify(param));
     param = param?param:{};
     param.callbackId = flag;
     if(isIos || isTest){
