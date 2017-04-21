@@ -8,7 +8,7 @@ import {getN} from "nativeA";
 import {URL_GETINFO,URL_USERS,URL_GPS} from "device";
 
 window.addEventListener("DOMContentLoaded",()=>{
-    const BASEINFO = getN('baseInfo');
+    const BASEINFO = getN('getBase');
     var map,CONVERTOR;
     new Vue({
         el: "#bus",

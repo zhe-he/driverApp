@@ -8,8 +8,8 @@ ios: iOSApp/wangfanDriver x.x.x
 android: AndroidApp/wangfanDriver x.x.x     
 
 #### H5调native方法 	
-获取app数据，window.DriverApp.getNativeParam("标志名") 	
-调用app方法，window.DriverApp.callNative("标志名",Object) 	
+获取app数据，window.App.getNativeParam("标志名") 	
+调用app方法，window.App.callNative("标志名",Object) 	
 Object {    
     "callbackId": "标志名",     // 一定会有
     ...
@@ -20,43 +20,50 @@ window.nativeCallback("名字"[,"参数"])
 
 ##### 全局方法（*.html）  
 1. 获取用户基本信息(login module)     
-window.DriverApp.getNativeParam("baseInfo")     
+window.App.getNativeParam("getBase")     
 return {    
     "host": "",      
     "token": "",    
-    "uid": "",     
-    "union_id": "",      
-    "tel": 15000000000  
+    "uid": "",  // id   
+    "userID": "",  // 集团id      
+    "tel": 15000000000,  
+    "platform": ""  // 来源 ios、Android   
 }  
 
 1. 打点(Analysis cs -VZ)     
-window.DriverApp.callNative("dot", Object)  
+window.App.callNative("dot", Object)  
 Object {    
     "callbackId": "dot",    
     "dotId": "xxx"      
 }   
 
 1. 文案提示     
-window.DriverApp.callNative("msg", Object)  
+window.App.callNative("msg", Object)  
 Object {    
     "callbackId": "msg",    
     "content": "加载失败..."      
 }   
 1. 后退   
-window.DriverApp.callNative("back", Object)     
+window.App.callNative("back", Object)     
 Object {    
     "callbackId": "back",   
     "type": 1   // 1-首页，3-个人中心      
 }   
+1. 获取网络状态   
+window.App.getNativeParam("wifi")     
+return {    
+    "open":     0,  // wifi 是否打开  0关1开  
+    "wangfan":  0,  // 是否为往返wifi 0否1是   
+}   
 
 ##### 签到（checkin.html）    
 1. 告诉客户端继续自动签到  
-window.DriverApp.callNative("autoCheckIn")     
+window.App.callNative("autoCheckIn")     
 当自动签到失败，或正在自动签到时，用户点击签到按钮，会调用此方法 
 
 ##### 车辆（bus.html busDetail.html）   
 1. 获取本次行驶轨迹（移除）     
-window.DriverApp.getNativeParam("getDriveLine")     
+window.App.getNativeParam("getDriveLine")     
 return [
     {   
         "lat": 37,  
@@ -67,7 +74,7 @@ return [
 如果没有 返回当前的位置 return [{...}]
 
 1. 获取当前位置(GPS,移除)   
-window.DriverApp.callNative("getLocation",Object)   
+window.App.callNative("getLocation",Object)   
 客户端回传  sendLocation   
 window.nativeCallback("sendLocation", Object)    
 Object {    
@@ -78,13 +85,13 @@ Object {
 ##### 设备日检
 
 1. 获取设备自动检测单号(连接成功十分钟app自检后台返回的单号,health check)   
-window.DriverApp.getNativeParam("getAutoCheckNumber") 
+window.App.getNativeParam("getAutoCheckNumber") 
 return {    
     "number": "111111" // 没有传 ""    
 }   
 
 1. 提交设备H5自动检测单号(连接十分钟之内进入自检页面H5自检后台返回的单号,health check)   
-window.DriverApp.callNative("sendCheckNumber",Object) 
+window.App.callNative("sendCheckNumber",Object) 
 Object {    
     "callbackId": "sendCheckNumber",    
     "number": "111111",
@@ -104,7 +111,7 @@ Object {
 }
 ##### 消息（systemMessage.html）    
 1. 获取个人中心的消息列表(news feed,移除)  
-window.DriverApp.getNativeParam('getSystemMsg')   
+window.App.getNativeParam('getSystemMsg')   
 return [{   
     "id": 1,    
     "title": "标题",  
@@ -116,19 +123,19 @@ return [{
 
 ##### 设置（settings.html）     
 1. 清除本地缓存(clean cache)  
-window.DriverApp.callNative("cleanCache",Object)    
+window.App.callNative("cleanCache",Object)    
 
 1. 获取本地缓存大小     
-window.DriverApp.getNativeParam("getCache")    
+window.App.getNativeParam("getCache")    
 return {    
     "size": "1.34M"    // 没有传"0M"     
 }   
 
 1. 版本更新(update)     
-window.DriverApp.callNative("updateApp",Object)     
+window.App.callNative("updateApp",Object)     
         
 1. 用户注销     
-window.DriverApp.callNative("signOut",Object)   
+window.App.callNative("signOut",Object)   
 
 #### 二期  
 ##### 消息    
@@ -146,7 +153,7 @@ Array [
 
 ##### 驾驶时间  
 1. 获取司机驾驶时间(location-driver-time -VZ)   
-window.DriverApp.getNativeParam("getDriverTime", Object)   
+window.App.getNativeParam("getDriverTime", Object)   
 Object {        
     "time": 30  // 单位min    
 }   

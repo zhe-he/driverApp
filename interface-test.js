@@ -49,7 +49,7 @@ app.use('/api/getinfo',function (req,res){
 });
 
 //  设备检测
-app.use('/op/health',function (req,res){
+app.use('/op2/health',function (req,res){
     var data = req.query || req.body;
 
     var message = {
@@ -64,7 +64,7 @@ app.use('/op/health',function (req,res){
 });
 
 // 获取设备连接人数
-app.use('/op/userstats',function (req,res){
+app.use('/op2/userstats',function (req,res){
     var data = req.query || req.body;
     let message = {"all":300, "now":10};
 
@@ -72,12 +72,20 @@ app.use('/op/userstats',function (req,res){
     res.send(message);
 });
 // 获取设备gps信息
-app.use('/op/gpsinfo',function (req,res){
+app.use('/op2/gpsinfo',function (req,res){
     var data = req.query || req.body;
-    let message =  { "lat": "30.12345", "lon": "114.12345", "sog": "20", "cog": "0" };
+    let message =  { "lat": "30.12345", "lon": "114.12345", "sog": "20", "cog": "0","data":Date.now()/1000|0};
     
     res.setHeader('Access-Control-Allow-Origin','*');
     res.send(message);
+});
+// 获取设备开机时间     
+app.use('/op2/uptime',function (req,res){
+    var data = req.query || req.body;
+    let time = 33333;
+    
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.send(time);
 });
 
 // 3.5.3 查询报修详情

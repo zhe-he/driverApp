@@ -7,7 +7,7 @@ import {dataFormat} from 'method';
 
 Vue.filter('yearMonth',time=>dataFormat(time,'YYYY年MM月'));
 window.addEventListener("DOMContentLoaded",()=>{
-    const BASEINFO = getN('baseInfo');
+    const BASEINFO = getN('getBase');
 
     new Vue({
         el: "#checkIn",

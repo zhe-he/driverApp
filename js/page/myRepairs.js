@@ -8,7 +8,7 @@ import commonTop from "common-top";
 import {getN,callN} from "nativeA";
 
 window.addEventListener("DOMContentLoaded",()=>{
-    const BASEINFO = getN('baseInfo');
+    const BASEINFO = getN('getBase');
     var fnObj = {
         "repairList":[]
     };

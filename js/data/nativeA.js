@@ -10,24 +10,25 @@ const TESTHOST = 'http://localhost:8081'; // host地址
 const TESTTEL = 13000000000; // 测试手机号
 const PLATFORM = isAndroid?'Android':'ios'; // 测试型号
 
-if (!isTest && typeof window.DriverApp === "undefined") {
-    isWarn && console && console.error('没有在客户端找到window.DriverApp这个对象');
+if (!isTest && typeof window.App === "undefined") {
+    isWarn && console && console.error('没有在客户端找到window.App这个对象');
 }
 
 if (isTest) {
     isWarn && console.warn('正在使用本地测试数据');
 
-    window.DriverApp = {
+    window.App = {
         getNativeParam(flag){
             switch(flag){
-                case "baseInfo":    
+                case "getBase":    
                     isWarn && console.warn("获取用户基本信息");
                     return {
                         "host": TESTHOST,
                         "token": TESTTOKEN,
                         "uid": TESTUID,
-                        "union_id": TESTUNIONID,
-                        "tel": TESTTEL
+                        "userID": TESTUNIONID,
+                        "tel": TESTTEL,
+                        "platfrom": PLATFORM
                     }
                     break;
                 case "getDriveLine":  // 移除
@@ -72,6 +73,13 @@ if (isTest) {
                     return {
                         "size": "1.23M"
                     }
+                    break; 
+                case "wifi":
+                isWarn && console.warn("获取wifi状态");
+                    return {
+                        "open":     1,  
+                        "wangfan":  1,
+                    }    
                     break;
                 case "wifi":
                     isWarn && console.warn("获取网络状态");
@@ -118,20 +126,23 @@ if (isTest) {
 
 
 function getN(flag){
+    !isTest && alert('调用方法'+flag);
     if (isIos || isTest) {
-        return window.DriverApp.getNativeParam(flag);
+        return window.App.getNativeParam(flag);
     }else{
-        var a = window.DriverApp.getNativeParam(flag);
+        var a = window.App.getNativeParam(flag);
+        alert('返回数据:'+a);
         return a?JSON.parse(a):'';
     }
 }
 function callN(flag,param){
+    !isTest && alert('调用方法'+flag+',传递参数'+JSON.stringify(param));
     param = param?param:{};
     param.callbackId = flag;
     if(isIos || isTest){
-        return window.DriverApp.callNative(flag,param);
+        return window.App.callNative(flag,param);
     }else{
-        return window.DriverApp.callNative(flag,JSON.stringify(param));
+        return window.App.callNative(flag,JSON.stringify(param));
     }
 }
 

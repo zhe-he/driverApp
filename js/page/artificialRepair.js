@@ -8,7 +8,7 @@ import {getN,callN} from "nativeA";
 import {jsonp,dataFormat} from "method";
 
 window.addEventListener("DOMContentLoaded",()=>{
-    const BASEINFO = getN('baseInfo');
+    const BASEINFO = getN('getBase');
     var fnObj = {
         "isSubmit":false,
         "input_flag":"",

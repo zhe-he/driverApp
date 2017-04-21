@@ -11,7 +11,7 @@ import eventHub from "eventHub";
 import {URL_GETINFO,URL_HEALTH} from "device";
 
 window.addEventListener("DOMContentLoaded",()=>{
-    const BASEINFO = getN('baseInfo');
+    const BASEINFO = getN('getBase');
     const NUMBER = getN('getAutoCheckNumber');
     const WIFI = getN('wifi');
     var fnObj = {
