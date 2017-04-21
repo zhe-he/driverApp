@@ -41,8 +41,11 @@ if (isTest) {
                 case "getAutoCheckNumber":
                     isWarn && console.warn("获取设备自检单号");
                     return {
-                        "id": 1,
-                        "number": ""
+                        "callbackId": 1,
+                        "number": "",
+                        "isChecked":1,
+                        "plate_sn":"HMAPA01160700537",
+                        "dtime":1492600167612
                     }
                     break;
                 case "getSystemMsg": // 移除
