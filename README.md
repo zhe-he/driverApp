@@ -1,7 +1,7 @@
 ### 文档   
 1. [app&h5交互文档](./doc/app-h5-connect.md)     
 1. [后台接口文档](./doc/interface.doc)     
-1. [产品说明文档](./doc/product-doc.pdf)     
+1. [产品说明文档](./doc/product-doc.docx)     
 1. [设备文档](./doc/device-doc.docx)     
 1. [h5项目排期](./doc/h5-schedule.xlsx)     
 1. [测试排期](./doc/test-scheduling.xlsx)     
