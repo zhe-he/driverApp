@@ -11,7 +11,7 @@ import {getN,callN} from "nativeA";
 import {dataFormat} from "method";
 
 window.addEventListener("DOMContentLoaded",()=>{
-    const BASEINFO = getN('baseInfo');
+    const BASEINFO = getN('getBase');
     var fnObj = {
         "messageList":[],
 

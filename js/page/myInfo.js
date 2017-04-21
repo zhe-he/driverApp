@@ -5,7 +5,7 @@ import commonTop from "common-top";
 import {getN} from "nativeA";
 
 window.addEventListener("DOMContentLoaded",()=>{
-    const BASEINFO = getN('baseInfo');
+    const BASEINFO = getN('getBase');
     new Vue({
         el: "#myInfo",
         data: {

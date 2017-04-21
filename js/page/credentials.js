@@ -19,7 +19,7 @@ const RETEL = /^1[3-9]\d{9}$/;
 
 
 window.addEventListener("DOMContentLoaded",()=>{
-    const BASEINFO = getN("baseInfo");
+    const BASEINFO = getN("getBase");
 
     new Vue({
         el: "#credentials",

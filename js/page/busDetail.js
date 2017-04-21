@@ -7,7 +7,7 @@ import {URL_GETINFO} from "device";
 
 
 window.addEventListener("DOMContentLoaded",()=>{
-    const BASEINFO = getN('baseInfo');
+    const BASEINFO = getN('getBase');
     new Vue({
         el: "#busDetail",
         data: {
