@@ -82,7 +82,7 @@ app.use('/op2/gpsinfo',function (req,res){
 // 获取设备开机时间     
 app.use('/op2/uptime',function (req,res){
     var data = req.query || req.body;
-    let time = Date.now()/1000|0;
+    let time = 33333;
     
     res.setHeader('Access-Control-Allow-Origin','*');
     res.send(time);
