@@ -81,13 +81,6 @@ if (isTest) {
                         "wangfan":  1,
                     }    
                     break;
-                case "wifi":
-                    isWarn && console.warn("获取网络状态");
-                    return {
-                        "open": 0,
-                        "wangfan":1,
-                    }
-                    break;
                 default:
                     isWarn && console.warn(`没有找到flag:${flag},请确保有${flag}的测试数据`);
                     break;
