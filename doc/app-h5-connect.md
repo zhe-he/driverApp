@@ -43,10 +43,10 @@ Object {
     "callbackId": "msg",    
     "content": "加载失败..."      
 }   
-1. 后退   
-window.App.callNative("back", Object)     
+1. 关闭当前页面   
+window.App.callNative("close", Object)     
 Object {    
-    "callbackId": "back",   
+    "callbackId": "close",   
     "type": 1   // 1-首页，3-个人中心      
 }   
 1. 获取网络状态   

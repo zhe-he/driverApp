@@ -106,8 +106,8 @@ if (isTest) {
                 case "msg":
                     isWarn && console.warn("弹窗",param);
                     break;
-                case "back":
-                    isWarn && console.warn("返回",param);
+                case "close":
+                    isWarn && console.warn("关闭",param);
                     break;
                 default:
                     isWarn && console.warn(`没有找到flag:${flag},请确保有${flag}的测试数据`,param);
