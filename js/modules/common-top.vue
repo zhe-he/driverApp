@@ -30,7 +30,7 @@
                         // go app index-page
                     case 3: 
                         // go app my-page
-                        callN("back",{type:this.backType})
+                        callN("close",{type:this.backType})
                         break;
                 }
             }
