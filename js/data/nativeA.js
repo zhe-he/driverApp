@@ -27,7 +27,8 @@ if (isTest) {
                         "token": TESTTOKEN,
                         "uid": TESTUID,
                         "union_id": TESTUNIONID,
-                        "tel": TESTTEL
+                        "tel": TESTTEL,
+                        "platfrom": PLATFORM
                     }
                     break;
                 case "getDriveLine":  // 移除
@@ -117,9 +118,8 @@ if (isTest) {
 }
 
 
-// alert('是否有版本号：'+!isTest);
 function getN(flag){
-    // alert('调用方法'+flag);
+    !isTest && alert('调用方法'+flag);
     if (isIos || isTest) {
         return window.DriverApp.getNativeParam(flag);
     }else{
@@ -129,7 +129,7 @@ function getN(flag){
     }
 }
 function callN(flag,param){
-    // alert('调用方法'+flag+',传递参数'+JSON.stringify(param));
+    !isTest && alert('调用方法'+flag+',传递参数'+JSON.stringify(param));
     param = param?param:{};
     param.callbackId = flag;
     if(isIos || isTest){

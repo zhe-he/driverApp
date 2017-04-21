@@ -26,7 +26,8 @@ return {
     "token": "",    
     "uid": "",     
     "union_id": "",      
-    "tel": 15000000000  
+    "tel": 15000000000,  
+    "platform": ""  // 来源 ios、Android   
 }  
 
 1. 打点(Analysis cs -VZ)     
