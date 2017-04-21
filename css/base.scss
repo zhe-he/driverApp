@@ -264,9 +264,18 @@ $shadowColorBtn: rgba(31,120,255,0.4);
 			text-indent: 0.22rem;
 			font-weight: normal;
 		}
+		h2{
+			@extend h1;
+			width:5.1rem;
+			font-size: 0.4rem;
+		}
 		i{
 			width: 1.24rem;
 			font-size: 0.32rem;
+		}
+		span{
+			width: 1.36rem;
+			font-size: 0.34rem;
 		}
 	}
 }

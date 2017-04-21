@@ -64,27 +64,32 @@ window.addEventListener("DOMContentLoaded",()=>{
                             }
                         })
                 }else{
-                    fetch(URL_GETINFO,{
-                        cache:"no-cache"
-                    })
-                        .then(response=>response.json())
-                        .then(data=>{
-                            console.log(data);
-                            plate_sn=data.deviceSN;
-                            // plate_sn='HMAPA01160700537';
+                    if(_this.isWifi==1){
+                        fetch(URL_GETINFO,{
+                            cache:"no-cache"
                         })
-                        .then(()=>{
-                            if(plate_sn==NUMBER.plate_sn){
-                                _this.getDetail.dtime=NUMBER.dtime;
-                                _this.getDetail.plate_sn=plate_sn;
-                                _this.getPlateNum();
-                                _this.getDetail.wifi=1;
-                                _this.getDetail.portal=1;
-                                _this.getDetail.compass=1;
-                            }else{
-                                _this.noCheck();
-                            }
-                        })
+                            .then(response=>response.json())
+                            .then(data=>{
+                                console.log(data);
+                                plate_sn=data.deviceSN;
+                                // plate_sn='HMAPA01160700537';
+                            })
+                            .then(()=>{
+                                if(plate_sn==NUMBER.plate_sn){
+                                    _this.getDetail.dtime=NUMBER.dtime;
+                                    _this.getDetail.plate_sn=plate_sn;
+                                    _this.getPlateNum();
+                                    _this.getDetail.wifi=1;
+                                    _this.getDetail.portal=1;
+                                    _this.getDetail.compass=1;
+                                }else{
+                                    _this.noCheck();
+                                }
+                            })
+                    }else{
+                        _this.noCheck();
+                    }
+
                 }
             }else{
                 _this.noCheck();

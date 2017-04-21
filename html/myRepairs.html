@@ -10,8 +10,13 @@
 </head>
 <body>
     <div id="myRepairs">
-        <common-top :back-type="3" title="我的报修"></common-top>
-
+        <header class="common-top">
+            <div>
+                <a class="goBack" href="javascript:;"></a>
+                <h2>我的报修</h2>
+                <span>人工报修</span>
+            </div>
+        </header>
         <div class="content">
             <ul>
                 <li v-for="item in repairList">
