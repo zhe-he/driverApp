@@ -30,6 +30,7 @@ app.use(cookieSession({
 //  设备接口
 //  获取设备SN、MAC
 
+const SLEEPTIME = 1500;
 app.use('/api/getinfo',function (req,res){
     var data = req.query || req.body;
     var message = {
@@ -45,7 +46,9 @@ app.use('/api/getinfo',function (req,res){
         "ip":"192.168.17.27"
     };
     res.setHeader('Access-Control-Allow-Origin','*');
-    res.send(message);
+    setTimeout(()=>{
+        res.send(message);
+    },SLEEPTIME);
 });
 
 //  设备检测
@@ -60,7 +63,9 @@ app.use('/op2/health',function (req,res){
     };
 
     res.setHeader('Access-Control-Allow-Origin','*');
-    res.send(message);
+    setTimeout(()=>{
+        res.send(message);
+    },SLEEPTIME);
 });
 
 // 获取设备连接人数
@@ -69,7 +74,9 @@ app.use('/op2/userstats',function (req,res){
     let message = {"all":300, "now":10};
 
     res.setHeader('Access-Control-Allow-Origin','*');
-    res.send(message);
+    setTimeout(()=>{
+        res.send(message);
+    },SLEEPTIME);
 });
 // 获取设备gps信息
 app.use('/op2/gpsinfo',function (req,res){
@@ -77,7 +84,9 @@ app.use('/op2/gpsinfo',function (req,res){
     let message =  { "lat": "30.12345", "lon": "114.12345", "sog": "20", "cog": "0","data":Date.now()/1000|0};
     
     res.setHeader('Access-Control-Allow-Origin','*');
-    res.send(message);
+    setTimeout(()=>{
+        res.send(message);
+    },SLEEPTIME);
 });
 // 获取设备开机时间     
 app.use('/op2/uptime',function (req,res){
@@ -85,7 +94,9 @@ app.use('/op2/uptime',function (req,res){
     let time = 33333;
     
     res.setHeader('Access-Control-Allow-Origin','*');
-    res.send(time);
+    setTimeout(()=>{
+        res.send(time);
+    },SLEEPTIME);
 });
 
 // 3.5.3 查询报修详情
@@ -93,7 +104,7 @@ app.use('/Driver/report/getReport',function (req,res){
     var data = req.query || req.body;
     var callback = req.query.callback;
 
-	var test = {
+	var message = {
         "code": 0,
         "message":"ok",
         "data": {
@@ -117,7 +128,9 @@ app.use('/Driver/report/getReport',function (req,res){
         }
     };
     res.setHeader('Access-Control-Allow-Origin','*');
-    res.send(test);
+    setTimeout(()=>{
+        res.send(message);
+    },SLEEPTIME);
 
 });
 // 3.5.1 获取报修列表
@@ -150,7 +163,9 @@ app.use('/Driver/report/lists',function (req,res){
         }
     };
     res.setHeader('Access-Control-Allow-Origin','*');
-    res.send(message);
+    setTimeout(()=>{
+        res.send(message);
+    },SLEEPTIME);
 });
 // 3.5.2 添加报修
 app.use('/Driver/report/add',function (req,res){
@@ -170,7 +185,9 @@ app.use('/Driver/report/add',function (req,res){
     if(callback){
         message = `${callback}(${JSON.stringify(message)})`;
     }
-    res.send(message);
+    setTimeout(()=>{
+        res.send(message);
+    },SLEEPTIME);
 });
 // 3.6.3 查询消息详情
 app.use('/app-dms/message/detail',function (req,res){
@@ -192,7 +209,9 @@ app.use('/app-dms/message/detail',function (req,res){
     };
 
     res.setHeader('Access-Control-Allow-Origin','*');
-    res.send(message);
+    setTimeout(()=>{
+        res.send(message);
+    },SLEEPTIME);
 });
 // 3.6.2 获取消息列表
 app.use('/app-dms/message/lists',function (req,res){
@@ -227,7 +246,9 @@ app.use('/app-dms/message/lists',function (req,res){
     };
 
     res.setHeader('Access-Control-Allow-Origin','*');
-    res.send(message);
+    setTimeout(()=>{
+        res.send(message);
+    },SLEEPTIME);
 });
 // 3.2.5 修改用户信息
 app.use('/app-dms/driver/editUserInfo',function (req,res){
@@ -239,7 +260,9 @@ app.use('/app-dms/driver/editUserInfo',function (req,res){
     };
 
     res.setHeader('Access-Control-Allow-Origin','*');
-    res.send(message);
+    setTimeout(()=>{
+        res.send(message);
+    },SLEEPTIME);
 });
 
 const LAST_SIGN_TYPE = Math.random()*2|0+1;
@@ -271,7 +294,9 @@ app.use('/app-dms/driver/getUserInfo',function (req,res){
     };
 
     res.setHeader('Access-Control-Allow-Origin','*');
-    res.send(message);
+    setTimeout(()=>{
+        res.send(message);
+    },SLEEPTIME);
 });
 
 // 3.3.1 获取公司列表
@@ -293,7 +318,9 @@ app.use('/app-crm/company/lists',function (req,res){
         }
     };
     res.setHeader('Access-Control-Allow-Origin','*');
-    res.send(message);
+    setTimeout(()=>{
+        res.send(message);
+    },SLEEPTIME);
 });
 // 3.3.2 查询车辆信息
 app.use('/app-dms/vehicle/getVelByField',function (req,res){
@@ -313,7 +340,9 @@ app.use('/app-dms/vehicle/getVelByField',function (req,res){
     };
 
     res.setHeader('Access-Control-Allow-Origin','*');
-    res.send(message);
+    setTimeout(()=>{
+        res.send(message);
+    },SLEEPTIME);
 });
 
 // 3.4.1 获取签到列表
@@ -356,7 +385,9 @@ app.use('/app-dms/sign/top',function (req,res){
         "data": d
     };
     res.setHeader('Access-Control-Allow-Origin','*');
-    res.send(message);
+    setTimeout(()=>{
+        res.send(message);
+    },SLEEPTIME);
 });
 
 // 3.4.2 添加接口
@@ -367,7 +398,9 @@ app.use('/app-dms/sign/add',function (req,res){
         "message":'ok'
     };
     res.setHeader('Access-Control-Allow-Origin','*');
-    res.send(message);
+    setTimeout(()=>{
+        res.send(message);
+    },SLEEPTIME);
 });
 
 
