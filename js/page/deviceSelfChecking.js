@@ -3,19 +3,22 @@
  */
 import "css/deviceSelfChecking.scss";
 import Vue from "vue";
+import VueResource from "vue-resource";
 import commonTop from "common-top";
 import {getN,callN} from "nativeA";
 import msg from "msg";
+import loading from "loading";
 import {dataFormat} from "method";
 import eventHub from "eventHub";
 import {URL_GETINFO,URL_HEALTH} from "device";
-
+Vue.use(VueResource);
 window.addEventListener("DOMContentLoaded",()=>{
     const BASEINFO = getN('getBase');
     const NUMBER = getN('getAutoCheckNumber');
     const WIFI = getN('wifi');
     var fnObj = {
         "isWifi":WIFI.wangfan,
+        "isWaiting":true,
         "getDetail":{
             "dtime":"",
             "plate_num":"",
@@ -47,8 +50,6 @@ window.addEventListener("DOMContentLoaded",()=>{
         },
         mounted(){
             var _this=this,plate_sn='';
-            var ms=new Date().getTime();
-            console.log(ms);
             if(NUMBER.isChecked==1){
                 if(NUMBER.callbackId){
                     fetch(BASEINFO.host+'/Driver/report/getReport?id=1',{
@@ -56,25 +57,39 @@ window.addEventListener("DOMContentLoaded",()=>{
                     })
                         .then(response=>response.json())
                         .then(data=>{
+                            _this.isWaiting=false;
                             console.log(data);
                             var result=data.data;
                             if(data.code==0){
                                 _this.getDetail=result.content;
                                 _this.getDetail.status=result.status;
+                            }else{
+                                callN('msg',{
+                                    content:data.message
+                                })
                             }
+                        })
+                        .catch(e=>{
+                            console.log(e);
+                            this.isWaiting=false;
+                            callN('msg',{
+                                content:'网络错误，请稍后再试！'
+                            })
                         })
                 }else{
                     if(_this.isWifi==1){
-                        fetch(URL_GETINFO,{
-                            cache:"no-cache"
+                        this.$http.get(URL_GETINFO,{timeout:10000},{
+                            headers: {
+                                'Cache-Control': 'no-cache'
+                            }
                         })
-                            .then(response=>response.json())
                             .then(data=>{
+                                _this.isWaiting=false;
                                 console.log(data);
-                                plate_sn=data.deviceSN;
-                                // plate_sn='HMAPA01160700537';
+                                return data.body.deviceSN;
+                                // return 'HMAPA01160700537';
                             })
-                            .then(()=>{
+                            .then((plate_sn)=>{
                                 if(plate_sn==NUMBER.plate_sn){
                                     _this.getDetail.dtime=NUMBER.dtime;
                                     _this.getDetail.plate_sn=plate_sn;
@@ -85,6 +100,12 @@ window.addEventListener("DOMContentLoaded",()=>{
                                 }else{
                                     _this.noCheck();
                                 }
+                            }).catch(e=>{
+                                console.log(e)
+                                this.isWaiting=false;
+                                callN('msg',{
+                                    content:'网络错误，请稍后再试！'
+                                })
                             })
                     }else{
                         _this.noCheck();
@@ -97,17 +118,21 @@ window.addEventListener("DOMContentLoaded",()=>{
         },
         methods:{
             selfCheck (){
+                this.isWaiting=true;
                 var date=new Date(),_this=this;
                 date=dataFormat(date,'YYYY-MM-dd hh:mm:ss');
                 this.getDetail.dtime=date;
                 //获取设备sn
-                fetch(URL_GETINFO,{
-                    cache:"no-cache"
+                this.$http.get(URL_GETINFO,{timeout:10000},{
+                    headers: {
+                        'Cache-Control': 'no-cache'
+                    }
                 })
                     .then(response=>response.json())
                     .then(data=>{
                     console.log(data);
                     _this.getDetail.plate_sn=data.deviceSN;
+                    _this.getDetail.plate_num='';
                     _this.getDetail.dtime=new Date().getTime();
                     })
                     .then(()=>{_this.getPlateNum();})
@@ -139,7 +164,13 @@ window.addEventListener("DOMContentLoaded",()=>{
                                 .catch(e=>console.log(e));
                         }
                     })
-                    .catch(e=>console.log(e));
+                    .catch(e=>{
+                        console.log(e);
+                        this.isWaiting=false;
+                        callN('msg',{
+                            content:'网络错误，请稍后再试！'
+                        })
+                    });
 
                 _this.getDetail.status='';
             },
@@ -152,23 +183,42 @@ window.addEventListener("DOMContentLoaded",()=>{
                     .then(response=>response.json())
                     .then(data=>{
                         console.log(data);
-                        _this.getDetail.plate_num=data.data.plate_num;
-                    }).catch(e=>console.log(e));
+                        if(data.code==0){
+                            _this.getDetail.plate_num=data.data.plate_num;
+                        }else{
+                            callN('msg',{
+                                content:data.message
+                            })
+                        }
+                    }).catch(e=>{
+                        console.log(e);
+                        callN('msg',{
+                            content:'网络错误，请稍后再试！'
+                        })
+                    });
             },
             getHealth(){
                 var _this=this;
                 //获取设备检测详情
-                fetch(URL_HEALTH,{
-                    cache:"no-cache"
+                this.$http.get(URL_HEALTH,{timeout:10000},{
+                    headers: {
+                        'Cache-Control': 'no-cache'
+                    }
                 })
                     .then(response=>response.json())
                     .then(data=>{
                     console.log(data);
+                    _this.isWaiting=false;
                     _this.getDetail.compass=data.Compass=="OK"?'1':'0';
                     _this.getDetail.wifi=data.WIFI=="OK"?'1':'0';
                     _this.getDetail.portal=data.Portal=="OK"?'1':'0';
                 })
-                    .catch(e=>console.log(e));
+                    .catch(e=>{
+                        console.log(e);
+                        callN('msg',{
+                            content:'网络错误，请稍后再试！'
+                        })
+                    });
             },
             noCheck(){
                 this.getDetail.hasNumber=false;//置空
@@ -178,39 +228,11 @@ window.addEventListener("DOMContentLoaded",()=>{
         },
         components: {
             commonTop,
-            msg
+            msg,
+            loading
         }
     });
 
-
-    /*if (NUMBER) {
-        fetch(BASEINFO.host+'/get/',{
-            method:"post",
-            headers:{
-                "Content-type":"application:/x-www-form-urlencoded:charset=UTF-8"
-            },
-            body: `id=${NUMBER.id}&userid=${BASEINFO.userid}`
-        }).
-            then(response=>response.json()).
-            then(data=>{
-                console.log(data);
-            });
-
-        jsonp({
-            url: 'url',
-            data: {
-                // jsonp: 'cb'
-            },
-            timeout: 3000,
-            success: function (data){
-
-            },
-            error: function (){
-
-            }
-        })
-    }
-*/
 
 
 

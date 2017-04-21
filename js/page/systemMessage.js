@@ -7,12 +7,14 @@ import "css/systemMessage.scss"
 import Vue from "vue";
 import msg from "msg";
 import eventHub from 'eventHub';
+import loading from 'loading';
 import {getN,callN} from "nativeA";
 import {dataFormat} from "method";
 
 window.addEventListener("DOMContentLoaded",()=>{
     const BASEINFO = getN('getBase');
     var fnObj = {
+        "isWaiting":true,
         "messageList":[],
 
     };
@@ -34,9 +36,23 @@ window.addEventListener("DOMContentLoaded",()=>{
             })
                 .then(response=>response.json())
                 .then(data=>{
+                    _this.isWaiting=false;
                     console.log(data);
-                    _this.messageList=data.data.list;
+                    if(data.code==0){
+                        _this.messageList=data.data.list;
+                    }else{
+                        callN('msg',{
+                            content:data.message
+                        })
+                    }
 
+                })
+                .catch(e=>{
+                    console.log(e);
+                    this.isWaiting=false;
+                    callN('msg',{
+                        content:'网络错误，请稍后再试！'
+                    })
                 })
         },
         methods: {
@@ -45,7 +61,8 @@ window.addEventListener("DOMContentLoaded",()=>{
             }
         },
         components: {
-            msg
+            msg,
+            loading
         }
     });
 },false);

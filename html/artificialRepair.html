@@ -11,6 +11,7 @@
 </head>
 <body>
     <div id="artificialRepair">
+        <loading v-if="isWaiting"></loading>
         <common-top :back-type="0" title="人工报修"></common-top>
         
         <div class="content">

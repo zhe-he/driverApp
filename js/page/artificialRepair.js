@@ -4,6 +4,7 @@
 import "css/artificialRepair.scss"
 import Vue from "vue";
 import commonTop from "common-top";
+import loading from "loading";
 import {getN,callN} from "nativeA";
 import {jsonp,dataFormat} from "method";
 
@@ -13,6 +14,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         "isSubmit":false,
         "input_flag":"",
         "len":0,
+        "isWaiting":false,
         "getDetail":{
             "ctime":"",
             "plate_num":"",
@@ -76,6 +78,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         },
         methods:{
             submitDate(){
+                this.isWaiting=true;
                 var _this=this;
                 if(_this.isSubmit==false){
                     return;
@@ -91,13 +94,27 @@ window.addEventListener("DOMContentLoaded",()=>{
                 })
                     .then(response=>response.json())
                     .then(data=>{
-                        console.log(data);
+                        _this.isWaiting=false;
+                        if(data.code==0){
+                            console.log(data);
+                        }else{
+                            callN('msg',{
+                                content:data.message
+                            })
+                        }
                     })
-                    .catch(e=>console.log(e));
+                    .catch(e=>{
+                        console.log(e);
+                        this.isWaiting=false;
+                        callN('msg',{
+                            content:'网络错误，请稍后再试！'
+                        })
+                    });
             }
         },
         components: {
-            commonTop
+            commonTop,
+            loading
         }
     })
 },false);
