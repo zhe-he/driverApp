@@ -43,7 +43,7 @@ if (isTest) {
                     isWarn && console.warn("获取设备自检单号");
                     return {
                         "callbackId": 1,
-                        "number": "",
+                        "number": "1111",
                         "isChecked":1,//是否经过自检 1-是 0-否
                         "plate_sn":"HMAPA01160700537",
                         "dtime":1492600167612

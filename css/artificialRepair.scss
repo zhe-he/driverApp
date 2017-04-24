@@ -16,8 +16,7 @@
 			}
 			dd{
 				flex:6;
-
-				span{
+				input{
 					color: $greyColor;
 					display: block;
 					height: .6rem;
@@ -26,16 +25,17 @@
 					width:3.92rem;
 					border: 1px solid $greyColor2;
 					border-radius: 1rem;
-					input{
-						border: hidden;
-						font-size: .28rem;
-						background-color: transparent;
+					box-sizing: border-box;
+
+
+					font-size: .28rem;
+					background-color: transparent;
 					}
-					.write{
-						color: $blackColor;
-						font-size: .34rem;
-					}
+				.write{
+					color: $blackColor;
+					font-size: .34rem;
 				}
+
 				.err{
 					border: 1px solid #E00C26;
 					background-color: #FFF8F9;

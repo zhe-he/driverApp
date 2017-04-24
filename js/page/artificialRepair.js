@@ -4,11 +4,14 @@
 import "css/artificialRepair.scss"
 import Vue from "vue";
 import errcode from "errcode";
+import VueResource from "vue-resource";
 import commonTop from "common-top";
 import loading from "loading";
 import {getN,callN} from "nativeA";
 import {jsonp,dataFormat} from "method";
-
+import {ADDREP,GETVEL} from "inter";
+import {URL_GETINFO} from "device";
+Vue.use(VueResource);
 window.addEventListener("DOMContentLoaded",()=>{
     const BASEINFO = getN('getBase');
     var fnObj = {
@@ -30,6 +33,44 @@ window.addEventListener("DOMContentLoaded",()=>{
         data:fnObj,
         mounted(){
             var date=new Date(),_this=this;
+            const WIFI = getN('wifi');
+            if(WIFI.wangfan==1){
+                //获取设备sn
+                this.$http.get(URL_GETINFO,{timeout:10000},{
+                    headers: {
+                        'Cache-Control': 'no-cache'
+                    }
+                })
+                    .then(response=>response.json())
+                    .then(data=>{
+                        console.log(data);
+                        return data.deviceSN;
+                    })
+                    .then((deviceSN)=>{
+                        //根据sn获取车牌号
+                        return fetch(`${BASEINFO.host}${GETVEL}?equ_sn='${deviceSN}'`,{
+                            cache:"no-cache"
+                        })
+                            .then(response=>response.json())
+                            .then(data=>{
+                                console.log(data);
+                                if(data.code==0){
+                                    _this.getDetail.plate_num=data.data.plate_num;
+                                }else{
+                                    callN('msg',{
+                                        content:data.message
+                                    })
+                                }
+                            })
+
+                    })
+                    .catch(e=>{
+                        console.log(e);
+                        callN('msg',{
+                            content: errcode.m404
+                        })
+                    });
+            }
             //去首空格
             function trimStr(str) {return str.replace(/(^\s*)/g,"");}
             date=dataFormat(date,'YYYY-MM-dd hh:mm:ss');
@@ -82,10 +123,11 @@ window.addEventListener("DOMContentLoaded",()=>{
                 this.isWaiting=true;
                 var _this=this;
                 if(_this.isSubmit==false){
+                    this.isWaiting=false;
                     return;
                 }
                 console.log(_this.getDetail);
-                fetch(BASEINFO.host+'/Driver/report/add',{
+                fetch(`${BASEINFO.host}${ADDREP}`,{
                     method:"POST",
                     mode: "cors",
                     headers:{
@@ -98,6 +140,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         _this.isWaiting=false;
                         if(data.code==0){
                             console.log(data);
+                            window.location.href='myRepairs.html';
                         }else{
                             callN('msg',{
                                 content:data.message
