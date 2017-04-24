@@ -11,6 +11,7 @@ import loading from "loading";
 import {dataFormat} from "method";
 import eventHub from "eventHub";
 import {URL_GETINFO,URL_HEALTH} from "device";
+import {GETREPORT,ADDREP,GETVEL} from "inter";
 Vue.use(VueResource);
 window.addEventListener("DOMContentLoaded",()=>{
     const BASEINFO = getN('getBase');
@@ -51,8 +52,8 @@ window.addEventListener("DOMContentLoaded",()=>{
         mounted(){
             var _this=this,plate_sn='';
             if(NUMBER.isChecked==1){
-                if(NUMBER.callbackId){
-                    fetch(BASEINFO.host+'/Driver/report/getReport?id=1',{
+                if(NUMBER.number){
+                    fetch( `${BASEINFO.host}${GETREPORT}?number=${NUMBER.number}'`,{
                         cache:"no-cache"
                     })
                         .then(response=>response.json())
@@ -149,7 +150,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                                     "compass":_this.getDetail.compass
                             };
 
-                            fetch(BASEINFO.host+'/Driver/report/add',{
+                            fetch(`${BASEINFO.host}${ADDREP}`,{
                                 method:"POST",
                                 mode: "cors",
                                 headers:{
@@ -160,6 +161,9 @@ window.addEventListener("DOMContentLoaded",()=>{
                                 .then(response=>response.json())
                                 .then(data=>{
                                     console.log(data);
+                                    // console.log('send');
+                                    var param=data.data;
+                                    callN('sendCheckNumber',param);
                                 })
                                 .catch(e=>console.log(e));
                         }
@@ -177,7 +181,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             getPlateNum(){
                 var _this=this;
                 //根据sn获取车牌号
-                fetch(`${BASEINFO.host}/app-dms/vehicle/getVelByField?equ_sn='${_this.getDetail.plate_sn}'`,{
+                fetch(`${BASEINFO.host}${GETVEL}?equ_sn='${_this.getDetail.plate_sn}'`,{
                     cache:"no-cache"
                 })
                     .then(response=>response.json())

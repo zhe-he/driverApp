@@ -181,6 +181,7 @@ module.exports = {
 			"vue": 				"js/lib/vue.common.js",
 			"nativeA": 			"js/data/nativeA.js",
 			"device": 			"js/data/device.js",
+			"inter": 			"js/data/inter.js",
 			"errcode": 			"js/data/errcode.json",
 			"method": 			"js/modules/method.js",
 			"eventHub": 		'js/modules/eventHub.js',

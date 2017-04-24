@@ -19,9 +19,9 @@
                 <dl>
                     <dt>车牌号：</dt>
                     <dd>
-                        <span :class="[input_flag==2?'err':'']">
-                            <input type="text" placeholder="请输入车牌号" v-model="getDetail.plate_num" id="plate_num" :class="[input_flag==1||input_flag==2?'write':'']">
-                        </span>
+                        <!--<span :class="[input_flag==2?'err':'']">-->
+                            <input type="text" placeholder="请输入车牌号" v-model="getDetail.plate_num" id="plate_num" :class="[(input_flag==1||input_flag==2)?'write':'',input_flag==2?'err':'']">
+                        <!--</span>-->
                     </dd>
                 </dl>
                 <dl>

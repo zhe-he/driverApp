@@ -87,7 +87,10 @@ Object {
 1. 获取设备自动检测单号(连接成功十分钟app自检后台返回的单号,health check)   
 window.App.getNativeParam("getAutoCheckNumber") 
 return {    
-    "number": "111111" // 没有传 ""    
+    "number": "111111" // 没有传 ""
+    "plate_sn":"xxxx",//设备SN
+    "isChecked":1,//当日用户是否自检过 1-是 0-否
+    "dtime":1488728378 //检测时间
 }   
 
 1. 提交设备H5自动检测单号(连接十分钟之内进入自检页面H5自检后台返回的单号,health check)   
@@ -95,9 +98,8 @@ window.App.callNative("sendCheckNumber",Object)
 Object {    
     "callbackId": "sendCheckNumber",    
     "number": "111111",
-    "plate_sn":"xxxx",//设备SN
-    "isChecked":1,//当日用户是否自检过 1-是 0-否
-    "dtime":1488728378 //检测时间
+    "id":1,
+    "ctime":"xxx"
 }   
 1. 后台接口说明(/Driver/report/getReport)需要得到的"content"的json
 "content"{
