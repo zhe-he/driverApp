@@ -11,6 +11,7 @@
 <body>
 
     <div id="checkIn" v-cloak class="checkIn">
+        <loading v-if="isWaiting"></loading>
         <common-top :back-type="1" title="签到"></common-top>   
 
         <div class="checkIn-column">

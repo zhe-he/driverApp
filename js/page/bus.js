@@ -2,9 +2,10 @@ const querystring = require('querystring');
 
 import "css/bus.scss";
 import Vue from "vue";
+import errcode from "errcode";
 import commonTop from "common-top";
 import loading from "loading";
-import {getN} from "nativeA";
+import {getN,callN} from "nativeA";
 import {URL_GETINFO,URL_USERS,URL_GPS} from "device";
 
 window.addEventListener("DOMContentLoaded",()=>{
@@ -13,7 +14,8 @@ window.addEventListener("DOMContentLoaded",()=>{
     new Vue({
         el: "#bus",
         data: {
-            isWaiting: true,
+            serviceError: false,    // 设备wifi连接错误
+            isWaiting: false,
             equ_sn: "",     // 设备sn
             equ_mac: "",    // 设备mac
             plate_num: "",  // 车牌号
@@ -21,21 +23,37 @@ window.addEventListener("DOMContentLoaded",()=>{
             gpsList: []     // 行驶轨迹             
         },
         watch: {
+            serviceError(val){
+                if (val) {
+                    callN("msg",{"content":message.device});
+                }
+            },
             gpsList: {
                 handler(val){
                     map.clearOverlays();
-                    var point = new BMap.Point(val[0].lng, val[0].lat);
-                    var marker = new BMap.Marker(point); 
-                    map.addOverlay(marker);
-                    map.centerAndZoom(point,14);
+                    let ggPoint = new BMap.Point(val[0].lng, val[0].lat);
+                    let pointArr = [];
+                    pointArr.push(ggPoint);
+                    CONVERTOR.translate(pointArr,1,5,data=>{
+                        
+                        if (data.status==0) {
+                            ggPoint = data.points[0];
+                        }
+                        let marker = new BMap.Marker(ggPoint);
+                        map.addOverlay(marker);
+                        // map.setCenter(ggPoint,14);
+                        map.centerAndZoom(ggPoint,14);
+                    });
                 },
                 deep: true
             }
         },
         mounted(){
+            this.isWaiting = true;
             this.getEqu().then(this.getBus).catch(e=>{
                 console.log(e);
                 this.isWaiting = false;
+                this.serviceError = true;
             });
             this.getUserstats();
             this.$nextTick(()=>{
@@ -48,19 +66,27 @@ window.addEventListener("DOMContentLoaded",()=>{
             });
         },
         methods: {
-            // 获取行驶轨迹
+            // 获取行驶轨迹 经纬度
             getGpsList(){
                 fetch(URL_GPS,{
                     cache: "no-cache"
                 })
                     .then(response=>response.json())
                     .then(message=>{
-                        this.gpsList = [{
-                            lat: message.lat,
-                            lng: message.lon
-                        }]
+                        // 暂不支持多点
+                        if (!message.lat || !message.lon) {
+                            callN("msg",{"content":message.deviceGPS});
+                        }else{
+                            this.gpsList = [{
+                                lat: message.lat,
+                                lng: message.lon
+                            }];
+                        }
                     })
-                    .catch(e=>console.log(e));
+                    .catch(e=>{
+                        console.log(e);
+                        this.serviceError = true;
+                    });
             },
             // 获取当前连接用户
             getUserstats(){
@@ -71,7 +97,10 @@ window.addEventListener("DOMContentLoaded",()=>{
                     .then(data=>{
                         this.connect_num = data.now;
                     })
-                    .catch(e=>console.log(e));
+                    .catch(e=>{
+                        console.log(e);
+                        this.serviceError = true;
+                    });
             },
             // 获取设备信息
             getEqu(){
@@ -80,7 +109,6 @@ window.addEventListener("DOMContentLoaded",()=>{
                 })
                     .then(response=>response.json())
                     .then(data=>{
-                        this.isWaiting = false;
                         this.equ_sn = data.deviceSN;
                         this.equ_mac = data.deviceMac;
                     });
@@ -100,22 +128,16 @@ window.addEventListener("DOMContentLoaded",()=>{
                 })
                     .then(response=>response.json())
                     .then(message=>{
+                        this.isWaiting = false;
                         if (message.code===0) {
                             this.plate_num = message.data.plate_num;
+                        }else{
+                            callN("msg",{"content":message.message});
                         }
-                    })
-                    .catch(e=>console.log(e));
-            },
-            // 获取经纬度
-            getGps(){
-                fetch(URL_GPS,{
-                    cache: "no-cache"
-                })
-                    .then(response=>response.json)
-                    .then(message=>{
-
-                    })
-                    .catch(e=>console.log(e));
+                    }).catch(e=>{
+                        this.isWaiting = true;
+                        callN("msg",{"content":message.m404});
+                    });
             },
             mapInit(){
                 map = new BMap.Map("car-map");    // 创建Map实例

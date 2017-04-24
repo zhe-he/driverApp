@@ -4,6 +4,7 @@
 import "css/myRepairs.scss"
 
 import Vue from "vue";
+import errcode from "errcode";
 import commonTop from "common-top";
 import loading from "loading";
 import {getN,callN} from "nativeA";
@@ -24,21 +25,20 @@ window.addEventListener("DOMContentLoaded",()=>{
             }).then(response=>response.json()).
             then(data=>{
                 this.isWaiting=false;
-                console.log(data);
                 if(data.code==0){
                     _this.repairList=data.data.list;
                 }else{
                     callN('msg',{
                         content:data.message
-                    })
+                    });
                 }
             })
                 .catch(e=>{
                     console.log(e);
                     this.isWaiting=false;
                     callN('msg',{
-                        content:'网络错误，请稍后再试！'
-                    })
+                        content: errcode.m404
+                    });
                 })
         },
         components: {

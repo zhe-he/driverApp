@@ -3,6 +3,7 @@
  */
 import "css/deviceSelfChecking.scss";
 import Vue from "vue";
+import errcode from "errcode";
 import VueResource from "vue-resource";
 import commonTop from "common-top";
 import {getN,callN} from "nativeA";
@@ -58,7 +59,6 @@ window.addEventListener("DOMContentLoaded",()=>{
                         .then(response=>response.json())
                         .then(data=>{
                             _this.isWaiting=false;
-                            console.log(data);
                             var result=data.data;
                             if(data.code==0){
                                 _this.getDetail=result.content;
@@ -73,7 +73,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                             console.log(e);
                             this.isWaiting=false;
                             callN('msg',{
-                                content:'网络错误，请稍后再试！'
+                                content: errcode.m404
                             })
                         })
                 }else{
@@ -85,7 +85,6 @@ window.addEventListener("DOMContentLoaded",()=>{
                         })
                             .then(data=>{
                                 _this.isWaiting=false;
-                                console.log(data);
                                 return data.body.deviceSN;
                                 // return 'HMAPA01160700537';
                             })
@@ -101,10 +100,10 @@ window.addEventListener("DOMContentLoaded",()=>{
                                     _this.noCheck();
                                 }
                             }).catch(e=>{
-                                console.log(e)
+                                console.log(e);
                                 this.isWaiting=false;
                                 callN('msg',{
-                                    content:'网络错误，请稍后再试！'
+                                    content: errcode.device
                                 })
                             })
                     }else{
@@ -130,10 +129,9 @@ window.addEventListener("DOMContentLoaded",()=>{
                 })
                     .then(response=>response.json())
                     .then(data=>{
-                    console.log(data);
-                    _this.getDetail.plate_sn=data.deviceSN;
-                    _this.getDetail.plate_num='';
-                    _this.getDetail.dtime=new Date().getTime();
+                        _this.getDetail.plate_sn=data.deviceSN;
+                        _this.getDetail.plate_num='';
+                        _this.getDetail.dtime=new Date().getTime();
                     })
                     .then(()=>{_this.getPlateNum();})
                     .then(()=>{_this.getHealth();})
@@ -168,7 +166,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         console.log(e);
                         this.isWaiting=false;
                         callN('msg',{
-                            content:'网络错误，请稍后再试！'
+                            content: errcode.m404
                         })
                     });
 
@@ -182,7 +180,6 @@ window.addEventListener("DOMContentLoaded",()=>{
                 })
                     .then(response=>response.json())
                     .then(data=>{
-                        console.log(data);
                         if(data.code==0){
                             _this.getDetail.plate_num=data.data.plate_num;
                         }else{
@@ -193,7 +190,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     }).catch(e=>{
                         console.log(e);
                         callN('msg',{
-                            content:'网络错误，请稍后再试！'
+                            content: errcode.m404
                         })
                     });
             },
@@ -207,7 +204,6 @@ window.addEventListener("DOMContentLoaded",()=>{
                 })
                     .then(response=>response.json())
                     .then(data=>{
-                    console.log(data);
                     _this.isWaiting=false;
                     _this.getDetail.compass=data.Compass=="OK"?'1':'0';
                     _this.getDetail.wifi=data.WIFI=="OK"?'1':'0';
@@ -216,14 +212,14 @@ window.addEventListener("DOMContentLoaded",()=>{
                     .catch(e=>{
                         console.log(e);
                         callN('msg',{
-                            content:'网络错误，请稍后再试！'
+                            content: errcode.device
                         })
                     });
             },
             noCheck(){
                 this.getDetail.hasNumber=false;//置空
                 // this.getDetail.dtime=new Date().getTime();
-                callN('msg',{content:"设备日检需要连接往返WIFI！"});
+                callN('msg',{content: errcode.deviceCheck});
             }
         },
         components: {

@@ -1,9 +1,11 @@
 /**
  * Created by yangshuang on 2017/4/13.
  */
-import "css/messageContent.scss"
+const querystring = require("querystring");
+import "css/messageContent.scss";
 
 import Vue from "vue";
+import errcode from "errcode";
 import commonTop from "common-top";
 import loading from "loading";
 import {getN,callN} from "nativeA";
@@ -24,14 +26,8 @@ window.addEventListener("DOMContentLoaded",()=>{
         data:fnObj,
         mounted(){
             var url = decodeURIComponent(location.search),_this=this;
-            if (url.indexOf("?") != -1) {
-                var str = url.substr(1);
-                var theRequest = new Object();
-                var strs = str.split("&");
-                for(var i = 0; i < strs.length; i ++) {
-                    theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
-                }
-            }
+            var search = window.location.search.substr(1);
+            var theRequest = querystring.parse(search);
             console.log(theRequest);
             fetch(BASEINFO.host+'/app-dms/message/detail?id'+theRequest.id,{
                 cache:"no-cache"
@@ -54,7 +50,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     console.log(e);
                     this.isWaiting=false;
                     callN('msg',{
-                        content:'网络错误，请稍后再试！'
+                        content: errcode.m404
                     })
                 })
         },

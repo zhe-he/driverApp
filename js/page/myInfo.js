@@ -1,14 +1,17 @@
 import "css/credentials.scss";
 
 import Vue from "vue";
+import errcode from "errcode";
 import commonTop from "common-top";
-import {getN} from "nativeA";
+import loading from "loading";
+import {getN,callN} from "nativeA";
 
 window.addEventListener("DOMContentLoaded",()=>{
     const BASEINFO = getN('getBase');
     new Vue({
         el: "#myInfo",
         data: {
+            isWaiting: false,
             cmp_name: '',
             name: '',
             mobile: '',
@@ -20,9 +23,11 @@ window.addEventListener("DOMContentLoaded",()=>{
         },
         methods: {
             getUserInfo(){
+                this.isWaiting = true;
                 fetch(`${BASEINFO.host}/app-dms/driver/getUserInfo?uid=${BASEINFO.uid}`)
                     .then(response=>response.json())
                     .then(message=>{
+                        this.isWaiting = false;
                         if (message.code==0) {
                             let data = message.data;
                             this.cmp_name = data.cmp_name;
@@ -30,13 +35,20 @@ window.addEventListener("DOMContentLoaded",()=>{
                             this.mobile = data.mobile;
                             this.license = data.license;
                             this.license_photo = data.license_photo;
+                        }else{
+                            callN("msg",{"content": message.message})
                         }
                     })
-                    .catch(e=>console.log(e));
+                    .catch(e=>{
+                        this.isWaiting = false;
+                        console.log(e);
+                        callN("msg",{"content": errcode.m404});
+                    });
             }
         },
         components: {
-            commonTop
+            commonTop,
+            loading
         }
     })
 },false);

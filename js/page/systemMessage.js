@@ -5,6 +5,7 @@ import "css/systemMessage.scss"
 
 
 import Vue from "vue";
+import errcode from "errcode";
 import msg from "msg";
 import eventHub from 'eventHub';
 import loading from 'loading';
@@ -51,7 +52,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     console.log(e);
                     this.isWaiting=false;
                     callN('msg',{
-                        content:'网络错误，请稍后再试！'
+                        content: errcode.m404
                     })
                 })
         },

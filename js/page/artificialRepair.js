@@ -3,6 +3,7 @@
  */
 import "css/artificialRepair.scss"
 import Vue from "vue";
+import errcode from "errcode";
 import commonTop from "common-top";
 import loading from "loading";
 import {getN,callN} from "nativeA";
@@ -107,7 +108,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         console.log(e);
                         this.isWaiting=false;
                         callN('msg',{
-                            content:'网络错误，请稍后再试！'
+                            content: errcode.m404
                         })
                     });
             }

@@ -10,10 +10,12 @@ const querystring = require('querystring');
 import "css/credentials.scss";
 
 import Vue from "vue";
-import {getN} from "nativeA";
+import errcode from "errcode";
+import {getN,callN} from "nativeA";
 import {clone} from "method";
 import {URL_GETINFO} from "device";
 import commonTop from "common-top";
+import loading from "loading";
 import lrz from "lrz";
 const RETEL = /^1[3-9]\d{9}$/;
 
@@ -24,6 +26,7 @@ window.addEventListener("DOMContentLoaded",()=>{
     new Vue({
         el: "#credentials",
         data: {
+            isWaiting: false, // 加载条
             cmp_name: '',    // 公司
             cid: '',        // 公司id
             cmp_list: [],       // 公司联想集合
@@ -71,15 +74,23 @@ window.addEventListener("DOMContentLoaded",()=>{
                 })
                     .then(response=>response.json())
                     .then(message=>{
+                        this.isWaiting = false;
                         if (message.code===0) {
                             this.cid = message.data.cmp_id;
                             this.cmp_name = message.data.cmp_name;
+                        }else{
+                            callN("msg",{"content": message.message});
                         }
                     })
-                    .catch(e=>console.log(e));
+                    .catch(e=>{
+                        console.log(e);
+                        this.isWaiting = false;
+                        callN("msg",{"content": errcode.m404});
+                    });
             },
             // 查询用户信息
             getUser(){
+                this.isWaiting = true;
                 fetch(`${BASEINFO.host}/app-dms/driver/getUserInfo?uid=${BASEINFO.uid}`,{
                     cache: "no-cache"   
                 })
@@ -88,6 +99,8 @@ window.addEventListener("DOMContentLoaded",()=>{
                         if (message.code==0) {
                             let data = message.data;
                             if (data.status>0){
+                                this.isWaiting = false;
+
                                 this.cmp_name = data.cmp_name;
                                 this.cid = data.cmp_id;
                                 this.name = data.name;
@@ -104,11 +117,15 @@ window.addEventListener("DOMContentLoaded",()=>{
                                 this.alertMsg('success','您的资料已经提交成功！<br/>资料正在审核中...');
                             }
                             if (data.status == 3) {
-                                this.alertMsg('error','审核失败，请完善您的资料');
+                                this.alertMsg('fail','审核失败，请完善您的资料');
                             }
                         }
                     })
-                    .catch(e=>console.log(e));
+                    .catch(e=>{
+                        console.log(e);
+                        this.isWaiting = false;
+                        callN("msg",{"content": errcode.m404});
+                    });
             },
             // 获取公司列表
             getCmp(){
@@ -140,7 +157,11 @@ window.addEventListener("DOMContentLoaded",()=>{
             // 设置默认信息
             setDefault(){
                 this.mobile = BASEINFO.tel;
-                this.getEqu().then(this.getBus).catch(e=>console.log(e));
+                this.getEqu().then(this.getBus).catch(e=>{
+                    this.isWaiting = false;
+                    console.log(e);
+                    callN("msg",{"content": error.device});
+                });
             },
             // 设置公司
             setCmp(list){
@@ -167,7 +188,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             },
             // 验证提交
             commit(){
-                if (this.credentials_status !== '') {
+                if (this.credentials_status == "success" || this.credentials_status == "fail") {
                     this.alertMsg('','');
                     this.isDisabled = false;
                 }else{
@@ -192,6 +213,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         this.alertMsg('error','请上传您的驾驶证照片');
                         return false;
                     }
+                    this.isWaiting = true;
                     fetch(`${BASEINFO.host}/app-dms/driver/editUserInfo`,{
                         method: "POST",
                         mode: "cors",
@@ -209,14 +231,19 @@ window.addEventListener("DOMContentLoaded",()=>{
                     })
                         .then(response=>response.json())
                         .then(message=>{
+                            this.isWaiting = false;
                             if (message.code==0) {
                                 this.alertMsg('success','您的资料已经提交成功！<br/>资料正在审核中...');
                                 this.isDisabled = true;
                             }else{
-
+                                callN("msg",{"content": message.message});
                             }
                         })
-                        .catch(e=>console.log(e));
+                        .catch(e=>{
+                            console.log(e);
+                            this.isWaiting = false;
+                            callN("msg",{"content": errcode.m404});
+                        });
 
                     
                 }
@@ -224,7 +251,8 @@ window.addEventListener("DOMContentLoaded",()=>{
             }
         },
         components: {
-            commonTop
+            commonTop,
+            loading
         }
     });
 

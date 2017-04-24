@@ -10,6 +10,7 @@
 </head>
 <body>
     <div id="busDetail">
+        <loading v-if="isWaiting"></loading>
         <common-top :back-type="0" title="车辆详情"></common-top>        
         <div class="height30"></div>
         <div class="busDetail-content">

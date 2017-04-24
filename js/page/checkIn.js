@@ -1,9 +1,11 @@
 const querystring = require('querystring');
 import "css/checkIn.scss";
 import Vue from "vue";
+import errcode from "errcode";
 import commonTop from "common-top";
 import {getN,callN} from 'nativeA';
 import {dataFormat} from 'method';
+import loading from "loading";
 
 Vue.filter('yearMonth',time=>dataFormat(time,'YYYY年MM月'));
 window.addEventListener("DOMContentLoaded",()=>{
@@ -12,6 +14,7 @@ window.addEventListener("DOMContentLoaded",()=>{
     new Vue({
         el: "#checkIn",
         data: {
+            isWaiting: false,
             curTime: Date.now(),    // 当前选择时间
             checkInError: false,    // 签到失败
             isCheckIn: true,       // 当天是否签到
@@ -23,11 +26,6 @@ window.addEventListener("DOMContentLoaded",()=>{
                 d.setFullYear(d.getFullYear(),d.getMonth(),1);
                 return d.getDay();
             },
-            /*monthDays(){
-                let d = new Date(this.curTime);
-                d.setFullYear(d.getFullYear(),d.getMonth()+1,0);
-                return d.getDate();
-            },*/
             curDate(){
                 let d = new Date();
                 let c = new Date(this.curTime);
@@ -55,6 +53,16 @@ window.addEventListener("DOMContentLoaded",()=>{
                 this.curTime = d.getTime();
                 this.setCheckList();
             },
+            setDefaultCheckList(){
+                let d = new Date(this.curTime);
+                d.setFullYear(d.getFullYear(),d.getMonth()+1,0);
+                let monthDays = d.getDate();
+                let arr = [];
+                for(var i = 0; i < monthDays; i++){
+                    arr[i] = {};
+                }
+                this.checkList = arr;
+            },
             setCheckIn(){
                 fetch(`${BASEINFO.host}/app-dms/driver/getUserInfo?uid=${BASEINFO.uid}`,{
                     cache: "no-cache"
@@ -73,27 +81,38 @@ window.addEventListener("DOMContentLoaded",()=>{
                     })
             },
             setCheckList(){
+                this.setDefaultCheckList();
+
                 let json = {
                     "uid": BASEINFO.uid,
                     "month": dataFormat(this.curTime,'YYYY-MM')
                 };
+                this.isWaiting = true;
                 const url = `${BASEINFO.host}/app-dms/sign/top?${querystring.stringify(json)}`;
                 fetch(url,{
                     "cache": "no-cache"
                 })
                     .then(response=>response.json())
                     .then(message=>{
+                        this.isWaiting = false;
                         if (message.code == 0) {
                             this.checkList = message.data;
+                        }else{
+                            callN("msg",{"content":message.message});
                         }
                     })
-                    .catch(e=>console.log(e));
+                    .catch(e=>{
+                        this.isWaiting = false;
+                        console.log(e);
+                        callN("msg",{"content":errcode.m404});
+                    });
             },
             checkInLogin(){
                 if(this.isCheckIn){
                     return ;
                 }
                 callN('autoCheckIn');
+                this.isWaiting = true;
                 fetch(`${BASEINFO.host}/app-dms/sign/add`,{
                     method: "POST",
                     mode: "cors",
@@ -107,24 +126,32 @@ window.addEventListener("DOMContentLoaded",()=>{
                 })
                     .then(response=>response.json())
                     .then(message=>{
+                        this.isWaiting = false;
                         if (message.code==0) {
+                            callN("msg",{"content": errcode.manual});
                             this.checkInError = false;
                             this.isCheckIn = true;
                             let d = new Date();
 
                             this.checkList[d.getDate()-1] = {
                                 data: dataFormat(d.getTime(),'YYYY-MM-DD'),
-                                type: 2,
+                                type: 2
                             }
                         }else{
+                            callN("msg",{"content":message.message});
                             this.checkInError = true;
                         }
                     })
-                    .catch(e=>console.log(e));
+                    .catch(e=>{
+                        this.isWaiting = false;
+                        console.log(e);
+                        callN("msg",{"content": errcode.m404});
+                    });
             }
         },
         components: {
-            commonTop
+            commonTop,
+            loading
         }
     });
 },false);

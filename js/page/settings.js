@@ -1,5 +1,6 @@
 import "css/settings.scss";
 import Vue from "vue";
+import errcode from "errcode";
 import commonTop from "common-top";
 import {getN,callN} from "nativeA";
 import msg from "msg";
@@ -51,7 +52,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                 if (this.isCanUpdate) {
                     eventHub.$emit("msg-show","检测到新版本，是否确定更新？",2);
                 }else{
-                    alert('当前为最新版本');
+                    callN("msg",{"content": errcode.update});
                 }
             },
             signOut(){

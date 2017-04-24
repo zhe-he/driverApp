@@ -129,9 +129,9 @@ function getN(flag){
     }
 }
 function callN(flag,param){
-    !isTest && alert('调用方法'+flag+',传递参数'+JSON.stringify(param));
     param = param?param:{};
     param.callbackId = flag;
+    !isTest && alert('调用方法'+flag+',传递参数'+JSON.stringify(param));
     if(isIos || isTest){
         return window.App.callNative(flag,param);
     }else{
