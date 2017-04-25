@@ -10,9 +10,10 @@ const querystring = require('querystring');
 import "css/credentials.scss";
 
 import Vue from "vue";
+import VueResource from "vue-resource";
 import errcode from "errcode";
 import {getN,callN} from "nativeA";
-import {clone} from "method";
+// import {clone} from "method";
 import {URL_GETINFO} from "device";
 import {GETVEL,USERINFO,COMPLIST,EDITINFO} from "inter";
 import commonTop from "common-top";
@@ -20,9 +21,10 @@ import loading from "loading";
 import lrz from "lrz";
 const RETEL = /^1[3-9]\d{9}$/;
 
-
+Vue.use(VueResource);
 window.addEventListener("DOMContentLoaded",()=>{
     const BASEINFO = getN("getBase");
+    const WIFI = getN('wifi');
 
     new Vue({
         el: "#credentials",
@@ -51,11 +53,9 @@ window.addEventListener("DOMContentLoaded",()=>{
         methods: {
             // 获取设备信息
             getEqu(){
-                return fetch(URL_GETINFO,{
-                    cache: 'no-cache'
-                })
-                    .then(response=>response.json())
-                    .then(data=>{
+                return this.$http.get(URL_GETINFO,{timeout: 10000})
+                    .then(message=>{
+                        let data = message.body;
                         this.equ_sn = data.deviceSN;
                         this.equ_mac = data.deviceMac;
                     });
@@ -82,11 +82,6 @@ window.addEventListener("DOMContentLoaded",()=>{
                         }else{
                             callN("msg",{"content": message.message});
                         }
-                    })
-                    .catch(e=>{
-                        console.log(e);
-                        this.isWaiting = false;
-                        callN("msg",{"content": errcode.m404});
                     });
             },
             // 查询用户信息
@@ -158,10 +153,15 @@ window.addEventListener("DOMContentLoaded",()=>{
             // 设置默认信息
             setDefault(){
                 this.mobile = BASEINFO.tel;
+                if (WIFI.wangfan != 1) {
+                    callN("msg",{"content": errcode.device});
+                    return false;
+                }
+
                 this.getEqu().then(this.getBus).catch(e=>{
-                    this.isWaiting = false;
                     console.log(e);
-                    callN("msg",{"content": error.device});
+                    this.isWaiting = false;
+                    callN("msg",{"content": errcode.m404});
                 });
             },
             // 设置公司
@@ -193,7 +193,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     this.alertMsg('','');
                     this.isDisabled = false;
                 }else{
-                    let { cmp_name,name,mobile,license,license_photo } = this.$data;
+                    let { name,mobile,license,license_photo } = this.$data;
                     if (!this.cid) {
                         this.alertMsg('error','请填写公司名称');
                         return false;

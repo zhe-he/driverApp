@@ -2,10 +2,13 @@
     "m404":         "网络连接错误 请重试",
     "m500":         "服务器连接不上 请重试",
     "device":       "无法获取设备信息，请确保您已连接往返wifi",
+    "deviceUser":   "无法获取当前上网用户人数",
     "deviceGPS":    "无法获取设备经纬度",
     "deviceCheck":  "设备日检需要连接往返WIFI！",
 
-    "manual":   "签到成功",
+    "checkinWiFi":  "请连接往返wifi签到",
+    "checkinNum":   "车牌号获取中,请稍后再试",
+    "checkinManual":  "签到成功",
 
     "update":   "当前为最新版本",
 

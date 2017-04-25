@@ -55,7 +55,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             if(NUMBER.isChecked==1){
                 if(NUMBER.number){
                     this.isWaiting=true;
-                    fetch( `${GETREPORT}?number=${NUMBER.number}'`,{
+                    fetch( `${GETREPORT}?number=${NUMBER.number}`,{
                         cache:"no-cache"
                     })
                         .then(response=>response.json())
@@ -81,17 +81,10 @@ window.addEventListener("DOMContentLoaded",()=>{
                 }else{
                     if(this.isWifi==1){
                         this.isWaiting=true;
-                        this.$http.get(URL_GETINFO,{timeout:10000},{
-                            headers: {
-                                'Cache-Control': 'no-cache'
-                            }
-                        })
-                            .then(data=>{
-                                this.isWaiting=false;
-                                return data.body.deviceSN;
-                                // return 'HMAPA01160700537';
-                            })
+
+                        this.getSN()
                             .then((plate_sn)=>{
+                                this.isWaiting=false;
                                 if(plate_sn==NUMBER.plate_sn){
                                     this.getDetail.dtime=NUMBER.ctime;
                                     this.getDetail.plate_sn=plate_sn;
@@ -119,26 +112,26 @@ window.addEventListener("DOMContentLoaded",()=>{
             }
         },
         methods:{
+            getSN(){
+                return this.$http.get(URL_GETINFO,{timeout:10000})
+                    .then(message=>{
+                        let data=message.body;
+                        this.getDetail.plate_sn=data.deviceSN;
+                        this.getDetail.plate_num='';
+                        this.getDetail.dtime=Date.now();
+                        return data.deviceSN;
+                    })
+            },
             selfCheck (){
                 this.isWaiting=true;
                 var date=new Date();
                 date=dataFormat(date,'YYYY-MM-dd hh:mm:ss');
                 this.getDetail.dtime=date;
                 //获取设备sn
-                this.$http.get(URL_GETINFO,{timeout:10000},{
-                    headers: {
-                        'Cache-Control': 'no-cache'
-                    }
-                })
-                    .then(response=>response.json())
-                    .then(data=>{
-                        this.getDetail.plate_sn=data.deviceSN;
-                        this.getDetail.plate_num='';
-                        this.getDetail.dtime=new Date().getTime();
-                    })
-                    .then(()=>{this.getPlateNum();})
-                    .then(()=>{this.getHealth();})
-                    .then(()=>{
+                this.getSN().then(()=>{
+                    this.getPlateNum();
+                    this.getHealth();
+                }).then(()=>{
                         if(!this.getDetail.plate_num || !this.getDetail.plate_sn || this.getDetail.wifi!=1 || this.getDetail.portal!=1 || this.getDetail.compass!=1){
                             var content={
                                 "type" : 2,
@@ -150,7 +143,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                                     "compass":this.getDetail.compass
                             };
 
-                            fetch(`${ADDREP}`,{
+                            fetch(ADDREP,{
                                 method:"POST",
                                 mode: "cors",
                                 headers:{
