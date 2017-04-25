@@ -22,7 +22,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                 switch(type){
                     case 1:
                         callN('cleanCache');
-                        this.cache = "0M";
+                        this.cache = "0Byte";
                         break;
                     case 2:
                         callN('updateApp');
