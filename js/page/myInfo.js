@@ -5,7 +5,7 @@ import errcode from "errcode";
 import commonTop from "common-top";
 import loading from "loading";
 import {getN,callN} from "nativeA";
-import {GETINFO} from "inter";
+import {USERINFO} from "inter";
 
 window.addEventListener("DOMContentLoaded",()=>{
     const BASEINFO = getN('getBase');
@@ -25,7 +25,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         methods: {
             getUserInfo(){
                 this.isWaiting = true;
-                fetch(`${GETINFO}?uid=${BASEINFO.uid}`)
+                fetch(`${USERINFO}?uid=${BASEINFO.uid}`)
                     .then(response=>response.json())
                     .then(message=>{
                         this.isWaiting = false;
