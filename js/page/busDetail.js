@@ -3,13 +3,13 @@ import "css/busDetail.scss";
 import Vue from "vue";
 import errcode from "errcode";
 import commonTop from "common-top";
-import {getN,callN} from "nativeA";
+import {callN} from "nativeA";
 import {URL_GETINFO} from "device";
 import {GETVEL} from "inter";
 import loading from "loading";
 
 window.addEventListener("DOMContentLoaded",()=>{
-    const BASEINFO = getN('getBase');
+    
     new Vue({
         el: "#busDetail",
         data: {
@@ -65,7 +65,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     .catch(e=>{
                         this.isWaiting = false;
                         console.log(e);
-                        callN("msg",{"content":message.m404});
+                        callN("msg",{"content":errcode.m404});
                     });
             }
         },

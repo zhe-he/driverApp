@@ -144,14 +144,6 @@ const jsonp = (json) => {
         }, json.timeout);
     }
 }; 
-function json2url(json){
-    json.t=Math.random();
-    var arr=[];
-    for(var name in json){
-        arr.push(name+'='+json[name]);
-    }
-    return arr.join('&');
-}
 
 export {
     isIos,

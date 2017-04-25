@@ -12,7 +12,7 @@ import "css/credentials.scss";
 import Vue from "vue";
 import errcode from "errcode";
 import {getN,callN} from "nativeA";
-import {clone} from "method";
+// import {clone} from "method";
 import {URL_GETINFO} from "device";
 import {GETVEL,USERINFO,COMPLIST,EDITINFO} from "inter";
 import commonTop from "common-top";
@@ -193,7 +193,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     this.alertMsg('','');
                     this.isDisabled = false;
                 }else{
-                    let { cmp_name,name,mobile,license,license_photo } = this.$data;
+                    let { name,mobile,license,license_photo } = this.$data;
                     if (!this.cid) {
                         this.alertMsg('error','请填写公司名称');
                         return false;

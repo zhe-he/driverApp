@@ -1,4 +1,4 @@
-import {isIos, isAndroid, dataFormat} from "method";
+import {isIos, isAndroid} from "method";
 
 var isTest = !/(iOSApp|AndroidApp)\/wangfanDriver\s+(\d\.?)+/i.test(window.navigator.userAgent);
 const isWarn = true; // 是否开启测试警告

@@ -5,12 +5,11 @@ import Vue from "vue";
 import errcode from "errcode";
 import commonTop from "common-top";
 import loading from "loading";
-import {getN,callN} from "nativeA";
+import {callN} from "nativeA";
 import {URL_GETINFO,URL_USERS,URL_GPS} from "device";
 import {GETVEL} from "inter";
 
 window.addEventListener("DOMContentLoaded",()=>{
-    const BASEINFO = getN('getBase');
     var map,CONVERTOR;
     new Vue({
         el: "#bus",
@@ -26,7 +25,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         watch: {
             serviceError(val){
                 if (val) {
-                    callN("msg",{"content":message.device});
+                    callN("msg",{"content":errcode.device});
                 }
             },
             gpsList: {
@@ -76,7 +75,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     .then(message=>{
                         // 暂不支持多点
                         if (!message.lat || !message.lon) {
-                            callN("msg",{"content":message.deviceGPS});
+                            callN("msg",{"content":errcode.deviceGPS});
                         }else{
                             this.gpsList = [{
                                 lat: message.lat,
@@ -137,7 +136,8 @@ window.addEventListener("DOMContentLoaded",()=>{
                         }
                     }).catch(e=>{
                         this.isWaiting = true;
-                        callN("msg",{"content":message.m404});
+                        console.log(e);
+                        callN("msg",{"content":errcode.m404});
                     });
             },
             mapInit(){
