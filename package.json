@@ -7,9 +7,11 @@
     "watch": "webpack --colors --watch",
     "prebuild": "rm -rf assets",
     "build": "webpack -p --progress --colors",
+    "postbuild": "npm run pack",
     "server": "node server --3337",
     "test": "node interface-test --8081",
-    "interface": "supervisor interface-test"
+    "interface": "supervisor interface-test",
+    "pack": "node ./config/pack"
   },
   "author": {
     "name": "zhe-he",
@@ -71,6 +73,7 @@
     "whatwg-fetch": "^2.0.1"
   },
   "dependencies": {
+    "archiver": "^1.3.0",
     "body-parser": "^1.17.1",
     "consolidate": "^0.14.5",
     "cookie-parser": "^1.4.3",
