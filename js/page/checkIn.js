@@ -5,6 +5,7 @@ import errcode from "errcode";
 import commonTop from "common-top";
 import {getN,callN} from 'nativeA';
 import {dataFormat} from 'method';
+import {USERINFO,SIGNTOP,ADDSIGN} from 'inter';
 import loading from "loading";
 
 Vue.filter('yearMonth',time=>dataFormat(time,'YYYY年MM月'));
@@ -64,7 +65,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                 this.checkList = arr;
             },
             setCheckIn(){
-                fetch(`${BASEINFO.host}/app-dms/driver/getUserInfo?uid=${BASEINFO.uid}`,{
+                fetch(`${USERINFO}?uid=${BASEINFO.uid}`,{
                     cache: "no-cache"
                 })
                     .then(response=>response.json())
@@ -88,7 +89,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     "month": dataFormat(this.curTime,'YYYY-MM')
                 };
                 this.isWaiting = true;
-                const url = `${BASEINFO.host}/app-dms/sign/top?${querystring.stringify(json)}`;
+                const url = `${SIGNTOP}?${querystring.stringify(json)}`;
                 fetch(url,{
                     "cache": "no-cache"
                 })
@@ -113,7 +114,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                 }
                 callN('autoCheckIn');
                 this.isWaiting = true;
-                fetch(`${BASEINFO.host}/app-dms/sign/add`,{
+                fetch(ADDSIGN,{
                     method: "POST",
                     mode: "cors",
                     headers:{

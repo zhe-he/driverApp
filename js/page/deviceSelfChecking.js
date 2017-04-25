@@ -54,7 +54,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             var _this=this,plate_sn='';
             if(NUMBER.isChecked==1){
                 if(NUMBER.number){
-                    fetch( `${BASEINFO.host}${GETREPORT}?number=${NUMBER.number}'`,{
+                    fetch( `${GETREPORT}?number=${NUMBER.number}'`,{
                         cache:"no-cache"
                     })
                         .then(response=>response.json())
@@ -148,7 +148,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                                     "compass":_this.getDetail.compass
                             };
 
-                            fetch(`${BASEINFO.host}${ADDREP}`,{
+                            fetch(`${ADDREP}`,{
                                 method:"POST",
                                 mode: "cors",
                                 headers:{
@@ -179,7 +179,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             getPlateNum(){
                 var _this=this;
                 //根据sn获取车牌号
-                fetch(`${BASEINFO.host}${GETVEL}?equ_sn='${_this.getDetail.plate_sn}'`,{
+                fetch(`${GETVEL}?equ_sn='${_this.getDetail.plate_sn}'`,{
                     cache:"no-cache"
                 })
                     .then(response=>response.json())

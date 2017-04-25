@@ -11,6 +11,7 @@ import eventHub from 'eventHub';
 import loading from 'loading';
 import {getN,callN} from "nativeA";
 import {dataFormat} from "method";
+import {MESLIST} from "inter";
 
 window.addEventListener("DOMContentLoaded",()=>{
     const BASEINFO = getN('getBase');
@@ -32,7 +33,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         },
         mounted(){
             var _this=this;
-            fetch(BASEINFO.host+'/app-dms/message/lists?uid='+BASEINFO.uid,{
+            fetch(`${MESLIST}?uid=${BASEINFO.uid}`,{
                 cache:"no-cache"
             })
                 .then(response=>response.json())

@@ -10,6 +10,7 @@ import commonTop from "common-top";
 import loading from "loading";
 import {getN,callN} from "nativeA";
 import {dataFormat} from "method";
+import {MESDET} from "inter";
 window.addEventListener("DOMContentLoaded",()=>{
     const BASEINFO = getN('getBase');
     var fnObj = {
@@ -29,7 +30,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             var search = window.location.search.substr(1);
             var theRequest = querystring.parse(search);
             console.log(theRequest);
-            fetch(BASEINFO.host+'/app-dms/message/detail?id'+theRequest.id,{
+            fetch(`${MESDET}?id${theRequest.id}`,{
                 cache:"no-cache"
             })
                 .then(response=>response.json())

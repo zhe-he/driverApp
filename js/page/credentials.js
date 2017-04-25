@@ -14,6 +14,7 @@ import errcode from "errcode";
 import {getN,callN} from "nativeA";
 import {clone} from "method";
 import {URL_GETINFO} from "device";
+import {GETVEL,USERINFO,COMPLIST,EDITINFO} from "inter";
 import commonTop from "common-top";
 import loading from "loading";
 import lrz from "lrz";
@@ -61,7 +62,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             },
             // 获取车辆信息
             getBus(){
-                return fetch(BASEINFO.host+'/app-dms/vehicle/getVelByField',{
+                return fetch(GETVEL,{
                     method: "POST",
                     mode: "cors",
                     headers:{
@@ -91,7 +92,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             // 查询用户信息
             getUser(){
                 this.isWaiting = true;
-                fetch(`${BASEINFO.host}/app-dms/driver/getUserInfo?uid=${BASEINFO.uid}`,{
+                fetch(`${USERINFO}?uid=${BASEINFO.uid}`,{
                     cache: "no-cache"   
                 })
                     .then(response=>response.json())
@@ -131,7 +132,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             getCmp(){
                 if (this.cmp_name.length>=3) {
                     this.cmp_list_switch = true;
-                    fetch(BASEINFO.host+'/app-crm/company/lists',{
+                    fetch(COMPLIST,{
                         method: "POST",
                         mode: "cors",
                         headers:{
@@ -214,7 +215,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         return false;
                     }
                     this.isWaiting = true;
-                    fetch(`${BASEINFO.host}/app-dms/driver/editUserInfo`,{
+                    fetch(EDITINFO,{
                         method: "POST",
                         mode: "cors",
                         headers:{

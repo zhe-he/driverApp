@@ -7,6 +7,7 @@ import commonTop from "common-top";
 import loading from "loading";
 import {getN,callN} from "nativeA";
 import {URL_GETINFO,URL_USERS,URL_GPS} from "device";
+import {GETVEL} from "inter";
 
 window.addEventListener("DOMContentLoaded",()=>{
     const BASEINFO = getN('getBase');
@@ -115,7 +116,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             },
             // 获取车辆信息
             getBus(){
-                return fetch(BASEINFO.host+'/app-dms/vehicle/getVelByField',{
+                return fetch(GETVEL,{
                     method: "POST",
                     mode: "cors",
                     headers:{

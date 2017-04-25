@@ -48,7 +48,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     })
                     .then((deviceSN)=>{
                         //根据sn获取车牌号
-                        return fetch(`${BASEINFO.host}${GETVEL}?equ_sn='${deviceSN}'`,{
+                        return fetch(`${GETVEL}?equ_sn='${deviceSN}'`,{
                             cache:"no-cache"
                         })
                             .then(response=>response.json())
@@ -127,7 +127,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     return;
                 }
                 console.log(_this.getDetail);
-                fetch(`${BASEINFO.host}${ADDREP}`,{
+                fetch(ADDREP,{
                     method:"POST",
                     mode: "cors",
                     headers:{

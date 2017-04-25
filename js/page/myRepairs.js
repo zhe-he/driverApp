@@ -8,6 +8,7 @@ import errcode from "errcode";
 import commonTop from "common-top";
 import loading from "loading";
 import {getN,callN} from "nativeA";
+import {REPLIST} from "inter";
 
 window.addEventListener("DOMContentLoaded",()=>{
     const BASEINFO = getN('getBase');
@@ -20,7 +21,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         data:fnObj,
         beforeCreate(){
             var _this=this;
-            fetch(BASEINFO.host+'/Driver/report/lists',{
+            fetch(REPLIST,{
                 cache:"no-cache"
             }).then(response=>response.json()).
             then(data=>{
