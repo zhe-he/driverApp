@@ -78,6 +78,29 @@ module.exports = {
 	].concat(entryHtmls),
 	module: {
 		rules: [
+			// jshint,代码优化时打开
+			{
+				test: /\.js$/,
+				exclude:/(node_modules|lib)/,
+				use: [
+					{
+						loader: "jshint-loader", 
+						options: { 
+						    "freeze": true, // 禁止覆盖本地对象
+							"-W041": false,    // 忽略 === 与 == 的区别
+							// "loopfunc": true, // 允许循环中使用函数
+							"asi": true, 	// 允许省略行尾分号
+							"esversion": 6, // 支持es6语法规则
+							"elision": true, // 支持[1,,,3]
+							"unused": true, // 警告未使用的定义对象
+							"expr": true, 	// 可以使用表达式,某些[奇淫技巧]
+							"lastsemic": true // 最后的分号可以省略
+							// more see -> http://www.jshint.com/docs/options/
+						}
+					}
+				],
+				enforce: 'pre'
+			},
 			{
 				test: /\.html$/,
 				exclude:/node_modules/,
