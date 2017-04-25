@@ -8,7 +8,7 @@ import VueResource from "vue-resource";
 import commonTop from "common-top";
 import loading from "loading";
 import {getN,callN} from "nativeA";
-import {jsonp,dataFormat} from "method";
+import {dataFormat} from "method";
 import {ADDREP,GETVEL} from "inter";
 import {URL_GETINFO} from "device";
 Vue.use(VueResource);

@@ -20,7 +20,7 @@ window.addEventListener("DOMContentLoaded",()=>{
     const WIFI = getN('wifi');
     var fnObj = {
         "isWifi":WIFI.wangfan,
-        "isWaiting":true,
+        "isWaiting":false,
         "getDetail":{
             "dtime":"",
             "plate_num":"",
@@ -51,19 +51,20 @@ window.addEventListener("DOMContentLoaded",()=>{
             });
         },
         mounted(){
-            var _this=this,plate_sn='';
+            // var _this=this,plate_sn='';
             if(NUMBER.isChecked==1){
                 if(NUMBER.number){
+                    this.isWaiting=true;
                     fetch( `${GETREPORT}?number=${NUMBER.number}'`,{
                         cache:"no-cache"
                     })
                         .then(response=>response.json())
                         .then(data=>{
-                            _this.isWaiting=false;
+                            this.isWaiting=false;
                             var result=data.data;
                             if(data.code==0){
-                                _this.getDetail=result.content;
-                                _this.getDetail.status=result.status;
+                                this.getDetail=result.content;
+                                this.getDetail.status=result.status;
                             }else{
                                 callN('msg',{
                                     content:data.message
@@ -78,27 +79,28 @@ window.addEventListener("DOMContentLoaded",()=>{
                             })
                         })
                 }else{
-                    if(_this.isWifi==1){
+                    if(this.isWifi==1){
+                        this.isWaiting=true;
                         this.$http.get(URL_GETINFO,{timeout:10000},{
                             headers: {
                                 'Cache-Control': 'no-cache'
                             }
                         })
                             .then(data=>{
-                                _this.isWaiting=false;
+                                this.isWaiting=false;
                                 return data.body.deviceSN;
                                 // return 'HMAPA01160700537';
                             })
                             .then((plate_sn)=>{
                                 if(plate_sn==NUMBER.plate_sn){
-                                    _this.getDetail.dtime=NUMBER.dtime;
-                                    _this.getDetail.plate_sn=plate_sn;
-                                    _this.getPlateNum();
-                                    _this.getDetail.wifi=1;
-                                    _this.getDetail.portal=1;
-                                    _this.getDetail.compass=1;
+                                    this.getDetail.dtime=NUMBER.ctime;
+                                    this.getDetail.plate_sn=plate_sn;
+                                    this.getPlateNum();
+                                    this.getDetail.wifi=1;
+                                    this.getDetail.portal=1;
+                                    this.getDetail.compass=1;
                                 }else{
-                                    _this.noCheck();
+                                    this.noCheck();
                                 }
                             }).catch(e=>{
                                 console.log(e);
@@ -108,18 +110,18 @@ window.addEventListener("DOMContentLoaded",()=>{
                                 })
                             })
                     }else{
-                        _this.noCheck();
+                        this.noCheck();
                     }
 
                 }
             }else{
-                _this.noCheck();
+                this.noCheck();
             }
         },
         methods:{
             selfCheck (){
                 this.isWaiting=true;
-                var date=new Date(),_this=this;
+                var date=new Date();
                 date=dataFormat(date,'YYYY-MM-dd hh:mm:ss');
                 this.getDetail.dtime=date;
                 //获取设备sn
@@ -130,22 +132,22 @@ window.addEventListener("DOMContentLoaded",()=>{
                 })
                     .then(response=>response.json())
                     .then(data=>{
-                        _this.getDetail.plate_sn=data.deviceSN;
-                        _this.getDetail.plate_num='';
-                        _this.getDetail.dtime=new Date().getTime();
+                        this.getDetail.plate_sn=data.deviceSN;
+                        this.getDetail.plate_num='';
+                        this.getDetail.dtime=new Date().getTime();
                     })
-                    .then(()=>{_this.getPlateNum();})
-                    .then(()=>{_this.getHealth();})
+                    .then(()=>{this.getPlateNum();})
+                    .then(()=>{this.getHealth();})
                     .then(()=>{
-                        if(!_this.getDetail.plate_num || !_this.getDetail.plate_sn || _this.getDetail.wifi!=1 || _this.getDetail.portal!=1 || _this.getDetail.compass!=1){
+                        if(!this.getDetail.plate_num || !this.getDetail.plate_sn || this.getDetail.wifi!=1 || this.getDetail.portal!=1 || this.getDetail.compass!=1){
                             var content={
                                 "type" : 2,
-                                    "dtime":_this.getDetail.dtime,
-                                    "plate_num":_this.getDetail.plate_num,
-                                    "plate_sn":_this.getDetail.plate_sn,
-                                    "wifi":_this.getDetail.wifi,
-                                    "portal":_this.getDetail.portal,
-                                    "compass":_this.getDetail.compass
+                                    "ctime":this.getDetail.dtime,
+                                    "plate_num":this.getDetail.plate_num,
+                                    "plate_sn":this.getDetail.plate_sn,
+                                    "wifi":this.getDetail.wifi,
+                                    "portal":this.getDetail.portal,
+                                    "compass":this.getDetail.compass
                             };
 
                             fetch(`${ADDREP}`,{
@@ -154,7 +156,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                                 headers:{
                                     "Content-Type": "application/x-www-form-urlencoded"
                                 },
-                                body: `userid=${BASEINFO.userid}&plate_num=${_this.getDetail.plate_num}&content=${JSON.stringify(content)}&type=2`
+                                body: `userid=${BASEINFO.userid}&plate_num=${this.getDetail.plate_num}&content=${JSON.stringify(content)}&type=2`
                             })
                                 .then(response=>response.json())
                                 .then(data=>{
@@ -174,18 +176,17 @@ window.addEventListener("DOMContentLoaded",()=>{
                         })
                     });
 
-                _this.getDetail.status='';
+                this.getDetail.status='';
             },
             getPlateNum(){
-                var _this=this;
                 //根据sn获取车牌号
-                fetch(`${GETVEL}?equ_sn='${_this.getDetail.plate_sn}'`,{
+                fetch(`${GETVEL}?equ_sn='${this.getDetail.plate_sn}'`,{
                     cache:"no-cache"
                 })
                     .then(response=>response.json())
                     .then(data=>{
                         if(data.code==0){
-                            _this.getDetail.plate_num=data.data.plate_num;
+                            this.getDetail.plate_num=data.data.plate_num;
                         }else{
                             callN('msg',{
                                 content:data.message
@@ -199,7 +200,6 @@ window.addEventListener("DOMContentLoaded",()=>{
                     });
             },
             getHealth(){
-                var _this=this;
                 //获取设备检测详情
                 this.$http.get(URL_HEALTH,{timeout:10000},{
                     headers: {
@@ -208,10 +208,10 @@ window.addEventListener("DOMContentLoaded",()=>{
                 })
                     .then(response=>response.json())
                     .then(data=>{
-                    _this.isWaiting=false;
-                    _this.getDetail.compass=data.Compass=="OK"?'1':'0';
-                    _this.getDetail.wifi=data.WIFI=="OK"?'1':'0';
-                    _this.getDetail.portal=data.Portal=="OK"?'1':'0';
+                    this.isWaiting=false;
+                    this.getDetail.compass=data.Compass=="OK"?'1':'0';
+                    this.getDetail.wifi=data.WIFI=="OK"?'1':'0';
+                    this.getDetail.portal=data.Portal=="OK"?'1':'0';
                 })
                     .catch(e=>{
                         console.log(e);

@@ -10,7 +10,6 @@ import msg from "msg";
 import eventHub from 'eventHub';
 import loading from 'loading';
 import {getN,callN} from "nativeA";
-import {dataFormat} from "method";
 import {MESLIST} from "inter";
 
 window.addEventListener("DOMContentLoaded",()=>{

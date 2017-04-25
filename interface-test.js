@@ -100,7 +100,7 @@ app.use('/op2/uptime',function (req,res){
 });
 
 // 3.5.3 查询报修详情
-app.use('/Driver/report/getReport',function (req,res){
+app.use('/app-dms/report/getReport',function (req,res){
     var data = req.query || req.body;
     var callback = req.query.callback;
 
@@ -134,7 +134,7 @@ app.use('/Driver/report/getReport',function (req,res){
 
 });
 // 3.5.1 获取报修列表
-app.use('/Driver/report/lists',function (req,res){
+app.use('/app-dms/report/lists',function (req,res){
     var data = req.query || req.body;
     var message = {
         "code": 0,
@@ -168,7 +168,7 @@ app.use('/Driver/report/lists',function (req,res){
     },SLEEPTIME);
 });
 // 3.5.2 添加报修
-app.use('/Driver/report/add',function (req,res){
+app.use('/app-dms/report/add',function (req,res){
     var data = req.query || req.body;
     var callback = data.callback;
     var message = {

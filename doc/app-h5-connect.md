@@ -90,7 +90,7 @@ return {
     "number": "111111" // 没有传 ""
     "plate_sn":"xxxx",//设备SN
     "isChecked":1,//当日用户是否自检过 1-是 0-否
-    "dtime":1488728378 //检测时间
+    "ctime":1488728378 //检测时间
 }   
 
 1. 提交设备H5自动检测单号(连接十分钟之内进入自检页面H5自检后台返回的单号,health check)   
@@ -104,7 +104,7 @@ Object {
 1. 后台接口说明(/Driver/report/getReport)需要得到的"content"的json
 "content"{
     "type":1,//1-json 2-描述
-    "dtime":"xxxx-xx-xx xx:xx:xx",//检测时间
+    "ctime":"xxxx-xx-xx xx:xx:xx",//检测时间
     "plate_num":"xxx",//车牌号
     "plate_sn":"xxx",//设备SN
     "wifi":1,//wifi链接 0-异常 1-正常
