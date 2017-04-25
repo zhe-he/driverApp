@@ -1,15 +1,17 @@
 const querystring = require('querystring');
 import "css/busDetail.scss";
 import Vue from "vue";
+import VueResource from "vue-resource";
 import errcode from "errcode";
 import commonTop from "common-top";
-import {callN} from "nativeA";
+import {getN, callN} from "nativeA";
 import {URL_GETINFO} from "device";
 import {GETVEL} from "inter";
 import loading from "loading";
 
+Vue.use(VueResource);
 window.addEventListener("DOMContentLoaded",()=>{
-    
+    const WIFI = getN('wifi');
     new Vue({
         el: "#busDetail",
         data: {
@@ -20,21 +22,24 @@ window.addEventListener("DOMContentLoaded",()=>{
             equ_mac: ''         // 设备mac
         },
         mounted(){
+            if (WIFI.wangfan != 1) {
+                callN("msg",{"content": errcode.device});
+                return false;
+            }
+
             this.isWaiting = true;
             this.getEqu().then(this.getBus).catch(e=>{
                 this.isWaiting = false;
                 console.log(e);
-                callN("msg",{"content":message.device});
+                callN("msg",{"content":errcode.m404});
             });
         },
         methods: {
             // 获取设备信息
             getEqu(){
-                return fetch(URL_GETINFO,{
-                    cache: 'no-cache'
-                })
-                    .then(response=>response.json())
-                    .then(data=>{
+                return this.$http.get(URL_GETINFO,{timeout: 10000})
+                    .then(message=>{
+                        let data = message.body;
                         this.equ_sn = data.deviceSN;
                         this.equ_mac = data.deviceMac;
                     });
@@ -61,11 +66,6 @@ window.addEventListener("DOMContentLoaded",()=>{
                         }else{
                             callN("msg",{"content":message.message});
                         }
-                    })
-                    .catch(e=>{
-                        this.isWaiting = false;
-                        console.log(e);
-                        callN("msg",{"content":errcode.m404});
                     });
             }
         },

@@ -54,7 +54,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             var _this=this,plate_sn='';
             if(NUMBER.isChecked==1){
                 if(NUMBER.number){
-                    fetch( `${GETREPORT}?number=${NUMBER.number}'`,{
+                    fetch( `${GETREPORT}?number=${NUMBER.number}`,{
                         cache:"no-cache"
                     })
                         .then(response=>response.json())
@@ -79,11 +79,8 @@ window.addEventListener("DOMContentLoaded",()=>{
                         })
                 }else{
                     if(_this.isWifi==1){
-                        this.$http.get(URL_GETINFO,{timeout:10000},{
-                            headers: {
-                                'Cache-Control': 'no-cache'
-                            }
-                        })
+                        // 经常获取设备sn 不清缓存
+                        this.$http.get(URL_GETINFO,{timeout:10000})
                             .then(data=>{
                                 _this.isWaiting=false;
                                 return data.body.deviceSN;

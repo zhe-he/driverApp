@@ -2,19 +2,21 @@ const querystring = require('querystring');
 
 import "css/bus.scss";
 import Vue from "vue";
+import VueResource from "vue-resource";
 import errcode from "errcode";
 import commonTop from "common-top";
 import loading from "loading";
-import {callN} from "nativeA";
+import {getN,callN} from "nativeA";
 import {URL_GETINFO,URL_USERS,URL_GPS} from "device";
 import {GETVEL} from "inter";
 
+Vue.use(VueResource);
 window.addEventListener("DOMContentLoaded",()=>{
     var map,CONVERTOR;
+    const WIFI = getN('wifi');
     new Vue({
         el: "#bus",
         data: {
-            serviceError: false,    // 设备wifi连接错误
             isWaiting: false,
             equ_sn: "",     // 设备sn
             equ_mac: "",    // 设备mac
@@ -23,11 +25,6 @@ window.addEventListener("DOMContentLoaded",()=>{
             gpsList: []     // 行驶轨迹             
         },
         watch: {
-            serviceError(val){
-                if (val) {
-                    callN("msg",{"content":errcode.device});
-                }
-            },
             gpsList: {
                 handler(val){
                     map.clearOverlays();
@@ -49,11 +46,17 @@ window.addEventListener("DOMContentLoaded",()=>{
             }
         },
         mounted(){
+
+            if (WIFI.wangfan != 1) {
+                callN("msg", {"content": errcode.device});
+                this.$nextTick(this.mapInit);
+                return false;
+            }
             this.isWaiting = true;
             this.getEqu().then(this.getBus).catch(e=>{
-                console.log(e);
                 this.isWaiting = false;
-                this.serviceError = true;
+                console.log(e);
+                callN("msg",{"content":errcode.m404});
             });
             this.getUserstats();
             this.$nextTick(()=>{
@@ -68,47 +71,47 @@ window.addEventListener("DOMContentLoaded",()=>{
         methods: {
             // 获取行驶轨迹 经纬度
             getGpsList(){
-                fetch(URL_GPS,{
-                    cache: "no-cache"
+                this.$http.get(URL_GPS,{timeout: 10000},{
+                    headers: {
+                        "cache-control": "no-cache"
+                    }
                 })
-                    .then(response=>response.json())
                     .then(message=>{
                         // 暂不支持多点
-                        if (!message.lat || !message.lon) {
+                        if (!message.body.lat || !message.body.lon) {
                             callN("msg",{"content":errcode.deviceGPS});
                         }else{
                             this.gpsList = [{
-                                lat: message.lat,
-                                lng: message.lon
+                                lat: message.body.lat,
+                                lng: message.body.lon
                             }];
                         }
                     })
                     .catch(e=>{
                         console.log(e);
-                        this.serviceError = true;
+                        callN("msg",{"content":errcode.deviceGPS+'.'});
                     });
             },
             // 获取当前连接用户
             getUserstats(){
-                fetch(URL_USERS,{
-                    cache: 'no-cache'
+                this.$http.get(URL_USERS,{timeout:10000},{
+                    headers: {
+                        "cache-control": "no-cache"
+                    }
                 })
-                    .then(response=>response.json())
-                    .then(data=>{
-                        this.connect_num = data.now;
+                    .then(message=>{
+                        this.connect_num = message.body.now;
                     })
                     .catch(e=>{
                         console.log(e);
-                        this.serviceError = true;
+                        callN("msg",{"content": errcode.deviceUser});
                     });
             },
             // 获取设备信息
             getEqu(){
-                return fetch(URL_GETINFO,{
-                    cache: 'no-cache'
-                })
-                    .then(response=>response.json())
-                    .then(data=>{
+                return this.$http.get(URL_GETINFO,{timeout:10000})
+                    .then(message=>{
+                        let data = message.body;
                         this.equ_sn = data.deviceSN;
                         this.equ_mac = data.deviceMac;
                     });
@@ -134,11 +137,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         }else{
                             callN("msg",{"content":message.message});
                         }
-                    }).catch(e=>{
-                        this.isWaiting = true;
-                        console.log(e);
-                        callN("msg",{"content":errcode.m404});
-                    });
+                    })
             },
             mapInit(){
                 map = new BMap.Map("car-map");    // 创建Map实例

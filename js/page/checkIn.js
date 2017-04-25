@@ -1,16 +1,20 @@
 const querystring = require('querystring');
 import "css/checkIn.scss";
 import Vue from "vue";
+import VueResource from "vue-resource";
 import errcode from "errcode";
 import commonTop from "common-top";
 import {getN,callN} from 'nativeA';
 import {dataFormat} from 'method';
-import {USERINFO,SIGNTOP,ADDSIGN} from 'inter';
+import {URL_GETINFO} from 'device';
+import {USERINFO,SIGNTOP,ADDSIGN,GETVEL} from 'inter';
 import loading from "loading";
 
+Vue.use(VueResource);
 Vue.filter('yearMonth',time=>dataFormat(time,'YYYY年MM月'));
 window.addEventListener("DOMContentLoaded",()=>{
     const BASEINFO = getN('getBase');
+    const WIFI = getN('wifi');
 
     new Vue({
         el: "#checkIn",
@@ -19,6 +23,9 @@ window.addEventListener("DOMContentLoaded",()=>{
             curTime: Date.now(),    // 当前选择时间
             checkInError: false,    // 签到失败
             isCheckIn: true,       // 当天是否签到
+            plate_num: '',          // 车牌号 
+            equ_sn: '',
+            equ_mac: '',
             checkList: []   // 当月签到集合
         },
         computed: {
@@ -40,6 +47,14 @@ window.addEventListener("DOMContentLoaded",()=>{
         mounted(){
             this.setCheckList();
             this.setCheckIn();
+
+            if (WIFI.wangfan == 1) {
+                this.getEqu().then(this.getBus).catch(e=>{
+                    console.log(e);
+                    callN("msg",{"content":errcode.m404});
+                });
+            }
+            
         },
         methods: {
             preMonth(){
@@ -112,6 +127,15 @@ window.addEventListener("DOMContentLoaded",()=>{
                 if(this.isCheckIn){
                     return ;
                 }
+                if (WIFI.wangfan !== 1) {
+                    callN("msg",{"content": errcode.checkinWiFi});
+                    return ;
+                }
+                if (!this.plate_num) {
+                    callN("msg",{"content": errcode.checkinNum});
+                    return ;
+                }
+
                 callN('autoCheckIn');
                 this.isWaiting = true;
                 fetch(ADDSIGN,{
@@ -122,6 +146,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     },
                     body: querystring.stringify({
                         uid: BASEINFO.uid,
+                        plate_num: this.plate_num,
                         type: 2
                     })
                 })
@@ -129,7 +154,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     .then(message=>{
                         this.isWaiting = false;
                         if (message.code==0) {
-                            callN("msg",{"content": errcode.manual});
+                            callN("msg",{"content": errcode.checkinManual});
                             this.checkInError = false;
                             this.isCheckIn = true;
                             let d = new Date();
@@ -148,7 +173,37 @@ window.addEventListener("DOMContentLoaded",()=>{
                         console.log(e);
                         callN("msg",{"content": errcode.m404});
                     });
-            }
+            },
+            // 获取车辆信息
+            getBus(){
+                return fetch(GETVEL,{
+                    method: "POST",
+                    mode: "cors",
+                    headers:{
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: querystring.stringify({
+                        equ_sn: this.equ_sn,
+                        equ_mac: this.equ_mac
+                    })
+                })
+                    .then(response=>response.json())
+                    .then(message=>{
+                        if (message.code===0) {
+                            this.plate_num = message.data.plate_num;
+                        }else{
+                            callN("msg",{"content":message.message});
+                        }
+                    });
+            },
+            getEqu(){
+                return this.$http.get(URL_GETINFO,{timeout:10000})
+                    .then(message=>{
+                        let data = message.body;
+                        this.equ_sn = data.deviceSN;
+                        this.equ_mac = data.deviceMac;
+                    });
+            },
         },
         components: {
             commonTop,
