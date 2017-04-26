@@ -135,6 +135,10 @@ return {
 
 1. 版本更新(update)     
 window.App.callNative("updateApp",Object)     
+Object {    
+    "callbackId": "updateApp",    
+    "url": "http://ihangmei.com" // 更新的URL地址    
+}   
         
 1. 用户注销     
 window.App.callNative("signOut",Object)   
