@@ -11,13 +11,7 @@
 <body>
     <div id="myRepairs">
         <loading v-if="isWaiting"></loading>
-        <header class="common-top">
-            <div>
-                <a class="goBack" href="javascript:;"></a>
-                <h2>我的报修</h2>
-                <span><a href="artificialRepair.html">人工报修</a></span>
-            </div>
-        </header>
+        <common-top :back-type="backType" title="我的报修" link="artificialRepair.html" linkTitle="人工报修"></common-top>
         <div class="content">
             <ul>
                 <li v-for="item in repairList">

@@ -9,6 +9,7 @@ import errcode from "errcode";
 import msg from "msg";
 import eventHub from 'eventHub';
 import loading from 'loading';
+import commonTop from "common-top";
 import {getN,callN} from "nativeA";
 import {MESLIST} from "inter";
 
@@ -63,7 +64,8 @@ window.addEventListener("DOMContentLoaded",()=>{
         },
         components: {
             msg,
-            loading
+            loading,
+            commonTop
         }
     });
 },false);

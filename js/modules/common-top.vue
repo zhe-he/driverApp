@@ -3,7 +3,7 @@
         <div>
             <a @click="goBack()" :class="backType>-1?'goBack':''" href="javascript:;"></a>
             <h1>{{title}}</h1>
-            <i></i>
+            <span v-if="link"><a :href="link">{{linkTitle}}</a></span>
         </div>
     </header>
 </template>
@@ -18,6 +18,12 @@
             backType: {
                 type: Number,
                 default: 0
+            },
+            link: {
+                type: String
+            },
+            linkTitle: {
+                type: String
             }
         },
         methods: {
@@ -28,6 +34,8 @@
                         break;
                     case 1:
                         // go app index-page
+                    case 2: 
+                        // go html bus-page
                     case 3: 
                         // go app my-page
                         callN("close",{type:this.backType})

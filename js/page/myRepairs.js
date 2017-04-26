@@ -1,6 +1,7 @@
 /**
  * Created by yangshuang on 2017/3/30.
  */
+const querystring = require('querystring');
 import "css/myRepairs.scss"
 
 import Vue from "vue";
@@ -11,9 +12,13 @@ import {callN} from "nativeA";
 import {REPLIST} from "inter";
 
 window.addEventListener("DOMContentLoaded",()=>{
+    const SEARCH = window.location.search.substr(1);
+    const PARAMS = querystring.parse(SEARCH);
+
     var fnObj = {
         "repairList":[],
-        "isWaiting":true
+        "isWaiting":true,
+        "backType": (PARAMS.type || 3)  // 返回到车辆 or 我的
     };
     new Vue({
         el: "#myRepairs",

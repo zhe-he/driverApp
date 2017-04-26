@@ -12,18 +12,12 @@
 <body>
     <div id="systemMsg">
         <loading v-if="isWaiting"></loading>
-        <header class="common-top">
-            <div>
-                <a class="goBack" href="javascript:;"></a>
-                <h1>系统消息</h1>
-                <!--<i>编辑</i>-->
-            </div>
-        </header>
+        <common-top :back-type="3" title="系统消息"></common-top>
 
         <div class="content">
             <ul>
                 <li v-for="item in messageList">
-                    <a :href="['messageContent.html?id='+item.id]">
+                    <a :href="'messageContent.html?type=0&id='+item.id">
                         <h3>
                             <i class="message"></i>
                             <p>{{item.title}}</p>

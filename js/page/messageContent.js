@@ -11,14 +11,17 @@ import loading from "loading";
 import {callN} from "nativeA";
 import {MESDET} from "inter";
 window.addEventListener("DOMContentLoaded",()=>{
+    const SEARCH = window.location.search.substr(1);
+    const PARAMS = querystring.parse(SEARCH);
+
     var fnObj = {
         "isWaiting":true,
         "getDetail":{
             "content":"",
             "ctime":"",
             "title":""
-        }
-
+        },
+        "backType": (PARAMS.type || 1)
     };
     new Vue({
         el: "#messageContent",
