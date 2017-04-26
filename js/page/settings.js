@@ -12,10 +12,12 @@ window.addEventListener("DOMContentLoaded",()=>{
         el: "#settings",
         data:{
             cache: "",
-            isCanUpdate: false
+            isCanUpdate: false,
+            updateUrl: ""
         },
         mounted(){
             this.isCanUpdate = true;
+            this.updateUrl = "http://ihangmei.com";
             this.cache = getN("getCache").size;
 
             eventHub.$on("msg-confirm",(content,type)=>{
@@ -25,7 +27,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         this.cache = "0Byte";
                         break;
                     case 2:
-                        callN('updateApp');
+                        callN('updateApp',{ "url": this.updateUrl });
                         break;
                     case 3:
                         callN('signOut');
@@ -41,6 +43,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     .then(response=>response.json())
                     .then(message=>{
                         console.log(message);
+                        // this.updateUrl = '';
                     })
                     .cache(e=>console.log(e));
             },
