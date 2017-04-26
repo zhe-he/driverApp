@@ -18,7 +18,7 @@ window.addEventListener("DOMContentLoaded",()=>{
     var fnObj = {
         "repairList":[],
         "isWaiting":true,
-        "backType": (PARAMS.type || 3)  // 返回到车辆 or 我的
+        "backType": (PARAMS.type || 3)-0  // 返回到车辆 or 我的
     };
     new Vue({
         el: "#myRepairs",

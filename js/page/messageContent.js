@@ -22,7 +22,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             "ctime":"",
             "title":""
         },
-        "backType": (PARAMS.type || 1)
+        "backType": (PARAMS.type || 1)-0
     };
     new Vue({
         el: "#messageContent",
