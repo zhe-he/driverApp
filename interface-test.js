@@ -99,6 +99,25 @@ app.use('/op2/uptime',function (req,res){
     },SLEEPTIME);
 });
 
+// 3.2.11 获取当前版本    
+app.use('/app-dms/driver/checkVersion',function (req,res){
+    var data = req.query || req.body;
+    var callback = req.query.callback;
+
+    var message = {
+        "code": 0,
+        "data": {
+            "code": "1.0.0",
+            "url": "",
+            "content": ""
+        }
+    };
+
+    res.setHeader('Access-Control-Allow-Origin','*');
+    setTimeout(()=>{
+        res.send(message);
+    },SLEEPTIME);
+});
 // 3.5.3 查询报修详情
 app.use('/app-dms/report/getReport',function (req,res){
     var data = req.query || req.body;

@@ -1,3 +1,10 @@
+/*
+ * 1. 获取当月签到的记录，判断用户今天是否能签到
+ * 1. 点击签到后，告知客户端走自动签到逻辑
+ * 1. 没有连接往返wifi无法签到
+ * 1. 签到所需车牌号通过设备接口sn->后台接口获取
+ */
+
 const querystring = require('querystring');
 import "css/checkIn.scss";
 import Vue from "vue";

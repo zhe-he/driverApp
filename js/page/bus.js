@@ -1,3 +1,11 @@
+/**
+ * 1. 检测是否处在往返wifi下，如果不是，弹窗提示
+ * 1. 获取设备sn，通过sn获取当前车牌号
+ * 1. 获取目前车内上网用户
+ * 1. 每分钟获取设备的经纬度，转换成百度坐标打点地图
+ */
+
+
 const querystring = require('querystring');
 
 import "css/bus.scss";
