@@ -103,7 +103,9 @@ window.addEventListener("DOMContentLoaded",()=>{
                                 })
                             })
                     }else{
-                        this.noCheck();
+                        callN('msg',{
+                            content: errcode.deviceCheck
+                        })
                     }
 
                 }
@@ -125,8 +127,13 @@ window.addEventListener("DOMContentLoaded",()=>{
                         return data.deviceSN;
                     })
             },
-            selfCheck (){
+            selfCheck(){
                 this.isWaiting=true;
+                if(this.isWifi==0){
+                    callN('msg',{content:errcode.deviceCheck});
+                    this.isWaiting=false;
+                    return
+                }
                 var date=new Date();
                 date=dataFormat(date,'YYYY-MM-dd hh:mm:ss');
                 this.getDetail.dtime=date;
@@ -222,7 +229,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             noCheck(){
                 this.getDetail.hasNumber=false;//置空
                 // this.getDetail.dtime=new Date().getTime();
-                callN('msg',{content: errcode.deviceCheck});
+                callN('msg',{content: errcode.deviceNoCheck});
             }
         },
         components: {
