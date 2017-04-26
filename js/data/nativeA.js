@@ -119,7 +119,7 @@ if (isTest) {
 
 
 function getN(flag){
-    !isTest && alert('调用方法'+flag);
+    // !isTest && alert('调用方法'+flag);
     if (isIos || isTest) {
         return window.App.getNativeParam(flag);
     }else{
@@ -131,7 +131,7 @@ function getN(flag){
 function callN(flag,param){
     param = param?param:{};
     param.callbackId = flag;
-    !isTest && alert('调用方法'+flag+',传递参数'+JSON.stringify(param));
+    // !isTest && alert('调用方法'+flag+',传递参数'+JSON.stringify(param));
     if(isIos || isTest){
         return window.App.callNative(flag,param);
     }else{
