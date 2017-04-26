@@ -24,14 +24,13 @@ window.addEventListener("DOMContentLoaded",()=>{
         el: "#myRepairs",
         data:fnObj,
         beforeCreate(){
-            var _this=this;
             fetch(REPLIST,{
                 cache:"no-cache"
             }).then(response=>response.json()).
             then(data=>{
                 this.isWaiting=false;
                 if(data.code==0){
-                    _this.repairList=data.data.list;
+                    this.repairList=data.data.list;
                 }else{
                     callN('msg',{
                         content:data.message
@@ -45,6 +44,9 @@ window.addEventListener("DOMContentLoaded",()=>{
                         content: errcode.m404
                     });
                 })
+        },
+        methods:{
+            
         },
         components: {
             commonTop,

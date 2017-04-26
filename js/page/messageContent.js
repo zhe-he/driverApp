@@ -8,14 +8,15 @@ import Vue from "vue";
 import errcode from "errcode";
 import commonTop from "common-top";
 import loading from "loading";
-import {callN} from "nativeA";
-import {MESDET} from "inter";
+import {getN,callN} from "nativeA";
+import {MESDET,MESEDIT} from "inter";
 window.addEventListener("DOMContentLoaded",()=>{
     const SEARCH = window.location.search.substr(1);
     const PARAMS = querystring.parse(SEARCH);
-
+    const BASEINFO = getN('getBase');
     var fnObj = {
         "isWaiting":true,
+        "id":'',
         "getDetail":{
             "content":"",
             "ctime":"",
@@ -29,8 +30,9 @@ window.addEventListener("DOMContentLoaded",()=>{
         mounted(){
             var search = window.location.search.substr(1);
             var theRequest = querystring.parse(search);
+            this.id=theRequest.id;
             console.log(theRequest);
-            fetch(`${MESDET}?id=${theRequest.id}`,{
+            fetch(`${MESDET}?id=${this.id}`,{
                 cache:"no-cache"
             })
                 .then(response=>response.json())
@@ -38,6 +40,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     this.isWaiting=false;
                     console.log(data);
                     if(data.code==0){
+                        this.editMess();
                         this.getDetail.content=data.data.content;
                         this.getDetail.ctime=data.data.ctime;
                         this.getDetail.title=data.data.title;
@@ -54,6 +57,35 @@ window.addEventListener("DOMContentLoaded",()=>{
                         content: errcode.m404
                     })
                 })
+        },
+        methods:{
+            editMess(){
+                var data={
+                    "id":this.id,
+                    "uid":BASEINFO.uid,
+                    "status":1
+                }
+                fetch(`${MESEDIT}?${querystring.stringify(data)}`,{
+                    cache:"no-cache"
+                })
+                    .then(response=>response.json())
+                    .then(data=>{
+                        console.log(data);
+                        if(data.code==0){
+                            console.log(data.message);
+                        }else{
+                            callN('msg',{
+                                content:data.message
+                            })
+                        }
+                    })
+                    .catch(e=>{
+                        console.log(e);
+                        callN('msg',{
+                            content: errcode.m404
+                        })
+                    })
+            }
         },
         components: {
             commonTop,

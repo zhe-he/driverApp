@@ -250,6 +250,20 @@ app.use('/app-dms/message/lists',function (req,res){
         res.send(message);
     },SLEEPTIME);
 });
+// 3.6.1 消息编辑
+app.use('/app-dms/message/edit',function (req,res){
+    var data = req.query || req.body;
+
+    var message = {
+        "code": 0,
+        "message":'ok'
+    }//成功;
+
+    res.setHeader('Access-Control-Allow-Origin','*');
+    setTimeout(()=>{
+        res.send(message);
+    },SLEEPTIME);
+});
 // 3.2.5 修改用户信息
 app.use('/app-dms/driver/editUserInfo',function (req,res){
     var data = req.query || req.body;

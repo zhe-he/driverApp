@@ -14,6 +14,7 @@ const SIGNTOP=BASEINFO.host+'/app-dms/sign/top';//获取签到记录
 const ADDSIGN=BASEINFO.host+'/app-dms/sign/add';//添加签到
 const COMPLIST=BASEINFO.host+'/app-crm/company/lists';//获取公司列表
 const EDITINFO=BASEINFO.host+'/app-dms/driver/editUserInfo';//完善个人信息
+const MESEDIT=BASEINFO.host+'/app-dms/message/edit';//编辑消息
 
 export {
     ADDREP,
@@ -26,6 +27,7 @@ export {
     SIGNTOP,
     ADDSIGN,
     COMPLIST,
-    EDITINFO
+    EDITINFO,
+    MESEDIT
 
 };
