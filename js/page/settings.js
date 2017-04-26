@@ -1,3 +1,8 @@
+/**
+ * 1. 获取最新版本信息，如有新版本，小红点提示
+ * 1. 更新、清缓存、注销 调用客户端方法
+ */
+
 import "css/settings.scss";
 import Vue from "vue";
 import errcode from "errcode";
