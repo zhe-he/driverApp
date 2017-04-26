@@ -21,9 +21,12 @@ body{
 			line-height: .62rem;
 			dt{
 				flex: 1;
+				white-space: nowrap;
 			}
 			dd{
 				flex:3;
+				white-space: nowrap;
+				@include eps;
 			}
 		}
 	}

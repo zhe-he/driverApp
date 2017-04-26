@@ -31,16 +31,15 @@ window.addEventListener("DOMContentLoaded",()=>{
             });
         },
         mounted(){
-            var _this=this;
             fetch(`${MESLIST}?uid=${BASEINFO.uid}`,{
                 cache:"no-cache"
             })
                 .then(response=>response.json())
                 .then(data=>{
-                    _this.isWaiting=false;
+                    this.isWaiting=false;
                     console.log(data);
                     if(data.code==0){
-                        _this.messageList=data.data.list;
+                        this.messageList=data.data.list;
                     }else{
                         callN('msg',{
                             content:data.message
@@ -59,6 +58,9 @@ window.addEventListener("DOMContentLoaded",()=>{
         methods: {
             test(){
                 eventHub.$emit('msg-show','此处为测试弹窗');
+            },
+            goBack(){
+                callN("close",{type:3})
             }
         },
         components: {
