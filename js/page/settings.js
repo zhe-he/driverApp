@@ -5,19 +5,22 @@ import commonTop from "common-top";
 import {getN,callN} from "nativeA";
 import msg from "msg";
 import eventHub from "eventHub";
+import {GETVER} from "inter";
 
 window.addEventListener("DOMContentLoaded",()=>{
+    var reVersion = /(iOSApp|AndroidApp)\/wangfanDriver\s+(\d+\.\d+\.\d+)/i.exec(window.navigator.userAgent);
 
     new Vue({
         el: "#settings",
         data:{
             cache: "",
             isCanUpdate: false,
-            updateUrl: ""
+            updateUrl: "",
+            checkUpdate: false, 
+            version: (reVersion?reVersion[2]:"1.0.0") 
         },
         mounted(){
-            this.isCanUpdate = true;
-            this.updateUrl = "http://ihangmei.com";
+            this.getCanupdata();
             this.cache = getN("getCache").size;
 
             eventHub.$on("msg-confirm",(content,type)=>{
@@ -37,20 +40,34 @@ window.addEventListener("DOMContentLoaded",()=>{
         },
         methods: {
             getCanupdata(){
-                fetch('',{
+                this.checkUpdate = true;
+                fetch(GETVER,{
                     cache: "no-cache"
                 })
                     .then(response=>response.json())
                     .then(message=>{
-                        console.log(message);
-                        // this.updateUrl = '';
+                        this.checkUpdate = false;
+                        if (message.code==0) {
+                            if(this.version < message.data.code){
+                                this.updateUrl = message.data.url;
+                                this.isCanUpdate = true;
+                            }
+                        }
                     })
-                    .cache(e=>console.log(e));
+                    .catch(e=>{
+                        console.log(e);
+                        this.checkUpdate = false;
+                    });
             },
             cleanCache(){
                 eventHub.$emit("msg-show","确定清除本地缓存？",1);
             },
             updateApp(){
+                if (this.checkUpdate) {
+                    callN("msg",{"content": errcode.updateCheck});
+                    return false;
+                }
+
                 // 当前为最新版本
                 if (this.isCanUpdate) {
                     eventHub.$emit("msg-show","检测到新版本，是否确定更新？",2);

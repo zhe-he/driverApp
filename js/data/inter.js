@@ -15,6 +15,7 @@ const ADDSIGN=BASEINFO.host+'/app-dms/sign/add';//添加签到
 const COMPLIST=BASEINFO.host+'/app-crm/company/lists';//获取公司列表
 const EDITINFO=BASEINFO.host+'/app-dms/driver/editUserInfo';//完善个人信息
 const MESEDIT=BASEINFO.host+'/app-dms/message/edit';//编辑消息
+const GETVER=BASEINFO.host+'/app-dms/driver/checkVersion'; //获取当前版本
 
 export {
     ADDREP,
@@ -28,6 +29,6 @@ export {
     ADDSIGN,
     COMPLIST,
     EDITINFO,
-    MESEDIT
-
+    MESEDIT,
+    GETVER
 };
