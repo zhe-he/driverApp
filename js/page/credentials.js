@@ -56,6 +56,9 @@ window.addEventListener("DOMContentLoaded",()=>{
                 return this.$http.get(URL_GETINFO,{timeout: 10000})
                     .then(message=>{
                         let data = message.body;
+                        if (data && typeof data == 'string') {
+                            data = JSON.parse(data);
+                        }
                         this.equ_sn = data.deviceSN;
                         this.equ_mac = data.deviceMac;
                     });

@@ -47,7 +47,7 @@ app.use('/api/getinfo',function (req,res){
     };
     res.setHeader('Access-Control-Allow-Origin','*');
     setTimeout(()=>{
-        res.send(message);
+        res.send(JSON.stringify(message));
     },SLEEPTIME);
 });
 
@@ -64,7 +64,7 @@ app.use('/op2/health',function (req,res){
 
     res.setHeader('Access-Control-Allow-Origin','*');
     setTimeout(()=>{
-        res.send(message);
+        res.send(JSON.stringify(message));
     },SLEEPTIME);
 });
 
@@ -75,7 +75,7 @@ app.use('/op2/userstats',function (req,res){
 
     res.setHeader('Access-Control-Allow-Origin','*');
     setTimeout(()=>{
-        res.send(message);
+        res.send(JSON.stringify(message));
     },SLEEPTIME);
 });
 // 获取设备gps信息
@@ -85,7 +85,7 @@ app.use('/op2/gpsinfo',function (req,res){
     
     res.setHeader('Access-Control-Allow-Origin','*');
     setTimeout(()=>{
-        res.send(message);
+        res.send(JSON.stringify(message));
     },SLEEPTIME);
 });
 // 获取设备开机时间     
@@ -95,7 +95,7 @@ app.use('/op2/uptime',function (req,res){
     
     res.setHeader('Access-Control-Allow-Origin','*');
     setTimeout(()=>{
-        res.send(time);
+        res.send(JSON.stringify(message));
     },SLEEPTIME);
 });
 

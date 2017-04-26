@@ -85,13 +85,17 @@ window.addEventListener("DOMContentLoaded",()=>{
                     }
                 })
                     .then(message=>{
+                        let data = message.body;
+                        if (data && typeof data == 'string') {
+                            data = JSON.parse(data);
+                        }
                         // 暂不支持多点
-                        if (!message.body.lat || !message.body.lon) {
+                        if (!data.lat || !data.lon) {
                             callN("msg",{"content":errcode.deviceGPS});
                         }else{
                             this.gpsList = [{
-                                lat: message.body.lat,
-                                lng: message.body.lon
+                                lat: data.lat,
+                                lng: data.lon
                             }];
                         }
                     })
@@ -108,7 +112,11 @@ window.addEventListener("DOMContentLoaded",()=>{
                     }
                 })
                     .then(message=>{
-                        this.connect_num = message.body.now;
+                        let data = message.body;
+                        if (data && typeof data == 'string') {
+                            data = JSON.parse(data);
+                        }
+                        this.connect_num = data.now;
                     })
                     .catch(e=>{
                         console.log(e);
@@ -120,6 +128,9 @@ window.addEventListener("DOMContentLoaded",()=>{
                 return this.$http.get(URL_GETINFO,{timeout:10000})
                     .then(message=>{
                         let data = message.body;
+                        if (data && typeof data == 'string') {
+                            data = JSON.parse(data);
+                        }
                         this.equ_sn = data.deviceSN;
                         this.equ_mac = data.deviceMac;
                     });

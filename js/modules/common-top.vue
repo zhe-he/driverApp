@@ -3,7 +3,7 @@
         <div>
             <a @click="goBack()" :class="backType>-1?'goBack':''" href="javascript:;"></a>
             <h1>{{title}}</h1>
-            <span v-if="link"><a :href="link">{{linkTitle}}</a></span>
+            <a v-if="link" :href="link">{{linkTitle}}</a>
         </div>
     </header>
 </template>

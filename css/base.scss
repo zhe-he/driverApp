@@ -248,35 +248,27 @@ $shadowColorBtn: rgba(31,120,255,0.4);
 			display: block;
 			height: 0.88rem;
 			line-height: 0.88rem;
-			text-align: center;
 			color: #fff;
 		}
-		a{
+		> a:nth-of-type(1){
 			width: 0.8rem;
 			&.goBack{
 				@include bg2('back',0.24rem,0.44rem);
 				background-position: center center;
 			}
-			color:#fff;
 		}
 		h1{
-			width: 5.46rem; 
+			width: 5.04rem; 
 			font-size: 0.36rem;
-			text-indent: 0.22rem;
+			text-indent: 0.43rem;
 			font-weight: normal;
+			text-align: center;
 		}
-		h2{
-			@extend h1;
-			width:5.1rem;
-			font-size: 0.4rem;
-		}
-		i{
-			width: 1.24rem;
-			font-size: 0.32rem;
-		}
-		span{
+		> a:nth-of-type(2){
+			padding-right: 0.3rem;
 			width: 1.36rem;
-			font-size: 0.34rem;
+			font-size: 0.32rem;
+			text-align: right;
 		}
 	}
 }

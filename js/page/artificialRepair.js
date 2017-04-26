@@ -41,9 +41,11 @@ window.addEventListener("DOMContentLoaded",()=>{
                         'Cache-Control': 'no-cache'
                     }
                 })
-                    .then(response=>response.json())
-                    .then(data=>{
-                        console.log(data);
+                    .then(message=>{
+                        let data = message.body;
+                        if (data && typeof data == 'string') {
+                            data = JSON.parse(data);
+                        }
                         return data.deviceSN;
                     })
                     .then((deviceSN)=>{

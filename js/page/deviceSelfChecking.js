@@ -116,6 +116,9 @@ window.addEventListener("DOMContentLoaded",()=>{
                 return this.$http.get(URL_GETINFO,{timeout:10000})
                     .then(message=>{
                         let data=message.body;
+                        if (data && typeof data == 'string') {
+                            data = JSON.parse(data);
+                        }
                         this.getDetail.plate_sn=data.deviceSN;
                         this.getDetail.plate_num='';
                         this.getDetail.dtime=Date.now();
@@ -199,13 +202,16 @@ window.addEventListener("DOMContentLoaded",()=>{
                         'Cache-Control': 'no-cache'
                     }
                 })
-                    .then(response=>response.json())
-                    .then(data=>{
-                    this.isWaiting=false;
-                    this.getDetail.compass=data.Compass=="OK"?'1':'0';
-                    this.getDetail.wifi=data.WIFI=="OK"?'1':'0';
-                    this.getDetail.portal=data.Portal=="OK"?'1':'0';
-                })
+                    .then(message=>{
+                        let data = message.body;
+                        if (data && typeof data == 'string') {
+                            data = JSON.parse(data);
+                        }
+                        this.isWaiting=false;
+                        this.getDetail.compass=data.Compass=="OK"?'1':'0';
+                        this.getDetail.wifi=data.WIFI=="OK"?'1':'0';
+                        this.getDetail.portal=data.Portal=="OK"?'1':'0';
+                    })
                     .catch(e=>{
                         console.log(e);
                         callN('msg',{
