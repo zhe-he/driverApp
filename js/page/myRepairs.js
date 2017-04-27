@@ -45,9 +45,6 @@ window.addEventListener("DOMContentLoaded",()=>{
                     });
                 })
         },
-        methods:{
-            
-        },
         components: {
             commonTop,
             loading

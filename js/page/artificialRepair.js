@@ -35,6 +35,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             var date=new Date();
             const WIFI = getN('wifi');
             if(WIFI.wangfan==1){
+                this.isWaiting=true;
                 //获取设备sn
                 this.$http.get(URL_GETINFO,{timeout:10000},{
                     headers: {
@@ -55,6 +56,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         })
                             .then(response=>response.json())
                             .then(data=>{
+                                this.isWaiting=false;
                                 console.log(data);
                                 if(data.code==0){
                                     this.getDetail.plate_num=data.data.plate_num;
@@ -68,6 +70,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     })
                     .catch(e=>{
                         console.log(e);
+                        this.isWaiting=false;
                         callN('msg',{
                             content: errcode.m404
                         })

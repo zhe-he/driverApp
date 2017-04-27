@@ -18,6 +18,8 @@ window.addEventListener("DOMContentLoaded",()=>{
     const BASEINFO = getN('getBase');
     const NUMBER = getN('getAutoCheckNumber');
     const WIFI = getN('wifi');
+    // WIFI.wangfan=0;
+    // NUMBER.number='111';
     var fnObj = {
         "isWifi":WIFI.wangfan,
         "isWaiting":false,
@@ -29,7 +31,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             "compass":"",
             "wifi":"",
             "status":"",
-            "hasNumber":true
+            "hasNumber":false
         }
 
     };
@@ -52,6 +54,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         },
         mounted(){
             // var _this=this,plate_sn='';
+            // NUMBER.isChecked=1;
             if(NUMBER.isChecked==1){
                 if(NUMBER.number){
                     this.isWaiting=true;
@@ -63,6 +66,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                             this.isWaiting=false;
                             var result=data.data;
                             if(data.code==0){
+                                this.getDetail.hasNumber=true;
                                 this.getDetail=result.content;
                                 this.getDetail.status=result.status;
                             }else{
@@ -81,11 +85,14 @@ window.addEventListener("DOMContentLoaded",()=>{
                 }else{
                     if(this.isWifi==1){
                         this.isWaiting=true;
-
+                        this.getDetail.hasNumber=true;
                         this.getSN()
                             .then((plate_sn)=>{
                                 this.isWaiting=false;
+                                // NUMBER.plate_sn='6010306';
                                 if(plate_sn==NUMBER.plate_sn){
+                                    // NUMBER.ctime=1492600167612;
+                                    this.isWaiting=true;
                                     this.getDetail.dtime=NUMBER.ctime;
                                     this.getDetail.plate_sn=plate_sn;
                                     this.getPlateNum();
@@ -93,6 +100,8 @@ window.addEventListener("DOMContentLoaded",()=>{
                                     this.getDetail.portal=1;
                                     this.getDetail.compass=1;
                                 }else{
+                                    this.getDetail.plate_sn='';
+                                    this.getDetail.dtime='';
                                     this.noCheck();
                                 }
                             }).catch(e=>{
@@ -103,6 +112,8 @@ window.addEventListener("DOMContentLoaded",()=>{
                                 })
                             })
                     }else{
+
+                        this.getDetail.hasNumber=false;
                         callN('msg',{
                             content: errcode.deviceCheck
                         })
@@ -129,11 +140,12 @@ window.addEventListener("DOMContentLoaded",()=>{
             },
             selfCheck(){
                 this.isWaiting=true;
-                if(this.isWifi==0){
+                //html页面有判断
+                /*if(this.isWifi==0){
                     callN('msg',{content:errcode.deviceCheck});
                     this.isWaiting=false;
                     return
-                }
+                }*/
                 var date=new Date();
                 date=dataFormat(date,'YYYY-MM-dd hh:mm:ss');
                 this.getDetail.dtime=date;
@@ -142,7 +154,8 @@ window.addEventListener("DOMContentLoaded",()=>{
                     this.getPlateNum();
                     this.getHealth();
                 }).then(()=>{
-                        if(!this.getDetail.plate_num || !this.getDetail.plate_sn || this.getDetail.wifi!=1 || this.getDetail.portal!=1 || this.getDetail.compass!=1){
+                    this.getDetail.hasNumber=true;
+                    if(!this.getDetail.plate_num || !this.getDetail.plate_sn || this.getDetail.wifi!=1 || this.getDetail.portal!=1 || this.getDetail.compass!=1){
                             var content={
                                 "type" : 2,
                                     "ctime":this.getDetail.dtime,
@@ -152,7 +165,6 @@ window.addEventListener("DOMContentLoaded",()=>{
                                     "portal":this.getDetail.portal,
                                     "compass":this.getDetail.compass
                             };
-
                             fetch(ADDREP,{
                                 method:"POST",
                                 mode: "cors",
@@ -188,6 +200,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                 })
                     .then(response=>response.json())
                     .then(data=>{
+                        this.isWaiting=false;
                         if(data.code==0){
                             this.getDetail.plate_num=data.data.plate_num;
                         }else{
@@ -197,6 +210,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         }
                     }).catch(e=>{
                         console.log(e);
+                        this.isWaiting=false;
                         callN('msg',{
                             content: errcode.m404
                         })
@@ -214,7 +228,8 @@ window.addEventListener("DOMContentLoaded",()=>{
                         if (data && typeof data == 'string') {
                             data = JSON.parse(data);
                         }
-                        this.isWaiting=false;
+                        // callN('msg',{content:data});
+                        // this.isWaiting=false;
                         this.getDetail.compass=data.Compass=="OK"?'1':'0';
                         this.getDetail.wifi=data.WIFI=="OK"?'1':'0';
                         this.getDetail.portal=data.Portal=="OK"?'1':'0';
