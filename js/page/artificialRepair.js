@@ -42,14 +42,11 @@ window.addEventListener("DOMContentLoaded",()=>{
                         'Cache-Control': 'no-cache'
                     }
                 })
-                    .then(message=>{
-                        let data = message.body;
-                        if (data && typeof data == 'string') {
-                            data = JSON.parse(data);
-                        }
+                    .then(response=>response.json())
+                    .then(data=>{
                         return data.deviceSN;
                     })
-                    .then((deviceSN)=>{
+                    .then(deviceSN=>{
                         //根据sn获取车牌号
                         return fetch(`${GETVEL}?equ_sn='${deviceSN}'`,{
                             cache:"no-cache"

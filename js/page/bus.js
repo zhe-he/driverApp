@@ -66,6 +66,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                 console.log(e);
                 callN("msg",{"content":errcode.m404});
             });
+            
             this.getUserstats();
             this.$nextTick(()=>{
                 this.mapInit();
@@ -73,6 +74,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                 this.getGpsList();
                 setInterval(()=>{
                     this.getGpsList();
+                    this.getUserstats();
                 },1000*60);
             });
         },
@@ -84,11 +86,8 @@ window.addEventListener("DOMContentLoaded",()=>{
                         "cache-control": "no-cache"
                     }
                 })
-                    .then(message=>{
-                        let data = message.body;
-                        if (data && typeof data == 'string') {
-                            data = JSON.parse(data);
-                        }
+                    .then(response=>response.json())
+                    .then(data=>{
                         // 暂不支持多点
                         if (!data.lat || !data.lon) {
                             callN("msg",{"content":errcode.deviceGPS});
@@ -111,26 +110,22 @@ window.addEventListener("DOMContentLoaded",()=>{
                         "cache-control": "no-cache"
                     }
                 })
-                    .then(message=>{
-                        let data = message.body;
-                        if (data && typeof data == 'string') {
-                            data = JSON.parse(data);
-                        }
+                    .then(response=>response.json())
+                    .then(data=>{
                         this.connect_num = data.now;
                     })
                     .catch(e=>{
                         console.log(e);
-                        callN("msg",{"content": errcode.deviceUser});
+                        if (this.connect_num==" ") {
+                            callN("msg",{"content": errcode.deviceUser});
+                        }
                     });
             },
             // 获取设备信息
             getEqu(){
                 return this.$http.get(URL_GETINFO,{timeout:10000})
-                    .then(message=>{
-                        let data = message.body;
-                        if (data && typeof data == 'string') {
-                            data = JSON.parse(data);
-                        }
+                    .then(response=>response.json())
+                    .then(data=>{
                         this.equ_sn = data.deviceSN;
                         this.equ_mac = data.deviceMac;
                     });

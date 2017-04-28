@@ -127,11 +127,8 @@ window.addEventListener("DOMContentLoaded",()=>{
         methods:{
             getSN(){
                 return this.$http.get(URL_GETINFO,{timeout:10000})
-                    .then(message=>{
-                        let data=message.body;
-                        if (data && typeof data == 'string') {
-                            data = JSON.parse(data);
-                        }
+                    .then(response=>response.json())
+                    .then(data=>{
                         this.getDetail.plate_sn=data.deviceSN;
                         this.getDetail.plate_num='';
                         this.getDetail.dtime=Date.now();
@@ -223,11 +220,8 @@ window.addEventListener("DOMContentLoaded",()=>{
                         'Cache-Control': 'no-cache'
                     }
                 })
-                    .then(message=>{
-                        let data = message.body;
-                        if (data && typeof data == 'string') {
-                            data = JSON.parse(data);
-                        }
+                    .then(response=>response.json())
+                    .then(data=>{
                         // callN('msg',{content:data});
                         // this.isWaiting=false;
                         this.getDetail.compass=data.Compass=="OK"?'1':'0';

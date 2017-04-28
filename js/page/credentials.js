@@ -54,11 +54,8 @@ window.addEventListener("DOMContentLoaded",()=>{
             // 获取设备信息
             getEqu(){
                 return this.$http.get(URL_GETINFO,{timeout: 10000})
-                    .then(message=>{
-                        let data = message.body;
-                        if (data && typeof data == 'string') {
-                            data = JSON.parse(data);
-                        }
+                    .then(response=>response.json())
+                    .then(data=>{
                         this.equ_sn = data.deviceSN;
                         this.equ_mac = data.deviceMac;
                     });
