@@ -39,7 +39,7 @@ app.use('/api/getinfo',function (req,res){
         "jarSize":4005079,
         "jarModified":1492421659000,
         "deviceMac":"00:F8:F9:0A:11:F9",
-        "deviceSN":"6024694/6015014",
+        "deviceSN":"6024694", // 6015014
         "deviceType":"GD200",
         "deviceIP":"112.96.252.21",
         "userMac":"9c:4e:36:13:f9:14", //  78:4f:43:53:99:2c

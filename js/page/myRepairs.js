@@ -21,11 +21,15 @@ window.addEventListener("DOMContentLoaded",()=>{
         "isWaiting":true,
         "backType": (PARAMS.type || 3)-0  // 返回到车辆 or 我的
     };
+    var params = {
+        uid: BASEINFO.uid,
+        access_token: BASEINFO.access_token
+    }
     new Vue({
         el: "#myRepairs",
         data:fnObj,
         beforeCreate(){
-            fetch(`${BASEINFO.host}${REPLIST}?access_token=${BASEINFO.access_token}`,{
+            fetch(`${BASEINFO.host}${REPLIST}?${querystring.stringify(params)}`,{
                 cache:"no-cache"
             }).then(response=>response.json()).
             then(data=>{
