@@ -170,11 +170,11 @@ window.addEventListener("DOMContentLoaded",()=>{
                                     "Content-Type": "application/x-www-form-urlencoded"
                                 },
                                 body: querystring.stringify({
-                                    userid: BASEINFO.uid,
+                                    uid: BASEINFO.uid,
                                     access_token: BASEINFO.access_token,
                                     plate_num: this.getDetail.plate_num,
                                     content: JSON.stringify(content),
-                                    type: 2
+                                    type: 1
                                 })
                             })
                                 .then(response=>response.json())
