@@ -8,10 +8,10 @@ import errcode from "errcode";
 import VueResource from "vue-resource";
 import commonTop from "common-top";
 import {getN,callN} from "nativeA";
-import msg from "msg";
+// import msg from "msg";
 import loading from "loading";
 import {dataFormat} from "method";
-import eventHub from "eventHub";
+// import eventHub from "eventHub";
 import {URL_GETINFO,URL_HEALTH} from "device";
 import {GETREPORT,ADDREP,GETVEL} from "inter";
 Vue.use(VueResource);
@@ -43,14 +43,14 @@ window.addEventListener("DOMContentLoaded",()=>{
     new Vue({
         el: "#deviceSelf",
         data:fnObj,
-        created(){
+        /*created(){
             eventHub.$on('msg-confirm',msg=>{
                 console.log('确定',msg);
             });
             eventHub.$on('msg-cancel',msg=>{
                 console.log('取消',msg);
             });
-        },
+        },*/
         mounted(){
             // var _this=this,plate_sn='';
             // NUMBER.isChecked=1;
@@ -274,7 +274,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         },
         components: {
             commonTop,
-            msg,
+            // msg,
             loading
         }
     });
