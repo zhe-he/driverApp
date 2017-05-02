@@ -59,7 +59,6 @@ window.addEventListener("DOMContentLoaded",()=>{
                             .then(response=>response.json())
                             .then(data=>{
                                 this.isWaiting=false;
-                                console.log(data);
                                 if(data.code==0){
                                     this.getDetail.plate_num=data.data.plate_num;
                                 }else{
@@ -100,7 +99,6 @@ window.addEventListener("DOMContentLoaded",()=>{
                         {
                             this.input_flag=2;//.err
                             this.isSubmit=false;
-                            //console.log("输入的车牌号格式不正确");
                         }else{
                             if(this.getDetail.plate_num!='' &&  this.input_flag!=2 && this.getDetail.content!=''){
                                 this.isSubmit=true;
@@ -138,7 +136,6 @@ window.addEventListener("DOMContentLoaded",()=>{
                     this.isWaiting=false;
                     return;
                 }
-                console.log(this.getDetail);
                 fetch(`${BASEINFO.host}${ADDREP}`,{
                     method:"POST",
                     mode: "cors",
