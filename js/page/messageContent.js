@@ -27,7 +27,6 @@ window.addEventListener("DOMContentLoaded",()=>{
     };
     Vue.filter('timeFormat',str=>{
         str=str == undefined?'':dataFormat((str*1000),'YYYY-MM-dd hh:mm:ss');
-
         return str;
     });
     new Vue({
@@ -75,9 +74,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                 })
                     .then(response=>response.json())
                     .then(data=>{
-                        if(data.code==0){
-                            console.log(data.message);
-                        }else{
+                        if(data.code!=0){
                             callN('msg',{
                                 content:data.message
                             })
