@@ -27,9 +27,16 @@ window.addEventListener("DOMContentLoaded",()=>{
         access_token: BASEINFO.access_token
     };
     Vue.filter('timeFormat',str=>{
-        console.log(str);
-        var data=str*1000;
-        str=dataFormat(data,'YYYY-MM-dd hh:mm:ss');
+        // console.log(str);
+        str=str == undefined?'':dataFormat((str*1000),'YYYY-MM-dd hh:mm:ss');
+
+        return str;
+    });
+    Vue.filter('repairNum',str=>{
+        //console.log(str);
+        str=str == undefined?'':str.substring(0,14);
+        console.log(str)
+
         return str;
     });
     new Vue({
