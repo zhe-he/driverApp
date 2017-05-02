@@ -25,7 +25,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         "isWifi":WIFI.wangfan,
         "isWaiting":false,
         "getDetail":{
-            "dtime":"",
+            "ctime":"",
             "plate_num":"",
             "plate_sn":"",
             "protal":"",
@@ -37,9 +37,8 @@ window.addEventListener("DOMContentLoaded",()=>{
 
     };
     Vue.filter('ymdhms',str=>{
-        console.log(str);
-        var data=Number(str);
-        str=dataFormat(data,'YYYY-MM-dd hh:mm:ss');
+        // console.log(str);
+        str=str == undefined?'':dataFormat((str*1000),'YYYY-MM-dd hh:mm:ss');
         return str;
     });
     new Vue({
@@ -56,6 +55,43 @@ window.addEventListener("DOMContentLoaded",()=>{
         mounted(){
             // var _this=this,plate_sn='';
             // NUMBER.isChecked=1;
+            ////////////////////////////////////////////////////////////////////////////
+
+           /* var content_1={
+                "type":2,
+                "ctime":1493696554278,
+                "plate_num":"湘LA4211",
+                "plate_sn":'604694',
+                "wifi":1,
+                "portal":0,
+                "compass":0
+            };
+            fetch(`${BASEINFO.host}${ADDREP}`,{
+                method:"POST",
+                mode: "cors",
+                headers:{
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: querystring.stringify({
+                    uid: 1,
+                    access_token: BASEINFO.access_token,
+                    plate_num: '湘LA4211',
+                    content: JSON.stringify(content_1),
+                    type: 2
+                })
+            })
+                .then(response=>response.json())
+                .then(data=>{
+                    console.log(data);
+                    // console.log('send');
+
+                })
+                .catch(e=>console.log(e));*/
+            //////////////////////////////////////////////////////////////
+
+
+
+
             if(NUMBER.isChecked==1){
                 if(NUMBER.number){
                     this.isWaiting=true;
@@ -64,12 +100,15 @@ window.addEventListener("DOMContentLoaded",()=>{
                     })
                         .then(response=>response.json())
                         .then(data=>{
+                            console.log(data);
                             this.isWaiting=false;
                             var result=data.data;
                             if(data.code==0){
+                                this.getDetail= JSON.parse( result.content );
+                                this.getDetail.ctime=result.ctime;
                                 this.getDetail.hasNumber=true;
-                                this.getDetail=result.content;
-                                this.getDetail.status=result.status;
+                                // this.getDetail.status=result.status;
+                                this.getDetail.status=2;
                             }else{
                                 callN('msg',{
                                     content:data.message
@@ -94,7 +133,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                                 if(plate_sn==NUMBER.plate_sn){
                                     // NUMBER.ctime=1492600167612;
                                     this.isWaiting=true;
-                                    this.getDetail.dtime=NUMBER.ctime;
+                                    this.getDetail.ctime=NUMBER.ctime;
                                     this.getDetail.plate_sn=plate_sn;
                                     this.getPlateNum();
                                     this.getDetail.wifi=1;
@@ -102,7 +141,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                                     this.getDetail.compass=1;
                                 }else{
                                     this.getDetail.plate_sn='';
-                                    this.getDetail.dtime='';
+                                    this.getDetail.ctime='';
                                     this.noCheck();
                                 }
                             }).catch(e=>{
@@ -132,7 +171,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     .then(data=>{
                         this.getDetail.plate_sn=data.deviceSN;
                         this.getDetail.plate_num='';
-                        this.getDetail.dtime=Date.now();
+                        this.getDetail.ctime=Date.now();
                         return data.deviceSN;
                     })
             },
@@ -146,17 +185,17 @@ window.addEventListener("DOMContentLoaded",()=>{
                 }*/
                 var date=new Date();
                 date=dataFormat(date,'YYYY-MM-dd hh:mm:ss');
-                this.getDetail.dtime=date;
+                this.getDetail.ctime=date;
                 //获取设备sn
-                this.getSN().then(()=>{
-                    this.getPlateNum();
-                    this.getHealth();
-                }).then(()=>{
+                this.getSN().then(this.getPlateNum)
+                    .then(this.getHealth)
+                    .then(()=>{
                     this.getDetail.hasNumber=true;
+                    console.log(this.getDetail.plate_num,this.getDetail.plate_sn,this.getDetail.wifi,this.getDetail.portal,this.getDetail.compass);
                     if(!this.getDetail.plate_num || !this.getDetail.plate_sn || this.getDetail.wifi!=1 || this.getDetail.portal!=1 || this.getDetail.compass!=1){
                             var content={
                                 "type" : 2,
-                                    "ctime":this.getDetail.dtime,
+                                    "ctime":this.getDetail.ctime,
                                     "plate_num":this.getDetail.plate_num,
                                     "plate_sn":this.getDetail.plate_sn,
                                     "wifi":this.getDetail.wifi,
@@ -174,7 +213,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                                     access_token: BASEINFO.access_token,
                                     plate_num: this.getDetail.plate_num,
                                     content: JSON.stringify(content),
-                                    type: 1
+                                    type: 2
                                 })
                             })
                                 .then(response=>response.json())
@@ -199,12 +238,12 @@ window.addEventListener("DOMContentLoaded",()=>{
             },
             getPlateNum(){
                 //根据sn获取车牌号
-                fetch(`${BASEINFO.host}${GETVEL}?equ_sn=${this.getDetail.plate_sn}&access_token={BASEINFO.access_token}`,{
+                return fetch(`${BASEINFO.host}${GETVEL}?equ_sn=${this.getDetail.plate_sn}&access_token=${BASEINFO.access_token}`,{
                     cache:"no-cache"
                 })
                     .then(response=>response.json())
                     .then(data=>{
-                        this.isWaiting=false;
+                        // this.isWaiting=false;
                         if(data.code==0){
                             this.getDetail.plate_num=data.data.plate_num;
                         }else{
@@ -212,17 +251,11 @@ window.addEventListener("DOMContentLoaded",()=>{
                                 content:data.message
                             })
                         }
-                    }).catch(e=>{
-                        console.log(e);
-                        this.isWaiting=false;
-                        callN('msg',{
-                            content: errcode.m404
-                        })
-                    });
+                    })
             },
             getHealth(){
                 //获取设备检测详情
-                this.$http.get(URL_HEALTH,{timeout:10000},{
+                return this.$http.get(URL_HEALTH,{timeout:10000},{
                     headers: {
                         'Cache-Control': 'no-cache'
                     }
@@ -231,20 +264,15 @@ window.addEventListener("DOMContentLoaded",()=>{
                     .then(data=>{
                         // callN('msg',{content:data});
                         // this.isWaiting=false;
+                        this.isWaiting=false;
                         this.getDetail.compass=data.Compass=="OK"?'1':'0';
                         this.getDetail.wifi=data.WIFI=="OK"?'1':'0';
                         this.getDetail.portal=data.Portal=="OK"?'1':'0';
                     })
-                    .catch(e=>{
-                        console.log(e);
-                        callN('msg',{
-                            content: errcode.device
-                        })
-                    });
             },
             noCheck(){
                 this.getDetail.hasNumber=false;//置空
-                // this.getDetail.dtime=new Date().getTime();
+                // this.getDetail.ctime=new Date().getTime();
                 callN('msg',{content: errcode.deviceNoCheck});
             }
         },
