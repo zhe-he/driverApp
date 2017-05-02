@@ -32,7 +32,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             var theRequest = querystring.parse(search);
             this.id=theRequest.id;
             console.log(theRequest);
-            fetch(`${MESDET.host}${MESDET}?id=${this.id}&access_token=${BASEINFO.access_token}`,{
+            fetch(`${BASEINFO.host}${MESDET}?id=${this.id}&access_token=${BASEINFO.access_token}`,{
                 cache:"no-cache"
             })
                 .then(response=>response.json())

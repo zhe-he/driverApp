@@ -87,7 +87,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                 this.checkList = arr;
             },
             setCheckIn(){
-                fetch(`${USERINFO}?uid=${BASEINFO.uid}`,{
+                fetch(`${BASEINFO.host}${USERINFO}?uid=${BASEINFO.uid}&access_token=${BASEINFO.access_token}`,{
                     cache: "no-cache"
                 })
                     .then(response=>response.json())
@@ -108,10 +108,11 @@ window.addEventListener("DOMContentLoaded",()=>{
 
                 let json = {
                     "uid": BASEINFO.uid,
-                    "month": dataFormat(this.curTime,'YYYY-MM')
+                    "month": dataFormat(this.curTime,'YYYY-MM'),
+                    "access_token": BASEINFO.access_token
                 };
                 this.isWaiting = true;
-                const url = `${SIGNTOP}?${querystring.stringify(json)}`;
+                const url = `${BASEINFO.host}${SIGNTOP}?${querystring.stringify(json)}`;
                 fetch(url,{
                     "cache": "no-cache"
                 })
@@ -145,7 +146,7 @@ window.addEventListener("DOMContentLoaded",()=>{
 
                 callN('autoCheckIn');
                 this.isWaiting = true;
-                fetch(ADDSIGN,{
+                fetch(`${BASEINFO.host}${ADDSIGN}`,{
                     method: "POST",
                     mode: "cors",
                     headers:{
@@ -154,7 +155,8 @@ window.addEventListener("DOMContentLoaded",()=>{
                     body: querystring.stringify({
                         uid: BASEINFO.uid,
                         plate_num: this.plate_num,
-                        type: 2
+                        type: 2,
+                        access_token: BASEINFO.access_token
                     })
                 })
                     .then(response=>response.json())
@@ -183,7 +185,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             },
             // 获取车辆信息
             getBus(){
-                return fetch(GETVEL,{
+                return fetch(`${BASEINFO.host}${GETVEL}`,{
                     method: "POST",
                     mode: "cors",
                     headers:{
@@ -191,7 +193,8 @@ window.addEventListener("DOMContentLoaded",()=>{
                     },
                     body: querystring.stringify({
                         equ_sn: this.equ_sn,
-                        equ_mac: this.equ_mac
+                        equ_mac: this.equ_mac,
+                        access_token: BASEINFO.access_token
                     })
                 })
                     .then(response=>response.json())
