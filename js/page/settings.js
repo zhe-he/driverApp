@@ -13,6 +13,7 @@ import eventHub from "eventHub";
 import {GETVER} from "inter";
 
 window.addEventListener("DOMContentLoaded",()=>{
+    const BASEINFO = require("getBase");
     var reVersion = /(iOSApp|AndroidApp)\/wangfanDriver\s+(\d+\.\d+\.\d+)/i.exec(window.navigator.userAgent);
 
     new Vue({
@@ -46,7 +47,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         methods: {
             getCanupdata(){
                 this.checkUpdate = true;
-                fetch(GETVER,{
+                fetch(`${BASEINFO.host}${GETVER}?access_token=${BASEINFO.access_token}`,{
                     cache: "no-cache"
                 })
                     .then(response=>response.json())

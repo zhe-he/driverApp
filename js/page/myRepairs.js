@@ -2,7 +2,7 @@
  * Created by yangshuang on 2017/3/30.
  */
 const querystring = require('querystring');
-import "css/myRepairs.scss"
+import "css/myRepairs.scss";
 
 import Vue from "vue";
 import errcode from "errcode";
@@ -14,6 +14,7 @@ import {REPLIST} from "inter";
 window.addEventListener("DOMContentLoaded",()=>{
     const SEARCH = window.location.search.substr(1);
     const PARAMS = querystring.parse(SEARCH);
+    const BASEINFO = require('getBase');
 
     var fnObj = {
         "repairList":[],
@@ -24,7 +25,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         el: "#myRepairs",
         data:fnObj,
         beforeCreate(){
-            fetch(REPLIST,{
+            fetch(`${BASEINFO.host}${REPLIST}?access_token=${BASEINFO.access_token}`,{
                 cache:"no-cache"
             }).then(response=>response.json()).
             then(data=>{

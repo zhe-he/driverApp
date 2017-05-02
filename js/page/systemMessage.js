@@ -32,7 +32,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             });
         },
         mounted(){
-            fetch(`${MESLIST}?uid=${BASEINFO.uid}`,{
+            fetch(`${BASEINFO.host}${MESLIST}?uid=${BASEINFO.uid}&access_token=${BASEINFO.access_token}`,{
                 cache:"no-cache"
             })
                 .then(response=>response.json())
