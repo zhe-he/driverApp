@@ -8,13 +8,13 @@ import Vue from "vue";
 import errcode from "errcode";
 import commonTop from "common-top";
 import loading from "loading";
-import {callN} from "nativeA";
+import {getN,callN} from "nativeA";
 import {REPLIST} from "inter";
 
 window.addEventListener("DOMContentLoaded",()=>{
     const SEARCH = window.location.search.substr(1);
     const PARAMS = querystring.parse(SEARCH);
-    const BASEINFO = require('getBase');
+    const BASEINFO = getN('getBase');
 
     var fnObj = {
         "repairList":[],

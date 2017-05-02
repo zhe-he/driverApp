@@ -82,7 +82,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         methods: {
             // 获取行驶轨迹 经纬度
             getGpsList(){
-                this.$http.get(`${BASEINFO.host}${URL_GPS}}`,{timeout: 10000},{
+                this.$http.get(URL_GPS,{timeout: 10000},{
                     headers: {
                         "cache-control": "no-cache"
                     }
@@ -106,7 +106,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             },
             // 获取当前连接用户
             getUserstats(){
-                this.$http.get(`${BASEINFO.host}${URL_USERS}`,{timeout:10000},{
+                this.$http.get(URL_USERS,{timeout:10000},{
                     headers: {
                         "cache-control": "no-cache"
                     }
@@ -124,7 +124,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             },
             // 获取设备信息
             getEqu(){
-                return this.$http.get(`${BASEINFO.host}${URL_GETINFO}`,{timeout:10000})
+                return this.$http.get(URL_GETINFO,{timeout:10000})
                     .then(response=>response.json())
                     .then(data=>{
                         this.equ_sn = data.deviceSN;

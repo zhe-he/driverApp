@@ -13,7 +13,7 @@ import eventHub from "eventHub";
 import {GETVER} from "inter";
 
 window.addEventListener("DOMContentLoaded",()=>{
-    const BASEINFO = require("getBase");
+    const BASEINFO = getN("getBase");
     var reVersion = /(iOSApp|AndroidApp)\/wangfanDriver\s+(\d+\.\d+\.\d+)/i.exec(window.navigator.userAgent);
 
     new Vue({

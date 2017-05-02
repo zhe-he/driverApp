@@ -31,14 +31,14 @@ window.addEventListener("DOMContentLoaded",()=>{
     };
     new Vue({
         el: "#artificialRepair",
-        data:fnObj,
+        data: fnObj,
         mounted(){
             var date=new Date();
             const WIFI = getN('wifi');
             if(WIFI.wangfan==1){
                 this.isWaiting=true;
                 //获取设备sn
-                this.$http.get(`${BASEINFO.host}${URL_GETINFO}`,{timeout:10000},{
+                this.$http.get(URL_GETINFO,{timeout:10000},{
                     headers: {
                         'Cache-Control': 'no-cache'
                     }
@@ -53,7 +53,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                             "equ_sn": deviceSN,
                             "access_token": BASEINFO.access_token
                         };
-                        return fetch(`${GETVEL}?${querystring.stringify(json)}'`,{
+                        return fetch(`${BASEINFO.host}${GETVEL}?${querystring.stringify(json)}`,{
                             cache:"no-cache"
                         })
                             .then(response=>response.json())
@@ -82,46 +82,52 @@ window.addEventListener("DOMContentLoaded",()=>{
             function trimStr(str) {return str.replace(/(^\s*)/g,"");}
             date=dataFormat(date,'YYYY-MM-dd hh:mm:ss');
             fnObj.getDetail.ctime=date;
-            var input=document.getElementById('plate_num');
-            input.addEventListener('input',()=>{
-                this.input_flag=1;//.write
-            });
-            input.addEventListener('blur',()=>{
-                if(!this.getDetail.plate_num){
-                    this.input_flag='';//.write
-                }
-            });
-            input.addEventListener('change',()=>{
-                if(this.getDetail.plate_num){
-                    var re=/^[\u4e00-\u9fa5]{1}[A-Z]{1}[A-Z_0-9]{5}$/;
-                    if(this.getDetail.plate_num.search(re)==-1)
-                    {
-                        this.input_flag=2;//.err
-                        this.isSubmit=false;
-                        //console.log("输入的车牌号格式不正确");
-                    }else{
-                        if(this.getDetail.plate_num!='' &&  this.input_flag!=2 && this.getDetail.content!=''){
-                            this.isSubmit=true;
-                        }
+            
+            this.$nextTick(()=>{
+                var input=document.getElementById('plate_num');
+                input.addEventListener('input',()=>{
+                    this.input_flag=1;//.write
+                });
+                input.addEventListener('blur',()=>{
+                    if(!this.getDetail.plate_num){
+                        this.input_flag='';//.write
                     }
+                });
+                input.addEventListener('change',()=>{
+                    if(this.getDetail.plate_num){
+                        var re=/^[\u4e00-\u9fa5]{1}[A-Z]{1}[A-Z_0-9]{5}$/;
+                        if(this.getDetail.plate_num.search(re)==-1)
+                        {
+                            this.input_flag=2;//.err
+                            this.isSubmit=false;
+                            //console.log("输入的车牌号格式不正确");
+                        }else{
+                            if(this.getDetail.plate_num!='' &&  this.input_flag!=2 && this.getDetail.content!=''){
+                                this.isSubmit=true;
+                            }
+                        }
 
-                }else{
-                    this.isSubmit=false;
-                }
+                    }else{
+                        this.isSubmit=false;
+                    }
+                });
+                var faultDesc=document.getElementById('faultDesc');
+                faultDesc.addEventListener('input',()=>{
+                    this.getDetail.content=trimStr(this.getDetail.content)
+                    if(this.getDetail.content.length>50){
+                        this.getDetail.content=this.getDetail.content.substring(0,50);
+                    }
+                    this.len=this.getDetail.content.length;
+                    if(this.getDetail.plate_num!='' &&  this.input_flag!=2 && this.getDetail.content!=''){
+                        this.isSubmit=true;
+                    }else{
+                        this.isSubmit=false;
+                    }
+                });
+
             });
-            var faultDesc=document.getElementById('faultDesc');
-            faultDesc.addEventListener('input',()=>{
-                this.getDetail.content=trimStr(this.getDetail.content)
-                if(this.getDetail.content.length>50){
-                    this.getDetail.content=this.getDetail.content.substring(0,50);
-                }
-                this.len=this.getDetail.content.length;
-                if(this.getDetail.plate_num!='' &&  this.input_flag!=2 && this.getDetail.content!=''){
-                    this.isSubmit=true;
-                }else{
-                    this.isSubmit=false;
-                }
-            });
+
+            
 
 
         },

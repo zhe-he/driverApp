@@ -38,7 +38,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         methods: {
             // 获取设备信息
             getEqu(){
-                return this.$http.get(`${BASEINFO.host}${URL_GETINFO}`,{timeout: 10000})
+                return this.$http.get(URL_GETINFO,{timeout: 10000})
                     .then(response=>response.json())
                     .then(data=>{
                         this.equ_sn = data.deviceSN;
