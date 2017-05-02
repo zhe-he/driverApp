@@ -90,12 +90,20 @@ window.addEventListener("DOMContentLoaded",()=>{
                     .then(response=>response.json())
                     .then(data=>{
                         // 暂不支持多点
-                        if (!data.lat || !data.lon) {
+                        
+                        let lat = data.lat;
+                        let lng = data.lon;
+                        // 某些设备经纬度包含中文字母前缀/后缀
+                        if (lat && lng) {
+                            lat = (lat+'').replace(/[a-zA-Z\u4E00-\u9FA5\uFE30-\uFFA0]+/g,'');
+                            lng = (lng+'').replace(/[a-zA-Z\u4E00-\u9FA5\uFE30-\uFFA0]+/g,'');
+                        }
+                        if (!lat || lat=='0' || !lng || lng=='0') {
                             callN("msg",{"content":errcode.deviceGPS});
                         }else{
                             this.gpsList = [{
-                                lat: data.lat,
-                                lng: data.lon
+                                lat: lat,
+                                lng: lng
                             }];
                         }
                     })

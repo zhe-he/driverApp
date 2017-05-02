@@ -74,7 +74,12 @@ module.exports = {
 		new ExtractTextPlugin('css/[name].css'),
 		new CopyWebpackPlugin([
 			{from: 'images/tmp/**/*'}
-		])
+		]),
+		new webpack.DefinePlugin({
+			'process.env': {
+				NODE_ENV: '"production"'
+			}
+		})
 	].concat(entryHtmls),
 	module: {
 		rules: [
