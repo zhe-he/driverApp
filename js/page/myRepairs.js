@@ -10,6 +10,7 @@ import commonTop from "common-top";
 import loading from "loading";
 import {getN,callN} from "nativeA";
 import {REPLIST} from "inter";
+import {dataFormat} from "method";
 
 window.addEventListener("DOMContentLoaded",()=>{
     const SEARCH = window.location.search.substr(1);
@@ -24,7 +25,13 @@ window.addEventListener("DOMContentLoaded",()=>{
     var params = {
         uid: BASEINFO.uid,
         access_token: BASEINFO.access_token
-    }
+    };
+    Vue.filter('timeFormat',str=>{
+        console.log(str);
+        var data=str*1000;
+        str=dataFormat(data,'YYYY-MM-dd hh:mm:ss');
+        return str;
+    });
     new Vue({
         el: "#myRepairs",
         data:fnObj,

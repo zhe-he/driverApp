@@ -23,7 +23,7 @@ window.addEventListener("DOMContentLoaded",()=>{
     };
     Vue.filter('timeFormat',str=>{
         console.log(str);
-        var data=Number(str);
+        var data=str*1000;
         str=dataFormat(data,'YYYY-MM-dd hh:mm:ss');
         return str;
     });
