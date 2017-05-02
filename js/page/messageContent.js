@@ -32,7 +32,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             var theRequest = querystring.parse(search);
             this.id=theRequest.id;
             console.log(theRequest);
-            fetch(`${MESDET}?id=${this.id}`,{
+            fetch(`${BASEINFO.host}${MESDET}?id=${this.id}&access_token=${BASEINFO.access_token}`,{
                 cache:"no-cache"
             })
                 .then(response=>response.json())
@@ -63,9 +63,10 @@ window.addEventListener("DOMContentLoaded",()=>{
                 var data={
                     "id":this.id,
                     "uid":BASEINFO.uid,
-                    "status":1
+                    "status":1,
+                    "access_token": BASEINFO.access_token
                 }
-                fetch(`${MESEDIT}?${querystring.stringify(data)}`,{
+                fetch(`${BASEINFO.host}${MESEDIT}?${querystring.stringify(data)}`,{
                     cache:"no-cache"
                 })
                     .then(response=>response.json())

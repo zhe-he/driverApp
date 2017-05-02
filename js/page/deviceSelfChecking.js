@@ -1,6 +1,7 @@
 /**
  * Created by yangshuang on 2017/3/31.
  */
+const querystring = require('querystring');
 import "css/deviceSelfChecking.scss";
 import Vue from "vue";
 import errcode from "errcode";
@@ -58,7 +59,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             if(NUMBER.isChecked==1){
                 if(NUMBER.number){
                     this.isWaiting=true;
-                    fetch( `${GETREPORT}?number=${NUMBER.number}`,{
+                    fetch( `${BASEINFO.host}${GETREPORT}?number=${NUMBER.number}&access_token=${BASEINFO.access_token}`,{
                         cache:"no-cache"
                     })
                         .then(response=>response.json())
@@ -162,13 +163,19 @@ window.addEventListener("DOMContentLoaded",()=>{
                                     "portal":this.getDetail.portal,
                                     "compass":this.getDetail.compass
                             };
-                            fetch(ADDREP,{
+                            fetch(`${BASEINFO.host}${ADDREP}`,{
                                 method:"POST",
                                 mode: "cors",
                                 headers:{
                                     "Content-Type": "application/x-www-form-urlencoded"
                                 },
-                                body: `userid=${BASEINFO.userid}&plate_num=${this.getDetail.plate_num}&content=${JSON.stringify(content)}&type=2`
+                                body: querystring.stringify({
+                                    userid: BASEINFO.uid,
+                                    access_token: BASEINFO.access_token,
+                                    plate_num: this.getDetail.plate_num,
+                                    content: JSON.stringify(content),
+                                    type: 2
+                                })
                             })
                                 .then(response=>response.json())
                                 .then(data=>{
@@ -192,7 +199,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             },
             getPlateNum(){
                 //根据sn获取车牌号
-                fetch(`${GETVEL}?equ_sn='${this.getDetail.plate_sn}'`,{
+                fetch(`${BASEINFO.host}${GETVEL}?equ_sn=${this.getDetail.plate_sn}&access_token={BASEINFO.access_token}`,{
                     cache:"no-cache"
                 })
                     .then(response=>response.json())

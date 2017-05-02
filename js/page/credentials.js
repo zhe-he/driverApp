@@ -62,7 +62,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             },
             // 获取车辆信息
             getBus(){
-                return fetch(GETVEL,{
+                return fetch(`${BASEINFO.host}${GETVEL}`,{
                     method: "POST",
                     mode: "cors",
                     headers:{
@@ -70,7 +70,8 @@ window.addEventListener("DOMContentLoaded",()=>{
                     },
                     body: querystring.stringify({
                         equ_sn: this.equ_sn,
-                        equ_mac: this.equ_mac
+                        equ_mac: this.equ_mac,
+                        access_token: BASEINFO.access_token
                     })
                 })
                     .then(response=>response.json())
@@ -87,7 +88,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             // 查询用户信息
             getUser(){
                 this.isWaiting = true;
-                fetch(`${USERINFO}?uid=${BASEINFO.uid}`,{
+                fetch(`${BASEINFO.host}${USERINFO}?uid=${BASEINFO.uid}&access_token=${BASEINFO.access_token}`,{
                     cache: "no-cache"   
                 })
                     .then(response=>response.json())
@@ -127,14 +128,15 @@ window.addEventListener("DOMContentLoaded",()=>{
             getCmp(){
                 if (this.cmp_name.length>=3) {
                     this.cmp_list_switch = true;
-                    fetch(COMPLIST,{
+                    fetch(`${BASEINFO.host}${COMPLIST}`,{
                         method: "POST",
                         mode: "cors",
                         headers:{
                             "Content-Type": "application/x-www-form-urlencoded"
                         },
                         body: querystring.stringify({
-                            cmp_name: this.cmp_name
+                            cmp_name: this.cmp_name,
+                            access_token: BASEINFO.access_token
                         })
                     })
                         .then(response=>response.json())
@@ -215,13 +217,14 @@ window.addEventListener("DOMContentLoaded",()=>{
                         return false;
                     }
                     this.isWaiting = true;
-                    fetch(EDITINFO,{
+                    fetch(`${BASEINFO.host}EDITINFO`,{
                         method: "POST",
                         mode: "cors",
                         headers:{
                             "Content-Type": "application/x-www-form-urlencoded"
                         },
                         body: querystring.stringify({
+                            access_token: BASEINFO.access_token,
                             uid: BASEINFO.uid,
                             cid: this.cid,
                             name: this.name,
