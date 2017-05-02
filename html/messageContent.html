@@ -14,7 +14,8 @@
         <common-top :back-type="backType" title="系统消息"></common-top>
         <nav class="messageContent">
             <h2>{{getDetail.title}}</h2>
-            <h3><span>{{getDetail.ctime}}</span></h3>
+            <h3><span>{{getDetail.ctime | timeFormat}}</span></h3>
+
             <p>{{getDetail.content}}</p>
         </nav>
     </div>

@@ -23,7 +23,7 @@
                             <p>{{item.title}}</p>
                             <u><b :class="[item.status==0?'new':'']"></b></u>
                         </h3>
-                        <p><span>{{item.ctime}}</span></p>
+                        <p><span>{{item.ctime | timeFormat}}</span></p>
                     </a>
                 </li>
             </ul>

@@ -9,6 +9,7 @@ import errcode from "errcode";
 import msg from "msg";
 import eventHub from 'eventHub';
 import loading from 'loading';
+import {dataFormat} from "method";
 import commonTop from "common-top";
 import {getN,callN} from "nativeA";
 import {MESLIST} from "inter";
@@ -20,6 +21,12 @@ window.addEventListener("DOMContentLoaded",()=>{
         "messageList":[],
 
     };
+    Vue.filter('timeFormat',str=>{
+        console.log(str);
+        var data=Number(str);
+        str=dataFormat(data,'YYYY-MM-dd hh:mm:ss');
+        return str;
+    });
     new Vue({
         el: "#systemMsg",
         data:fnObj,

@@ -41,7 +41,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         var data=Number(str);
         str=dataFormat(data,'YYYY-MM-dd hh:mm:ss');
         return str;
-    })
+    });
     new Vue({
         el: "#deviceSelf",
         data:fnObj,
