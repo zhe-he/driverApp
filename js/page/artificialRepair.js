@@ -146,7 +146,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         "Content-Type": "application/x-www-form-urlencoded"
                     },
                     body: querystring.stringify({
-                        userid:BASEINFO.uid,
+                        uid:BASEINFO.uid,
                         plate_num:this.getDetail.plate_num,
                         content:this.getDetail.content,
                         type:2,
@@ -157,8 +157,11 @@ window.addEventListener("DOMContentLoaded",()=>{
                     .then(data=>{
                         this.isWaiting=false;
                         if(data.code==0){
-                            console.log(data);
-                            window.location.href='myRepairs.html';
+                            callN('msg',{content:errcode.repair});
+                            setTimeout(()=>{
+                                this.content = '';
+                                window.location.href='myRepairs.html';
+                            },1000);
                         }else{
                             callN('msg',{
                                 content:data.message
