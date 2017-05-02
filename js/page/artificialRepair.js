@@ -79,7 +79,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     });
             }
             //去首空格
-            function trimStr(str) {return str.replace(/(^\s*)/g,"");}
+            function trimStr(str) {return str.replace(/^\s+/g,"");}
             date=dataFormat(date,'YYYY-MM-dd hh:mm:ss');
             fnObj.getDetail.ctime=date;
             
@@ -113,7 +113,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                 });
                 var faultDesc=document.getElementById('faultDesc');
                 faultDesc.addEventListener('input',()=>{
-                    this.getDetail.content=trimStr(this.getDetail.content)
+                    this.getDetail.content=trimStr(this.getDetail.content);
                     if(this.getDetail.content.length>50){
                         this.getDetail.content=this.getDetail.content.substring(0,50);
                     }
@@ -148,7 +148,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     body: querystring.stringify({
                         uid:BASEINFO.uid,
                         plate_num:this.getDetail.plate_num,
-                        content:this.getDetail.content,
+                        content:this.getDetail.content.trim(),
                         type:2,
                         access_token:BASEINFO.access_token
                     })

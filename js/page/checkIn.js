@@ -93,9 +93,8 @@ window.addEventListener("DOMContentLoaded",()=>{
                     .then(response=>response.json())
                     .then(message=>{
                         if (message.code==0) {
-
                             if (message.data.last_sign_time && 
-                                dataFormat(message.data.last_sign_time,'YYYY-MM-DD') == dataFormat(Date.now(),'YYYY-MM-DD')) {
+                                dataFormat(message.data.last_sign_time*1000,'YYYY-MM-DD') == dataFormat(Date.now(),'YYYY-MM-DD')) {
                                 this.isCheckIn = true;
                             }else{
                                 this.isCheckIn = false;
@@ -166,12 +165,15 @@ window.addEventListener("DOMContentLoaded",()=>{
                             callN("msg",{"content": errcode.checkinManual});
                             this.checkInError = false;
                             this.isCheckIn = true;
-                            let d = new Date();
 
-                            this.checkList[d.getDate()-1] = {
-                                data: dataFormat(d.getTime(),'YYYY-MM-DD'),
-                                type: 2
+                            if (dataFormat(this.curTime,'YYYY-MM') == dataFormat(Date.now(),'YYYY-MM')) {
+                                let d = new Date();
+                                this.checkList[d.getDate()-1] = {
+                                    data: dataFormat(d.getTime(),'YYYY-MM-DD'),
+                                    type: 2
+                                }
                             }
+
                         }else{
                             callN("msg",{"content":message.message});
                             this.checkInError = true;

@@ -99,7 +99,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                                 this.isWaiting = false;
 
                                 this.cmp_name = data.cmp_name;
-                                this.cid = data.cmp_id;
+                                this.cid = data.cid;
                                 this.name = data.name;
                                 this.mobile = data.mobile+'';
                                 this.license = data.license;
@@ -126,7 +126,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             },
             // 获取公司列表
             getCmp(){
-                if (this.cmp_name.length>=3) {
+                if (this.cmp_name.length>=2) {
                     this.cmp_list_switch = true;
                     fetch(`${BASEINFO.host}${COMPLIST}`,{
                         method: "POST",
@@ -170,7 +170,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             setCmp(list){
                 this.cmp_list_switch = false;
                 this.cmp_name = list.cmp_name;
-                this.cid = list.id;
+                this.cid = list.cid;
             },
             alertMsg(status,msg){
                 this.credentials_status = status;
@@ -217,7 +217,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         return false;
                     }
                     this.isWaiting = true;
-                    fetch(`${BASEINFO.host}EDITINFO`,{
+                    fetch(`${BASEINFO.host}${EDITINFO}`,{
                         method: "POST",
                         mode: "cors",
                         headers:{
@@ -230,6 +230,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                             name: this.name,
                             license: this.license,
                             license_photo: this.license_photo,
+                            mobile: this.mobile,
                             type: 1
                         })
                     })
