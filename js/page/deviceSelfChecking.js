@@ -37,7 +37,6 @@ window.addEventListener("DOMContentLoaded",()=>{
 
     };
     Vue.filter('ymdhms',str=>{
-        // console.log(str);
         str=str == undefined?'':dataFormat((str*1000),'YYYY-MM-dd hh:mm:ss');
         return str;
     });
@@ -100,15 +99,13 @@ window.addEventListener("DOMContentLoaded",()=>{
                     })
                         .then(response=>response.json())
                         .then(data=>{
-                            console.log(data);
                             this.isWaiting=false;
                             var result=data.data;
                             if(data.code==0){
                                 this.getDetail= JSON.parse( result.content );
                                 this.getDetail.ctime=result.ctime;
                                 this.getDetail.hasNumber=true;
-                                // this.getDetail.status=result.status;
-                                this.getDetail.status=2;
+                                this.getDetail.status=result.status;
                             }else{
                                 callN('msg',{
                                     content:data.message
@@ -188,10 +185,12 @@ window.addEventListener("DOMContentLoaded",()=>{
                 this.getDetail.ctime=date;
                 //获取设备sn
                 this.getSN().then(this.getPlateNum)
-                    .then(this.getHealth)
+                    .then(()=>{
+                        this.isWaiting=true;
+                        return this.getHealth();
+                    })
                     .then(()=>{
                     this.getDetail.hasNumber=true;
-                    console.log(this.getDetail.plate_num,this.getDetail.plate_sn,this.getDetail.wifi,this.getDetail.portal,this.getDetail.compass);
                     if(!this.getDetail.plate_num || !this.getDetail.plate_sn || this.getDetail.wifi!=1 || this.getDetail.portal!=1 || this.getDetail.compass!=1){
                             var content={
                                 "type" : 2,
@@ -218,8 +217,6 @@ window.addEventListener("DOMContentLoaded",()=>{
                             })
                                 .then(response=>response.json())
                                 .then(data=>{
-                                    console.log(data);
-                                    // console.log('send');
                                     var param=data.data;
                                     callN('sendCheckNumber',param);
                                 })
@@ -243,7 +240,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                 })
                     .then(response=>response.json())
                     .then(data=>{
-                        // this.isWaiting=false;
+                        this.isWaiting=false;
                         if(data.code==0){
                             this.getDetail.plate_num=data.data.plate_num;
                         }else{
@@ -263,7 +260,6 @@ window.addEventListener("DOMContentLoaded",()=>{
                     .then(response=>response.json())
                     .then(data=>{
                         // callN('msg',{content:data});
-                        // this.isWaiting=false;
                         this.isWaiting=false;
                         this.getDetail.compass=data.Compass=="OK"?'1':'0';
                         this.getDetail.wifi=data.WIFI=="OK"?'1':'0';

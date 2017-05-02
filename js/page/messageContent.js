@@ -26,7 +26,6 @@ window.addEventListener("DOMContentLoaded",()=>{
         "backType": (PARAMS.type || 1)-0
     };
     Vue.filter('timeFormat',str=>{
-        console.log(str);
         str=str == undefined?'':dataFormat((str*1000),'YYYY-MM-dd hh:mm:ss');
 
         return str;
@@ -38,14 +37,12 @@ window.addEventListener("DOMContentLoaded",()=>{
             var search = window.location.search.substr(1);
             var theRequest = querystring.parse(search);
             this.id=theRequest.id;
-            console.log(theRequest);
             fetch(`${BASEINFO.host}${MESDET}?id=${this.id}&access_token=${BASEINFO.access_token}`,{
                 cache:"no-cache"
             })
                 .then(response=>response.json())
                 .then(data=>{
                     this.isWaiting=false;
-                    console.log(data);
                     if(data.code==0){
                         this.editMess();
                         this.getDetail.content=data.data.content;
@@ -78,7 +75,6 @@ window.addEventListener("DOMContentLoaded",()=>{
                 })
                     .then(response=>response.json())
                     .then(data=>{
-                        console.log(data);
                         if(data.code==0){
                             console.log(data.message);
                         }else{

@@ -22,7 +22,6 @@ window.addEventListener("DOMContentLoaded",()=>{
 
     };
     Vue.filter('timeFormat',str=>{
-        console.log(str);
         str=str == undefined?'':dataFormat((str*1000),'YYYY-MM-dd hh:mm:ss');
         return str;
     });
@@ -44,7 +43,6 @@ window.addEventListener("DOMContentLoaded",()=>{
                 .then(response=>response.json())
                 .then(data=>{
                     this.isWaiting=false;
-                    console.log(data);
                     if(data.code==0){
                         this.messageList=data.data.list;
                     }else{
