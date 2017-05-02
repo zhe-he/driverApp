@@ -132,7 +132,7 @@ app.use('/app-dms/report/getReport',function (req,res){
             "plate_num": "辽C·L8765",
             "content": {
                 "type" : 1,
-                "dtime":"1492600167612",//检测时间
+                "dtime": Date.now()/1000|0,//检测时间
                 "plate_num":"辽C·L8765",//车牌号
                 "plate_sn":"HMAPA01160700537",//设备SN
                 "wifi":0,//wifi链接 0-异常 1-正常
@@ -321,7 +321,7 @@ app.use('/app-dms/driver/getUserInfo',function (req,res){
             "audit_reason": 1,
             "audit_status": 1,
             "last_sign_type": LAST_SIGN_TYPE,
-            "last_sign_time": LAST_SIGN_TIME,
+            "last_sign_time": LAST_SIGN_TIME/1000|0,
             "status": t
         }
     };
