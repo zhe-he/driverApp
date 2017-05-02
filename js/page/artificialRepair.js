@@ -1,7 +1,8 @@
 /**
  * Created by yangshuang on 2017/3/30.
  */
-import "css/artificialRepair.scss"
+const querystring=require('querystring');
+import "css/artificialRepair.scss";
 import Vue from "vue";
 import errcode from "errcode";
 import VueResource from "vue-resource";
@@ -37,7 +38,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             if(WIFI.wangfan==1){
                 this.isWaiting=true;
                 //获取设备sn
-                this.$http.get(URL_GETINFO,{timeout:10000},{
+                this.$http.get(`${BASEINFO.host}${URL_GETINFO}`,{timeout:10000},{
                     headers: {
                         'Cache-Control': 'no-cache'
                     }
@@ -48,7 +49,11 @@ window.addEventListener("DOMContentLoaded",()=>{
                     })
                     .then(deviceSN=>{
                         //根据sn获取车牌号
-                        return fetch(`${GETVEL}?equ_sn='${deviceSN}'`,{
+                        let json = {
+                            "equ_sn": deviceSN,
+                            "access_token": BASEINFO.access_token
+                        };
+                        return fetch(`${GETVEL}?${querystring.stringify(json)}'`,{
                             cache:"no-cache"
                         })
                             .then(response=>response.json())
@@ -128,13 +133,19 @@ window.addEventListener("DOMContentLoaded",()=>{
                     return;
                 }
                 console.log(this.getDetail);
-                fetch(ADDREP,{
+                fetch(`${BASEINFO.host}${ADDREP}`,{
                     method:"POST",
                     mode: "cors",
                     headers:{
                         "Content-Type": "application/x-www-form-urlencoded"
                     },
-                    body: `userid=${BASEINFO.userid}&plate_num=${this.getDetail.plate_num}&content=${this.getDetail.content}&type=2`
+                    body: querystring.stringify({
+                        userid:BASEINFO.uid,
+                        plate_num:this.getDetail.plate_num,
+                        content:this.getDetail.content,
+                        type:2,
+                        access_token:BASEINFO.access_token
+                    })
                 })
                     .then(response=>response.json())
                     .then(data=>{

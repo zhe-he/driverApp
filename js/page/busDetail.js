@@ -11,6 +11,7 @@ import loading from "loading";
 
 Vue.use(VueResource);
 window.addEventListener("DOMContentLoaded",()=>{
+    const BASEINFO = getN('getBase');
     const WIFI = getN('wifi');
     new Vue({
         el: "#busDetail",
@@ -37,7 +38,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         methods: {
             // 获取设备信息
             getEqu(){
-                return this.$http.get(URL_GETINFO,{timeout: 10000})
+                return this.$http.get(`${BASEINFO.host}${URL_GETINFO}`,{timeout: 10000})
                     .then(response=>response.json())
                     .then(data=>{
                         this.equ_sn = data.deviceSN;
@@ -46,7 +47,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             },
             // 获取车辆信息
             getBus(){
-                return fetch(GETVEL,{
+                return fetch(`${BASEINFO.host}${GETVEL}`,{
                     method: "POST",
                     mode: "cors",
                     headers:{
@@ -54,7 +55,8 @@ window.addEventListener("DOMContentLoaded",()=>{
                     },
                     body: querystring.stringify({
                         equ_sn: this.equ_sn,
-                        equ_mac: this.equ_mac
+                        equ_mac: this.equ_mac,
+                        access_token:BASEINFO.access_token
                     })
                 })
                     .then(response=>response.json())
