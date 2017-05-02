@@ -8,6 +8,7 @@ import Vue from "vue";
 import errcode from "errcode";
 import commonTop from "common-top";
 import loading from "loading";
+import {dataFormat} from "method";
 import {getN,callN} from "nativeA";
 import {MESDET,MESEDIT} from "inter";
 window.addEventListener("DOMContentLoaded",()=>{
@@ -24,6 +25,12 @@ window.addEventListener("DOMContentLoaded",()=>{
         },
         "backType": (PARAMS.type || 1)-0
     };
+    Vue.filter('timeFormat',str=>{
+        console.log(str);
+        var data=Number(str);
+        str=dataFormat(data,'YYYY-MM-dd hh:mm:ss');
+        return str;
+    });
     new Vue({
         el: "#messageContent",
         data:fnObj,
