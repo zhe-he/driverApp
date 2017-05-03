@@ -9,7 +9,7 @@ import VueResource from "vue-resource";
 import commonTop from "common-top";
 import loading from "loading";
 import {getN,callN} from "nativeA";
-import {dataFormat} from "method";
+// import {dataFormat} from "method";
 import {ADDREP,GETVEL} from "inter";
 import {URL_GETINFO} from "device";
 Vue.use(VueResource);
@@ -21,7 +21,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         "len":0,
         "isWaiting":false,
         "getDetail":{
-            "ctime":"",
+            // "ctime":"",
             "plate_num":"",
             "content":""
 
@@ -61,6 +61,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                                 this.isWaiting=false;
                                 if(data.code==0){
                                     this.getDetail.plate_num=data.data.plate_num;
+                                    this.input_flag=1;
                                 }else{
                                     callN('msg',{
                                         content:data.message
@@ -79,8 +80,8 @@ window.addEventListener("DOMContentLoaded",()=>{
             }
             //去首空格
             function trimStr(str) {return str.replace(/^\s+/g,"");}
-            date=dataFormat(date,'YYYY-MM-dd hh:mm:ss');
-            fnObj.getDetail.ctime=date;
+            /*date=dataFormat(date,'YYYY-MM-dd hh:mm:ss');
+            fnObj.getDetail.ctime=date;*/
             
             this.$nextTick(()=>{
                 var input=document.getElementById('plate_num');
