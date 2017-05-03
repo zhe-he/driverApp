@@ -61,6 +61,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                                 this.isWaiting=false;
                                 if(data.code==0){
                                     this.getDetail.plate_num=data.data.plate_num;
+                                    this.input_flag=1;
                                 }else{
                                     callN('msg',{
                                         content:data.message
