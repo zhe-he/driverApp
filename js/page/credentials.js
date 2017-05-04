@@ -156,6 +156,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             setDefault(){
                 this.mobile = BASEINFO.tel;
                 if (WIFI.wangfan != 1) {
+                    this.isWaiting = false;
                     callN("msg",{"content": errcode.device});
                     return false;
                 }
