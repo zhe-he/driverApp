@@ -36,11 +36,12 @@ window.addEventListener("DOMContentLoaded",()=>{
         watch: {
             gpsList: {
                 handler(val){
-                    map.clearOverlays();
+                    
                     let ggPoint = new BMap.Point(val[0].lng, val[0].lat);
                     let pointArr = [];
                     pointArr.push(ggPoint);
                     CONVERTOR.translate(pointArr,1,5,data=>{
+                        map.clearOverlays();
                         
                         if (data.status==0) {
                             ggPoint = data.points[0];

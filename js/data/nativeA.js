@@ -3,11 +3,12 @@ import {isIos, isAndroid} from "method";
 var isTest = !/(iOSApp|AndroidApp)\/wangfanDriver\s+(\d\.?)+/i.test(window.navigator.userAgent);
 const isWarn = true; // 是否开启测试警告
 
-const TESTUID = 1; // 测试uID
+const TESTUID = 2; // 测试uID
 const TESTUNIONID = ''; // 测试集团uid
 const TESTTOKEN = ''; // 测试token
 const TESTACCESSTOKEN = '65e1866dbbddfc987268ab1b2e30b8b8'; // 测试token
-const TESTHOST = 'http://10.10.39.66:8083'; // host地址
+// const TESTHOST = 'http://10.10.39.66:8083'; // 测试host地址
+const TESTHOST = 'http://api.9797168.com'; // 线上
 const TESTTEL = 13000000000; // 测试手机号
 const PLATFORM = isAndroid?'Android':'ios'; // 测试型号
 
