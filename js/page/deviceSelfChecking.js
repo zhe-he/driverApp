@@ -108,7 +108,6 @@ window.addEventListener("DOMContentLoaded",()=>{
                                 this.flag_portal=this.getDetail.portal?2:1;
                                 this.flag_compass=this.getDetail.compass?2:1;
                                 this.getDetail.status=result.status;
-                                this.getDetail.status=2;
                             }else{
                                 this.isIcon();
                                 callN('msg',{
