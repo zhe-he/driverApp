@@ -13,7 +13,7 @@ import Vue from "vue";
 import VueResource from "vue-resource";
 import errcode from "errcode";
 import {getN,callN} from "nativeA";
-// import {clone} from "method";
+import {isAndroid} from "method";
 import {URL_GETINFO} from "device";
 import {GETVEL,USERINFO,COMPLIST,EDITINFO} from "inter";
 import commonTop from "common-top";
@@ -26,7 +26,7 @@ window.addEventListener("DOMContentLoaded",()=>{
     const BASEINFO = getN("getBase");
     const WIFI = getN('wifi');
 
-    new Vue({
+    var creVue = new Vue({
         el: "#credentials",
         data: {
             isWaiting: false, // 加载条
@@ -46,9 +46,6 @@ window.addEventListener("DOMContentLoaded",()=>{
         },
         mounted(){
             this.getUser();
-            this.$nextTick(()=>{
-                this.nativeEffect();
-            });
         },
         methods: {
             // 获取设备信息
@@ -179,18 +176,10 @@ window.addEventListener("DOMContentLoaded",()=>{
                 this.credentials_status = status;
                 this.credentials_message = msg;
             },
-            // 原生事件
-            nativeEffect(){
-                var _this = this;
-                // 图片上传
-                document.querySelector('#file').addEventListener('change', function () {
-                    lrz(this.files[0])
-                        .then(rst =>{
-                            _this.license_photo = rst.base64;
-                        })
-                        .catch(err=>console.log(err))
-                        .always(()=>{});
-                });
+            upFile(){
+                if (!this.isDisabled) {
+                    callN("upFile");
+                }
             },
             // 验证提交
             commit(){
@@ -264,5 +253,14 @@ window.addEventListener("DOMContentLoaded",()=>{
         }
     });
 
-
+    window.nativeCallback = function (type,param){
+        if (isAndroid) {
+            param = param?JSON.parse(param):'';
+        }
+        if (type == "upFile") {
+            creVue.$data.license_photo = param.link;
+        }else{
+            console.log(`没有找到${type}方法，请确保H5有此回调方法`);
+        }
+    }
 },false);

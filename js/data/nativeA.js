@@ -113,6 +113,12 @@ if (isTest) {
                 case "close":
                     isWarn && console.warn("关闭",param);
                     break;
+                case "upFile":
+                    isWarn && console.warn("调用客户端上传图片",param);
+                    setTimeout(()=>{
+                        window.nativeCallback("upFile",{"link": "http://img1.imgtn.bdimg.com/it/u=3342737063,3964532796&fm=23&gp=0.jpg"});
+                    }, 2000);
+                    break;
                 default:
                     isWarn && console.warn(`没有找到flag:${flag},请确保有${flag}的测试数据`,param);
                     break;

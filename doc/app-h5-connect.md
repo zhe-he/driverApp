@@ -143,6 +143,14 @@ Object {
 1. 用户注销     
 window.App.callNative("signOut",Object)   
 
+1. 上传图片     
+window.App.callNative("upFile",Obeject)     
+成功后App回调    
+window.nativeCallback("upFile",Object)  
+Object {    
+    link: 'http://www.baidu.com'    
+}   
+
 #### 二期  
 ##### 消息    
 1. 客户端向H5推送消息(news feed -VZ)   
