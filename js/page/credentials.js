@@ -95,6 +95,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     .then(message=>{
                         if (message.code==0) {
                             let data = message.data;
+                            
                             if (data.status>0){
                                 this.isWaiting = false;
 
@@ -126,6 +127,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             },
             // 获取公司列表
             getCmp(){
+                this.cid = '';
                 if (this.cmp_name.length>=2) {
                     this.cmp_list_switch = true;
                     fetch(`${BASEINFO.host}${COMPLIST}`,{

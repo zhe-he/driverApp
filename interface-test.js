@@ -160,7 +160,7 @@ app.use('/app-dms/report/lists',function (req,res){
         "data": {
             "total": 12,
             "list": [{
-                "id": 1,
+                "cid": 1,
                 "number": "BX000001",
                 "plate_num": "xxx",
                 "content":{
@@ -171,7 +171,7 @@ app.use('/app-dms/report/lists',function (req,res){
                 "status": 1,//1-未修复 2-已修复
                 "ctime": "2017-04-17 11:36:54"
             },{
-                "id": 2,
+                "cid": 2,
                 "number": "BX000002",
                 "plate_num": "xxx",
                 "content": "xxx",
