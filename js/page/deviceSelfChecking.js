@@ -96,6 +96,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         .then(response=>response.json())
                         .then(data=>{
                             // this.isWaiting=false;
+
                             var result=data.data;
                             if(data.code==0){
                                 this.getDetail= JSON.parse( result.content );
@@ -107,7 +108,9 @@ window.addEventListener("DOMContentLoaded",()=>{
                                 this.flag_portal=this.getDetail.portal?2:1;
                                 this.flag_compass=this.getDetail.compass?2:1;
                                 this.getDetail.status=result.status;
+                                this.getDetail.status=2;
                             }else{
+                                this.isIcon();
                                 callN('msg',{
                                     content:data.message
                                 })
@@ -116,6 +119,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         .catch(e=>{
                             console.log(e);
                             // this.isWaiting=false;
+                            this.isIcon();
                             callN('msg',{
                                 content: errcode.m404
                             })
@@ -150,6 +154,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                             }).catch(e=>{
                                 console.log(e);
                                 // this.isWaiting=false;
+                                this.isIcon();
                                 callN('msg',{
                                     content: errcode.device
                                 })
@@ -237,6 +242,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     .catch(e=>{
                         console.log(e);
                         // this.isWaiting=false;
+                        this.isIcon();
                         callN('msg',{
                             content: errcode.m404
                         })
@@ -256,10 +262,18 @@ window.addEventListener("DOMContentLoaded",()=>{
                             this.getDetail.plate_num=data.data.plate_num;
                             this.flag_num=this.getDetail.plate_num?2:1;
                         }else{
+                            this.flag_num=this.getDetail.plate_num?2:1;
                             callN('msg',{
                                 content:data.message
                             })
                         }
+                    })
+                    .catch(e=>{
+                        console.log(e);
+                        this.flag_num=this.getDetail.plate_num?2:1;
+                        callN('msg',{
+                            content: errcode.m404
+                        })
                     })
             },
             getHealth(){
@@ -283,13 +297,21 @@ window.addEventListener("DOMContentLoaded",()=>{
             },
             noCheck(){
                 // this.getDetail.hasNumber=false;//置空
+                // this.flag_num=0;
+                // this.flag_sn=0;
+                // this.flag_wifi=0;
+                // this.flag_portal=0;
+                // this.flag_compass=0;
+                this.isIcon();
+                // this.getDetail.ctime=new Date().getTime();
+                callN('msg',{content: errcode.deviceNoCheck});
+            },
+            isIcon(){
                 this.flag_num=0;
                 this.flag_sn=0;
                 this.flag_wifi=0;
                 this.flag_portal=0;
                 this.flag_compass=0;
-                // this.getDetail.ctime=new Date().getTime();
-                callN('msg',{content: errcode.deviceNoCheck});
             }
         },
         components: {
