@@ -18,7 +18,6 @@ import {URL_GETINFO} from "device";
 import {GETVEL,USERINFO,COMPLIST,EDITINFO} from "inter";
 import commonTop from "common-top";
 import loading from "loading";
-import lrz from "lrz";
 const RETEL = /^1[3-9]\d{9}$/;
 
 Vue.use(VueResource);
