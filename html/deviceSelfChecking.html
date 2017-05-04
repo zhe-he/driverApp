@@ -11,8 +11,7 @@
 </head>
 <body>
     <div id="deviceSelf">
-        <!--<msg></msg>-->
-        <loading v-if="isWaiting"></loading>
+        <!--<loading v-if="isWaiting"></loading>-->
         <common-top :back-type="2" title="设备自检"></common-top>
         <div class="content">
             <div>
@@ -31,15 +30,15 @@
                         车牌号：<span>{{getDetail.plate_num}}</span>
                         <p>
                             <span></span>
-                            <i :class="[getDetail.hasNumber==false?'':getDetail.plate_num?'normal':'err']"></i>
-
+                            <i :class="[flag_num==0?'':flag_num==3?'loading':flag_num==2?'normal':'err']"></i>
                         </p>
                     </li>
                     <li>
                         设备SN：<span>{{getDetail.plate_sn}}</span>
                         <p>
                             <span></span>
-                            <i :class="[getDetail.hasNumber==false?'':getDetail.plate_sn?'normal':'err']"></i>
+                            <!--<i :class="[getDetail.hasNumber==false?'':getDetail.plate_sn?'normal':'err']"></i>-->
+                            <i :class="[flag_sn==0?'':flag_sn==3?'loading':flag_sn==2?'normal':'err']"></i>
                         </p>
                     </li>
                     <li>
@@ -49,7 +48,7 @@
                             <template v-else>
                                 <span v-if="getDetail.wifi==0&&getDetail.status==2">已处理</span>
                             </template>
-                            <i :class="[getDetail.hasNumber==false?'':getDetail.wifi==1?'normal':'err']"></i>
+                            <i :class="[flag_wifi==0?'':flag_wifi==3?'loading':flag_wifi==2?'normal':'err']"></i>
                         </p>
                     </li>
                     <li>Portal页面 <span></span>
@@ -58,7 +57,7 @@
                             <template v-else>
                                 <span v-if="getDetail.portal==0&&getDetail.status==2">已处理</span>
                             </template>
-                            <i :class="[getDetail.hasNumber==false?'':getDetail.portal==1?'normal':'err']"></i>
+                            <i :class="[flag_portal==0?'':flag_portal==3?'loading':flag_portal==2?'normal':'err']"></i>
                         </p>
                     <li>北斗定位 <span></span>
                         <p>
@@ -66,7 +65,7 @@
                             <template v-else>
                                 <span v-if="getDetail.compass==0&&getDetail.status==2">已处理</span>
                             </template>
-                            <i :class="[getDetail.hasNumber==false?'':getDetail.compass==1?'normal':'err']"></i>
+                            <i :class="[flag_compass==0?'':flag_compass==3?'loading':flag_compass==2?'normal':'err']"></i>
                         </p>
                     </li>
                 </ul>

@@ -31,7 +31,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         return str;
     });
     Vue.filter('repairNum',str=>{
-        str=str == undefined?'':str.substring(0,14);
+        str=str == undefined?'':str.slice(0,-4);
         return str;
     });
     new Vue({

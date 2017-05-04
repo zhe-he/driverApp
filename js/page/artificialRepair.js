@@ -157,7 +157,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         if(data.code==0){
                             callN('msg',{content:errcode.repair});
                             setTimeout(()=>{
-                                this.content = '';
+                                this.getDetail.content = '';
                                 window.location.href='myRepairs.html';
                             },1000);
                         }else{

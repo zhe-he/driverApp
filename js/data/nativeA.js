@@ -46,8 +46,10 @@ if (isTest) {
                     return {
                         "callbackId": 1,
                         "number": "201705021516166846",
+                        // "number": "",
                         "isChecked":1,//是否经过自检 1-是 0-否
                         "plate_sn":"HMAPA01160700537",
+                        // "plate_sn":"6024694",
                         "ctime":1492600167
                     }
                     break;
