@@ -73,7 +73,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     .then(response=>response.json())
                     .then(message=>{
                         this.isWaiting = false;
-                        if (message.code===0) {
+                        if (message.code==0) {
                             this.cid = message.data.cmp_id;
                             this.cmp_name = message.data.cmp_name;
                         }else{

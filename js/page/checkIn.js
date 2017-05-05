@@ -202,7 +202,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                 })
                     .then(response=>response.json())
                     .then(message=>{
-                        if (message.code===0) {
+                        if (message.code==0) {
                             this.plate_num = message.data.plate_num;
                         }else{
                             callN("msg",{"content":message.message});

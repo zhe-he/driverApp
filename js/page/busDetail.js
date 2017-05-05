@@ -62,7 +62,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     .then(response=>response.json())
                     .then(message=>{
                         this.isWaiting = false;
-                        if (message.code===0) {
+                        if (message.code==0) {
                             this.plate_num = message.data.plate_num;
                             this.license_img = message.data.mdriving_license_img;
                         }else{
