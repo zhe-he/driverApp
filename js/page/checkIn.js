@@ -162,7 +162,6 @@ window.addEventListener("DOMContentLoaded",()=>{
                     .then(message=>{
                         this.isWaiting = false;
                         if (message.code==0) {
-                            callN("msg",{"content": errcode.checkinManual});
                             this.checkInError = false;
                             this.isCheckIn = true;
 
@@ -174,9 +173,10 @@ window.addEventListener("DOMContentLoaded",()=>{
                                 }
                             }
 
+                            callN("msg",{"content": errcode.checkinManual});
                         }else{
-                            callN("msg",{"content":message.message});
                             this.checkInError = true;
+                            callN("msg",{"content":message.message});
                         }
                     })
                     .catch(e=>{

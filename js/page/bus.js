@@ -36,19 +36,23 @@ window.addEventListener("DOMContentLoaded",()=>{
         watch: {
             gpsList: {
                 handler(val){
-                    map.clearOverlays();
+                    
                     let ggPoint = new BMap.Point(val[0].lng, val[0].lat);
                     let pointArr = [];
                     pointArr.push(ggPoint);
                     CONVERTOR.translate(pointArr,1,5,data=>{
+                        map.clearOverlays();
                         
                         if (data.status==0) {
                             ggPoint = data.points[0];
                         }
                         let marker = new BMap.Marker(ggPoint);
                         map.addOverlay(marker);
-                        // map.setCenter(ggPoint,14);
-                        map.centerAndZoom(ggPoint,14);
+                        if (map.getZoom()<12) {
+                            map.centerAndZoom(ggPoint,14);
+                        }else{
+                            map.setCenter(ggPoint);
+                        }
                     });
                 },
                 deep: true
