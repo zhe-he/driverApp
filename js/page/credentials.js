@@ -216,6 +216,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         },
                         body: querystring.stringify({
                             access_token: BASEINFO.access_token,
+                            token: BASEINFO.token,
                             uid: BASEINFO.uid,
                             cid: this.cid,
                             name: this.name,

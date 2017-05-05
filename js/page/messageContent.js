@@ -67,7 +67,8 @@ window.addEventListener("DOMContentLoaded",()=>{
                     "id":this.id,
                     "uid":BASEINFO.uid,
                     "status":1,
-                    "access_token": BASEINFO.access_token
+                    "access_token": BASEINFO.access_token,
+                    "token": BASEINFO.token
                 }
                 fetch(`${BASEINFO.host}${MESEDIT}?${querystring.stringify(data)}`,{
                     cache:"no-cache"

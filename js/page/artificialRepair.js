@@ -143,6 +143,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         "Content-Type": "application/x-www-form-urlencoded"
                     },
                     body: querystring.stringify({
+                        token: BASEINFO.token,
                         uid:BASEINFO.uid,
                         plate_num:this.getDetail.plate_num,
                         content:this.getDetail.content.trim(),

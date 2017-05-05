@@ -47,44 +47,6 @@ window.addEventListener("DOMContentLoaded",()=>{
         el: "#deviceSelf",
         data:fnObj,
         mounted(){
-            // var _this=this,plate_sn='';
-            // NUMBER.isChecked=1;
-            ////////////////////////////////////////////////////////////////////////////
-
-           /* var content_1={
-                "type":2,
-                "ctime":1493696554278,
-                "plate_num":"湘LA4211",
-                "plate_sn":'604694',
-                "wifi":1,
-                "portal":0,
-                "compass":0
-            };
-            fetch(`${BASEINFO.host}${ADDREP}`,{
-                method:"POST",
-                mode: "cors",
-                headers:{
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: querystring.stringify({
-                    uid: 1,
-                    access_token: BASEINFO.access_token,
-                    plate_num: '湘LA4211',
-                    content: JSON.stringify(content_1),
-                    type: 2
-                })
-            })
-                .then(response=>response.json())
-                .then(data=>{
-                    console.log(data);
-                    // console.log('send');
-
-                })
-                .catch(e=>console.log(e));*/
-            //////////////////////////////////////////////////////////////
-
-
-
 
             if(NUMBER.isChecked==1){
                 if(NUMBER.number){
@@ -223,6 +185,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                                     "Content-Type": "application/x-www-form-urlencoded"
                                 },
                                 body: querystring.stringify({
+                                    token: BASEINFO.token,
                                     uid: BASEINFO.uid,
                                     access_token: BASEINFO.access_token,
                                     plate_num: this.getDetail.plate_num,
