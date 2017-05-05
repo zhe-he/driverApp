@@ -134,7 +134,7 @@ function getN(flag){
         return window.App.getNativeParam(flag);
     }else{
         var a = window.App.getNativeParam(flag);
-        alert('返回数据:'+a);
+        // alert('返回数据:'+a);
         return a?JSON.parse(a):'';
     }
 }

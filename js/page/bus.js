@@ -48,8 +48,11 @@ window.addEventListener("DOMContentLoaded",()=>{
                         }
                         let marker = new BMap.Marker(ggPoint);
                         map.addOverlay(marker);
-                        // map.setCenter(ggPoint,14);
-                        map.centerAndZoom(ggPoint,14);
+                        if (map.getZoom()<12) {
+                            map.centerAndZoom(ggPoint,14);
+                        }else{
+                            map.setCenter(ggPoint);
+                        }
                     });
                 },
                 deep: true
