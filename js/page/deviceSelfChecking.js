@@ -208,7 +208,6 @@ window.addEventListener("DOMContentLoaded",()=>{
                     // this.getDetail.hasNumber=true;
                     if(!this.getDetail.plate_num || !this.getDetail.plate_sn || this.getDetail.wifi!=1 || this.getDetail.portal!=1 || this.getDetail.compass!=1){
                             var content={
-                                "type" : 2,
                                     "ctime":this.getDetail.ctime,
                                     "plate_num":this.getDetail.plate_num,
                                     "plate_sn":this.getDetail.plate_sn,
@@ -227,7 +226,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                                     access_token: BASEINFO.access_token,
                                     plate_num: this.getDetail.plate_num,
                                     content: JSON.stringify(content),
-                                    type: 2
+                                    type: 1
                                 })
                             })
                                 .then(response=>response.json())
