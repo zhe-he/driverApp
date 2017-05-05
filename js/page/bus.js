@@ -165,7 +165,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         }else{
                             callN("msg",{"content":message.message});
                         }
-                    })
+                    });
             },
             mapInit(){
                 map = new BMap.Map("car-map");    // 创建Map实例
