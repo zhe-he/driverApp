@@ -33,7 +33,6 @@ window.addEventListener("DOMContentLoaded",()=>{
         el: "#artificialRepair",
         data: fnObj,
         mounted(){
-            var date=new Date();
             const WIFI = getN('wifi');
             if(WIFI.wangfan==1){
                 this.isWaiting=true;
