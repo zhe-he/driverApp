@@ -27,7 +27,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         "backLink": 'systemMessage.html'
     };
     Vue.filter('timeFormat',str=>{
-        str=str == undefined?'':dataFormat((str*1000),'YYYY-MM-dd hh:mm:ss');
+        str= str?dataFormat((str*1000),'YYYY-MM-dd hh:mm:ss'):"";
         return str;
     });
     new Vue({
