@@ -1,7 +1,7 @@
 <template>
     <header class="common-top">
         <div>
-            <a @click="goBack()" :class="backType>-1?'goBack':''" href="javascript:;"></a>
+            <a @click="goBack()" :class="backType>-1?'goBack':''" :href="backLink"></a>
             <h1>{{title}}</h1>
             <a v-if="link" :href="link">{{linkTitle}}</a>
         </div>
@@ -24,6 +24,10 @@
             },
             linkTitle: {
                 type: String
+            },
+            backLink:{
+                type:String,
+                default:"javascript:;"
             }
         },
         methods: {
@@ -39,6 +43,8 @@
                     case 3: 
                         // go app my-page
                         callN("close",{type:this.backType})
+                        break;
+                    case 4:
                         break;
                 }
             }
