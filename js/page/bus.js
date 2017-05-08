@@ -65,9 +65,9 @@ window.addEventListener("DOMContentLoaded",()=>{
                 this.$nextTick(this.mapInit);
                 return false;
             }
-            this.isWaiting = true;
+            // this.isWaiting = true;
             this.getEqu().then(this.getBus).catch(e=>{
-                this.isWaiting = false;
+                // this.isWaiting = false;
                 console.log(e);
                 callN("msg",{"content":errcode.m404});
             });
@@ -159,7 +159,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                 })
                     .then(response=>response.json())
                     .then(message=>{
-                        this.isWaiting = false;
+                        // this.isWaiting = false;
                         if (message.code==0) {
                             this.plate_num = message.data.plate_num;
                         }else{
