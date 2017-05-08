@@ -21,6 +21,9 @@ window.addEventListener("DOMContentLoaded",()=>{
     var fnObj = {
         "isWaiting":true,
         "messageList":[],
+        "isReady":false,
+        "curpage":1,
+        "pageCount":99
 
     };
     Vue.filter('timeFormat',str=>{
@@ -39,32 +42,54 @@ window.addEventListener("DOMContentLoaded",()=>{
             });
         },*/
         mounted(){
-            fetch(`${BASEINFO.host}${MESLIST}?uid=${BASEINFO.uid}&access_token=${BASEINFO.access_token}&format=json`,{
-                cache:"no-cache"
-            })
-                .then(response=>response.json())
-                .then(data=>{
-                    this.isWaiting=false;
-                    if(data.code==0){
-                        this.messageList=data.data.list;
-                    }else{
-                        callN('msg',{
-                            content:data.message
-                        })
-                    }
-
-                })
-                .catch(e=>{
-                    console.log(e);
-                    this.isWaiting=false;
-                    callN('msg',{
-                        content: errcode.m404
-                    })
-                })
+            this.getData();
+            this.$nextTick(()=>{
+                window.addEventListener('scroll',this.addMore.bind(this),false);
+            });
         },
         methods: {
-            test(){
-                eventHub.$emit('msg-show','此处为测试弹窗');
+            getData(){
+                this.isReady=true;
+                fetch(`${BASEINFO.host}${MESLIST}?uid=${BASEINFO.uid}&access_token=${BASEINFO.access_token}&format=json&page=${this.curpage}&size=10`,{
+                    cache:"no-cache"
+                })
+                    .then(response=>response.json())
+                    .then(data=>{
+                        this.isReady=false;
+                        this.isWaiting=false;
+                        if(data.code==0){
+                            this.messageList=this.messageList.concat(data.data.list);
+                            if (this.curpage===1) {
+                                this.pagecount = Math.ceil(data.data.total/10);
+                            }
+
+                            if (this.curpage++>=this.pagecount) {
+                                window.removeEventListener('scroll',this.addMore,false);
+                                this.isReady = true;
+                            }
+
+                        }else{
+                            callN('msg',{
+                                content:data.message
+                            })
+                        }
+
+                    })
+                    .catch(e=>{
+                        console.log(e);
+                        this.isWaiting=false;
+                        callN('msg',{
+                            content: errcode.m404
+                        })
+                    })
+            },
+            addMore(){
+                var H = document.documentElement.scrollHeight || document.body.scrollHeight;
+                var h = window.innerHeight;
+                var t = document.documentElement.scrollTop||document.body.scrollTop;
+                if (H - (h + t) < 15 && !this.isReady){
+                    this.getData();
+                }
             }
         },
         components: {

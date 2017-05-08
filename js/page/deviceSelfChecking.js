@@ -195,6 +195,24 @@ window.addEventListener("DOMContentLoaded",()=>{
                             })
                                 .then(response=>response.json())
                                 .then(data=>{
+                                    let msgArr=[];
+                                    if(!this.getDetail.plate_num){
+                                        msgArr.push('车辆信息未读取');
+                                    }
+                                    if(!this.getDetail.plate_sn){
+                                        msgArr.push('设备信息未读取');
+                                    }
+                                    if(this.getDetail.wifi!=1){
+                                        console.log(this.getDetail.wifi);
+                                        msgArr.push('wifi功能检测错误');
+                                    }
+                                    if(this.getDetail.portal!=1){
+                                        msgArr.push('Portal功能检测错误');
+                                    }
+                                    if(this.getDetail.compass!=1){
+                                        msgArr.push('北斗定位功能检测错误');
+                                    }
+                                    callN('msg',{content:`已报修：${String(msgArr)}`})
                                     var param=data.data;
                                     callN('sendCheckNumber',param);
                                 })
@@ -252,18 +270,13 @@ window.addEventListener("DOMContentLoaded",()=>{
                         this.getDetail.compass=data.Compass=="OK"?'1':'0';
                         this.getDetail.wifi=data.WIFI=="OK"?'1':'0';
                         this.getDetail.portal=data.Portal=="OK"?'1':'0';
-                        this.flag_wifi=this.getDetail.wifi?2:1;
-                        this.flag_portal=this.getDetail.portal?2:1;
-                        this.flag_compass=this.getDetail.compass?2:1;
+                        this.flag_wifi=this.getDetail.wifi==1?2:1;
+                        this.flag_portal=this.getDetail.portal==1?2:1;
+                        this.flag_compass=this.getDetail.compass==1?2:1;
                     })
             },
             noCheck(){
                 // this.getDetail.hasNumber=false;//置空
-                // this.flag_num=0;
-                // this.flag_sn=0;
-                // this.flag_wifi=0;
-                // this.flag_portal=0;
-                // this.flag_compass=0;
                 this.isIcon();
                 // this.getDetail.ctime=new Date().getTime();
                 callN('msg',{content: errcode.deviceNoCheck});
