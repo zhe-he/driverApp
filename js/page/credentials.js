@@ -65,6 +65,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         "Content-Type": "application/x-www-form-urlencoded"
                     },
                     body: querystring.stringify({
+                        format: "json",
                         equ_sn: this.equ_sn,
                         equ_mac: this.equ_mac,
                         access_token: BASEINFO.access_token
@@ -84,7 +85,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             // 查询用户信息
             getUser(){
                 this.isWaiting = true;
-                fetch(`${BASEINFO.host}${USERINFO}?uid=${BASEINFO.uid}&access_token=${BASEINFO.access_token}`,{
+                fetch(`${BASEINFO.host}${USERINFO}?uid=${BASEINFO.uid}&access_token=${BASEINFO.access_token}&format=json`,{
                     cache: "no-cache"   
                 })
                     .then(response=>response.json())
@@ -133,6 +134,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                             "Content-Type": "application/x-www-form-urlencoded"
                         },
                         body: querystring.stringify({
+                            format: "json",
                             cmp_name: this.cmp_name,
                             access_token: BASEINFO.access_token
                         })
@@ -215,6 +217,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                             "Content-Type": "application/x-www-form-urlencoded"
                         },
                         body: querystring.stringify({
+                            format: "json",
                             access_token: BASEINFO.access_token,
                             token: BASEINFO.token,
                             uid: BASEINFO.uid,

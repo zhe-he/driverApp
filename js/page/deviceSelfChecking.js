@@ -52,7 +52,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                 if(NUMBER.number){
                     // this.isWaiting=true;
                     this.flag_num=3;this.flag_sn=3;this.flag_wifi=3;this.flag_portal=3;this.flag_compass=3;
-                    fetch( `${BASEINFO.host}${GETREPORT}?number=${NUMBER.number}&access_token=${BASEINFO.access_token}`,{
+                    fetch( `${BASEINFO.host}${GETREPORT}?number=${NUMBER.number}&access_token=${BASEINFO.access_token}&format=json`,{
                         cache:"no-cache"
                     })
                         .then(response=>response.json())
@@ -184,6 +184,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                                     "Content-Type": "application/x-www-form-urlencoded"
                                 },
                                 body: querystring.stringify({
+                                    format: "json",
                                     token: BASEINFO.token,
                                     uid: BASEINFO.uid,
                                     access_token: BASEINFO.access_token,
@@ -213,7 +214,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             },
             getPlateNum(){
                 //根据sn获取车牌号
-                return fetch(`${BASEINFO.host}${GETVEL}?equ_sn=${this.getDetail.plate_sn}&access_token=${BASEINFO.access_token}`,{
+                return fetch(`${BASEINFO.host}${GETVEL}?equ_sn=${this.getDetail.plate_sn}&access_token=${BASEINFO.access_token}&format=json`,{
                     cache:"no-cache"
                 })
                     .then(response=>response.json())

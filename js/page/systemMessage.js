@@ -37,7 +37,7 @@ window.addEventListener("pageshow",()=>{
             });
         },*/
         mounted(){
-            fetch(`${BASEINFO.host}${MESLIST}?uid=${BASEINFO.uid}&access_token=${BASEINFO.access_token}`,{
+            fetch(`${BASEINFO.host}${MESLIST}?uid=${BASEINFO.uid}&access_token=${BASEINFO.access_token}&format=json`,{
                 cache:"no-cache"
             })
                 .then(response=>response.json())

@@ -25,7 +25,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         methods: {
             getUserInfo(){
                 this.isWaiting = true;
-                fetch(`${BASEINFO.host}${USERINFO}?uid=${BASEINFO.uid}&access_token=${BASEINFO.access_token}`)
+                fetch(`${BASEINFO.host}${USERINFO}?uid=${BASEINFO.uid}&access_token=${BASEINFO.access_token}&format=json`)
                     .then(response=>response.json())
                     .then(message=>{
                         this.isWaiting = false;

@@ -50,7 +50,8 @@ window.addEventListener("DOMContentLoaded",()=>{
                         //根据sn获取车牌号
                         let json = {
                             "equ_sn": deviceSN,
-                            "access_token": BASEINFO.access_token
+                            "access_token": BASEINFO.access_token,
+                            "format": "json"
                         };
                         return fetch(`${BASEINFO.host}${GETVEL}?${querystring.stringify(json)}`,{
                             cache:"no-cache"
@@ -143,6 +144,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         "Content-Type": "application/x-www-form-urlencoded"
                     },
                     body: querystring.stringify({
+                        format: "json",
                         token: BASEINFO.token,
                         uid:BASEINFO.uid,
                         plate_num:this.getDetail.plate_num,

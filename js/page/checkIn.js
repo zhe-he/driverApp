@@ -87,7 +87,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                 this.checkList = arr;
             },
             setCheckIn(){
-                fetch(`${BASEINFO.host}${USERINFO}?uid=${BASEINFO.uid}&access_token=${BASEINFO.access_token}`,{
+                fetch(`${BASEINFO.host}${USERINFO}?uid=${BASEINFO.uid}&access_token=${BASEINFO.access_token}&format=json`,{
                     cache: "no-cache"
                 })
                     .then(response=>response.json())
@@ -106,6 +106,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                 this.setDefaultCheckList();
 
                 let json = {
+                    "format": "json",
                     "uid": BASEINFO.uid,
                     "month": dataFormat(this.curTime,'YYYY-MM'),
                     "access_token": BASEINFO.access_token
@@ -152,6 +153,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         "Content-Type": "application/x-www-form-urlencoded"
                     },
                     body: querystring.stringify({
+                        format: "json",
                         token: BASEINFO.token,
                         uid: BASEINFO.uid,
                         plate_num: this.plate_num,
@@ -195,6 +197,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         "Content-Type": "application/x-www-form-urlencoded"
                     },
                     body: querystring.stringify({
+                        format: "json",
                         equ_sn: this.equ_sn,
                         equ_mac: this.equ_mac,
                         access_token: BASEINFO.access_token

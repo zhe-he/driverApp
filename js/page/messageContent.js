@@ -35,8 +35,8 @@ window.addEventListener("DOMContentLoaded",()=>{
         mounted(){
             var search = window.location.search.substr(1);
             var theRequest = querystring.parse(search);
-            this.id=theRequest.id;
-            fetch(`${BASEINFO.host}${MESDET}?id=${this.id}&access_token=${BASEINFO.access_token}`,{
+            this.id=theRequest.id || '';
+            fetch(`${BASEINFO.host}${MESDET}?id=${this.id}&access_token=${BASEINFO.access_token}&format=json`,{
                 cache:"no-cache"
             })
                 .then(response=>response.json())
@@ -64,6 +64,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         methods:{
             editMess(){
                 var data={
+                    format: "json",
                     "id":this.id,
                     "uid":BASEINFO.uid,
                     "status":1,

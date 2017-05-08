@@ -47,7 +47,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         methods: {
             getCanupdata(){
                 this.checkUpdate = true;
-                fetch(`${BASEINFO.host}${GETVER}?access_token=${BASEINFO.access_token}`,{
+                fetch(`${BASEINFO.host}${GETVER}?access_token=${BASEINFO.access_token}&format=json`,{
                     cache: "no-cache"
                 })
                     .then(response=>response.json())

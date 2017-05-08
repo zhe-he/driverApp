@@ -23,6 +23,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         "backType": (PARAMS.type || 3)-0  // 返回到车辆 or 我的
     };
     var params = {
+        format: "json",
         uid: BASEINFO.uid,
         access_token: BASEINFO.access_token
     };

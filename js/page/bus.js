@@ -152,6 +152,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         "Content-Type": "application/x-www-form-urlencoded"
                     },
                     body: querystring.stringify({
+                        format: "json",
                         equ_sn: this.equ_sn,
                         equ_mac: this.equ_mac,
                         access_token:BASEINFO.access_token
