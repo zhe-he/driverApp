@@ -14,7 +14,9 @@ import commonTop from "common-top";
 import {getN,callN} from "nativeA";
 import {MESLIST} from "inter";
 
-window.addEventListener("pageshow",()=>{
+
+window.addEventListener("DOMContentLoaded",()=>{
+
     const BASEINFO = getN('getBase');
     var fnObj = {
         "isWaiting":true,

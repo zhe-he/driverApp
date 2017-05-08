@@ -23,7 +23,8 @@ window.addEventListener("DOMContentLoaded",()=>{
             "ctime":"",
             "title":""
         },
-        "backType": (PARAMS.type || 1)-0
+        "backType": (PARAMS.type || 1)-0,
+        "backLink": 'systemMessage.html'
     };
     Vue.filter('timeFormat',str=>{
         str=str == undefined?'':dataFormat((str*1000),'YYYY-MM-dd hh:mm:ss');
