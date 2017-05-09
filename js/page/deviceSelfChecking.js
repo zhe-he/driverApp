@@ -61,7 +61,9 @@ window.addEventListener("DOMContentLoaded",()=>{
 
                             var result=data.data;
                             if(data.code==0){
-                                this.getDetail= JSON.parse( result.content );
+                                // this.getDetail= JSON.parse( result.content );
+                                // if(result.type==1){this.getDetail= result.content}
+                                this.getDetail= result.content;
                                 this.getDetail.ctime=result.ctime;
                                 // this.getDetail.hasNumber=true;
                                 this.flag_num=this.getDetail.plate_num?2:1;
