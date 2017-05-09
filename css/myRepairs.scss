@@ -21,6 +21,8 @@
 	@include bg2("icon_been_submitted");
 }
 .content {
+	height:12.24rem;
+	overflow: scroll;
 	ul {
 		width: 6.9rem;
 		margin: 0 auto;
