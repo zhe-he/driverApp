@@ -66,7 +66,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     });
             },
             cleanCache(){
-                eventHub.$emit("msg-show","确定清除本地缓存吗？",1);
+                eventHub.$emit("msg-show",errcode.cleanCache,1);
             },
             updateApp(){
                 if (this.checkUpdate) {
@@ -76,13 +76,13 @@ window.addEventListener("DOMContentLoaded",()=>{
 
                 // 当前为最新版本
                 if (this.isCanUpdate) {
-                    eventHub.$emit("msg-show","检测到新版本，确定进行版本更新吗？",2);
+                    eventHub.$emit("msg-show",errcode.updateMsg,2);
                 }else{
                     callN("msg",{"content": errcode.update});
                 }
             },
             signOut(){
-                eventHub.$emit("msg-show","确定注销吗？",3);
+                eventHub.$emit("msg-show",errcode.signOut,3);
             }
         },
         components: {
