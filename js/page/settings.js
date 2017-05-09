@@ -11,6 +11,7 @@ import {getN,callN} from "nativeA";
 import msg from "msg";
 import eventHub from "eventHub";
 import {GETVER} from "inter";
+import {isAndroid} from "method";
 
 window.addEventListener("DOMContentLoaded",()=>{
     const BASEINFO = getN("getBase");
@@ -47,7 +48,8 @@ window.addEventListener("DOMContentLoaded",()=>{
         methods: {
             getCanupdata(){
                 this.checkUpdate = true;
-                fetch(`${BASEINFO.host}${GETVER}?access_token=${BASEINFO.access_token}&format=json`,{
+                var type = isAndroid?'1':'2';
+                fetch(`${BASEINFO.host}${GETVER}?type=${type}&access_token=${BASEINFO.access_token}&format=json`,{
                     cache: "no-cache"
                 })
                     .then(response=>response.json())
