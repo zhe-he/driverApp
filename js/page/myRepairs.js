@@ -28,7 +28,9 @@ window.addEventListener("DOMContentLoaded",()=>{
     var params = {
         format: "json",
         uid: BASEINFO.uid,
-        access_token: BASEINFO.access_token
+        access_token: BASEINFO.access_token,
+        page:this.curpage,
+        size:20
     };
     Vue.filter('timeFormat',str=>{
         str=str == undefined?'':dataFormat((str*1000),'YYYY-MM-dd hh:mm:ss');
