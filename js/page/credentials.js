@@ -112,7 +112,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                                 this.alertMsg('success','您的资料已经提交成功！<br/>资料正在审核中...');
                             }
                             if (data.status == 3) {
-                                this.alertMsg('fail','审核失败，请完善您的资料');
+                                this.alertMsg('fail','您的资料审核未通过，<br/>请重新核实您的信息。');
                             }
                         }
                     })
