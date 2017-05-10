@@ -1,7 +1,7 @@
 /**
- * 1. 检测是否处在往返wifi下，如果不是，弹窗提示
+ * 1. 检测是否处在往返wifi下，如果不是，弹窗提示(弹窗移除)
  * 1. 获取设备sn，通过sn获取当前车牌号
- * 1. 获取目前车内上网用户
+ * 1. 每分钟获取车内上网用户
  * 1. 每分钟获取设备的经纬度，转换成百度坐标打点地图
  */
 
@@ -61,7 +61,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         mounted(){
 
             if (WIFI.wangfan != 1) {
-                callN("msg", {"content": errcode.device});
+                // callN("msg", {"content": errcode.device});
                 this.$nextTick(this.mapInit);
                 return false;
             }
@@ -118,7 +118,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             },
             // 获取当前连接用户
             getUserstats(){
-                this.$http.get(URL_USERS,{timeout:15000},{
+                this.$http.get(URL_USERS,{timeout:20000},{
                     headers: {
                         "cache-control": "no-cache"
                     }
