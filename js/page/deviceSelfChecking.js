@@ -1,5 +1,19 @@
 /**
  * Created by yangshuang on 2017/3/31.
+ * 1. 向APP获取今天是否进行过自检   
+ * > 1.1 如果没有，提示errcode.deviceNoCheck  
+ * > 1.2 如果有进行过自检，向APP获取是否有自检单号    
+ * > 1.2.1 如果没有自检单号，向APP获取当前是否连接了往返wifi  
+ * > 1.2.1.1 如果没有连接往返wifi，提示errcode.deviceCheck    
+ * > 1.2.1.2 如果连接了往返wifi，通过设备接口获取设备sn，判断当前获取的sn和app上次自检返回的sn是否一致   
+ * > 1.2.1.2.1 如果一致，除了车牌号其他全部打对勾，车牌号通过接口获取   
+ * > 1.2.1.2.2 如果不一致，程序自动进行设备自检     
+ * > 1.2.2 如果有自检单号，通过后台获取信息显示到页面上（已报修/已处理）  
+ * > 1.2.2.1 如果已处理，页面显示刷新按钮，点击刷新 设备自检一次     
+ * > 1.2.2.1.1 如果请求失败或服务器返回错误，可以继续点击    
+ * > 1.2.2.1.2 如果请求成功，刷新按钮隐藏    
+ *
+ * - 只要是进行了自检，都必须传给APP->是否自检过，单号
  */
 const querystring = require('querystring');
 import "css/deviceSelfChecking.scss";
@@ -127,9 +141,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                                 console.log(e);
                                 // this.isWaiting=false;
                                 this.isIcon();
-                                callN('msg',{
-                                    content: errcode.device
-                                })
+                                callN('msg',{content: errcode.device})
                             })
                     }else{
 
@@ -179,8 +191,8 @@ window.addEventListener("DOMContentLoaded",()=>{
                         return this.getHealth();
                     })
                     .then(()=>{
-                    // this.getDetail.hasNumber=true;
-                    if(!this.getDetail.plate_num || !this.getDetail.plate_sn || this.getDetail.wifi!=1 || this.getDetail.portal!=1 || this.getDetail.compass!=1|| this.getDetail._4G!=1){
+                        // this.getDetail.hasNumber=true;
+                        if(!this.getDetail.plate_num || !this.getDetail.plate_sn || this.getDetail.wifi!=1 || this.getDetail.portal!=1 || this.getDetail.compass!=1|| this.getDetail._4G!=1){
                             var content={
                                     "ctime":this.getDetail.ctime,
                                     "plate_num":this.getDetail.plate_num,
@@ -208,19 +220,23 @@ window.addEventListener("DOMContentLoaded",()=>{
                             })
                                 .then(response=>response.json())
                                 .then(data=>{
+                                    // *****     
                                     var param=data.data;
                                     callN('sendCheckNumber',param);
                                 })
-                                .catch(e=>console.log(e));
+                                .catch(e=>{
+                                    console.log(e);
+                                    callN('msg',{content: errcode.m404});
+                                });
+                        }else{
+                            // *****
                         }
                     })
                     .catch(e=>{
                         console.log(e);
                         // this.isWaiting=false;
                         this.isIcon();
-                        callN('msg',{
-                            content: errcode.m404
-                        })
+                        callN('msg',{content: errcode.m404});
                     });
 
                 this.getDetail.status='';
@@ -237,7 +253,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                             this.getDetail.plate_num=data.data.plate_num;
                             this.flag_num=this.getDetail.plate_num?2:1;
                         }else{
-                            this.flag_num=this.getDetail.plate_num?2:1;
+                            this.flag_num=1;
                             callN('msg',{
                                 content:data.message
                             })
@@ -245,15 +261,13 @@ window.addEventListener("DOMContentLoaded",()=>{
                     })
                     .catch(e=>{
                         console.log(e);
-                        this.flag_num=this.getDetail.plate_num?2:1;
-                        callN('msg',{
-                            content: errcode.m404
-                        })
+                        this.flag_num=1;
+                        callN('msg',{content: errcode.m404})
                     })
             },
             getHealth(){
                 //获取设备检测详情
-                return this.$http.get(URL_HEALTH,{timeout:10000},{
+                return this.$http.get(URL_HEALTH,{timeout:20000},{
                     headers: {
                         'Cache-Control': 'no-cache'
                     }
@@ -262,6 +276,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     .then(data=>{
                         // callN('msg',{content:data});
                         // this.isWaiting=false;
+                        // *****
                         this.getDetail.compass=data.Compass.toString().trim().toUpperCase()=="OK"?'1':'0';
                         this.getDetail.wifi=data.WIFI.toString().trim().toUpperCase()=="OK"?'1':'0';
                         this.getDetail.portal=data.Portal.toString().trim().toUpperCase()=="OK"?'1':'0';
