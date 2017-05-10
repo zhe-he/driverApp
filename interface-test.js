@@ -125,26 +125,17 @@ app.use('/app-dms/report/getReport',function (req,res){
 
 	var message = {
         "code": 0,
-        "message":"ok",
+        "message": "ok",
         "data": {
-            "id": 111,
-            "number": "44223",
-            "plate_num": "辽C·L8765",
-            "content": {
-                "type" : 1,
-                "dtime": Date.now()/1000|0,//检测时间
-                "plate_num":"辽C·L8765",//车牌号
-                "plate_sn":"HMAPA01160700537",//设备SN
-                "wifi":0,//wifi链接 0-异常 1-正常
-                "portal":1,//Portal页面 0-异常 1-正常
-                "compass":1,//北斗定位 0-异常 1-正常
-                "4G":1,//4G 0-异常 1-正常
-            },
-            "type": 1,
-            "status": 2,//1-已报修 2-已处理
-            "ctime": 'xxx',
-            "utime": "xxx"
-
+            "id": "9",
+            "number": "201705091102409743",
+            "uid": "4",
+            "plate_num": "",
+            "content": "{\"Compass\":\"ok\",\"Portal\":\"OK\",\"WIFI\":\"fail\",\"4G\":\"Fial\"}",
+            "type": "1",
+            "status": "2",
+            "ctime": "1494298960",
+            "utime": "0"
         }
     };
     res.setHeader('Access-Control-Allow-Origin','*');
@@ -339,149 +330,44 @@ app.use('/app-dms/message/detail',function (req,res){
 // 3.6.2 获取消息列表
 app.use('/app-dms/message/lists',function (req,res){
     var data = req.query || req.body;
+    var size = data.size || 10;
+    var total = 34;
+    var page = data.page || 1;
+
+    var aList = [];
+    if(page*size - total < 0){
+        for(var i = 0;i< size;i++){
+            aList[i] = {
+                "id": (page-1)*size+i,
+                "title": "因为现在的手机大部分都不能因为现在的手机大部分都不能因为现在的手机大部分都不能",
+                "author": "xx",
+                "cover": "xxx" ,
+                "description": "xxx",
+                "status": Math.random()>0.5?0:1,
+                "ctime": Date.now()/1000
+            }
+        }
+    }else{
+        for(var i = 0; i<total-(page-1)*size;i++){
+            aList[i]= {
+                "id": (page-1)*size+i,
+                "title": "因为现在的手机大部分都不能因为现在的手机大部分都不能因为现在的手机大部分都不能",
+                "author": "xx",
+                "cover": "xxx" ,
+                "description": "xxx",
+                "status": Math.random()>0.5?0:1,
+                "ctime": Date.now()/1000
+            }
+        }
+    }
 
     var message = {
         "code": 0,
         "message":'ok',
         "data": {
-            "list":[
-                {
-                    "id": 1,
-                    "title": "因为现在的手机大部分都不能因为现在的手机大部分都不能因为现在的手机大部分都不能",
-                    "author": "xx",
-                    "cover": "xxx" ,
-                    "description": "xxx",
-                    "status": 0,
-                    "ctime": "2017.04.01 10:11:11"
-                },
-                {
-                    "id": 2,
-                    "title": "阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网",
-                    "author": "xx",
-                    "cover": "xxx" ,
-                    "description": "xxx",
-                    "status": 1,//0-未读 1-已读
-                    "ctime": "2017.04.11 16:31:22"
-                },
-                {
-                    "id": 2,
-                    "title": "阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网",
-                    "author": "xx",
-                    "cover": "xxx" ,
-                    "description": "xxx",
-                    "status": 1,//0-未读 1-已读
-                    "ctime": "2017.04.11 16:31:22"
-                },
-                {
-                    "id": 2,
-                    "title": "阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网",
-                    "author": "xx",
-                    "cover": "xxx" ,
-                    "description": "xxx",
-                    "status": 1,//0-未读 1-已读
-                    "ctime": "2017.04.11 16:31:22"
-                },
-                {
-                    "id": 2,
-                    "title": "阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网",
-                    "author": "xx",
-                    "cover": "xxx" ,
-                    "description": "xxx",
-                    "status": 1,//0-未读 1-已读
-                    "ctime": "2017.04.11 16:31:22"
-                },
-                {
-                    "id": 2,
-                    "title": "阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网",
-                    "author": "xx",
-                    "cover": "xxx" ,
-                    "description": "xxx",
-                    "status": 1,//0-未读 1-已读
-                    "ctime": "2017.04.11 16:31:22"
-                },
-                {
-                    "id": 2,
-                    "title": "阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网",
-                    "author": "xx",
-                    "cover": "xxx" ,
-                    "description": "xxx",
-                    "status": 1,//0-未读 1-已读
-                    "ctime": "2017.04.11 16:31:22"
-                },
-                {
-                    "id": 2,
-                    "title": "阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网",
-                    "author": "xx",
-                    "cover": "xxx" ,
-                    "description": "xxx",
-                    "status": 1,//0-未读 1-已读
-                    "ctime": "2017.04.11 16:31:22"
-                },
-                {
-                    "id": 2,
-                    "title": "阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网",
-                    "author": "xx",
-                    "cover": "xxx" ,
-                    "description": "xxx",
-                    "status": 1,//0-未读 1-已读
-                    "ctime": "2017.04.11 16:31:22"
-                },
-                {
-                    "id": 2,
-                    "title": "阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网",
-                    "author": "xx",
-                    "cover": "xxx" ,
-                    "description": "xxx",
-                    "status": 1,//0-未读 1-已读
-                    "ctime": "2017.04.11 16:31:22"
-                },
-                {
-                    "id": 2,
-                    "title": "阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网",
-                    "author": "xx",
-                    "cover": "xxx" ,
-                    "description": "xxx",
-                    "status": 1,//0-未读 1-已读
-                    "ctime": "2017.04.11 16:31:22"
-                },
-                {
-                    "id": 2,
-                    "title": "阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网",
-                    "author": "xx",
-                    "cover": "xxx" ,
-                    "description": "xxx",
-                    "status": 1,//0-未读 1-已读
-                    "ctime": "2017.04.11 16:31:22"
-                },
-                {
-                    "id": 2,
-                    "title": "阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网",
-                    "author": "xx",
-                    "cover": "xxx" ,
-                    "description": "xxx",
-                    "status": 1,//0-未读 1-已读
-                    "ctime": "2017.04.11 16:31:22"
-                },
-                {
-                    "id": 2,
-                    "title": "阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网",
-                    "author": "xx",
-                    "cover": "xxx" ,
-                    "description": "xxx",
-                    "status": 1,//0-未读 1-已读
-                    "ctime": "2017.04.11 16:31:22"
-                },
-                {
-                    "id": 2,
-                    "title": "阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网",
-                    "author": "xx",
-                    "cover": "xxx" ,
-                    "description": "xxx",
-                    "status": 1,//0-未读 1-已读
-                    "ctime": "2017.04.11 16:31:22"
-                }
-            ],
-            "total": 100
+            "list":aList,
+
+            "total": total
         }
     };
 
