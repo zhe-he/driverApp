@@ -53,8 +53,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             if(NUMBER.isChecked==1){
                 if(NUMBER.number){
                     // this.isWaiting=true;
-                    this.flag_num=3;this.flag_sn=3;this.flag_wifi=3;this.flag_portal=3;this.flag_compass=3;
-                    this.flag_4G=3;
+                    this.flag_num=3;this.flag_sn=3;this.flag_wifi=3;this.flag_portal=3;this.flag_compass=3;this.flag_4G=3;
                     fetch( `${BASEINFO.host}${GETREPORT}?number=${NUMBER.number}&access_token=${BASEINFO.access_token}&format=json`,{
                         cache:"no-cache"
                     })
@@ -64,18 +63,21 @@ window.addEventListener("DOMContentLoaded",()=>{
 
                             var result=data.data;
                             if(data.code==0){
-                                // this.getDetail= JSON.parse( result.content );
-                                // if(result.type==1){this.getDetail= result.content}
-                                this.getDetail= result.content;
-                                this.getDetail._4G=this.getDetail['4G'];
+                                let data=typeof (result.content)=='string'?JSON.parse( result.content ):result.content;
+                                this.getDetail.compass=data.Compass.toString().trim().toUpperCase()=="OK"?'1':'0';
+                                this.getDetail.wifi=data.WIFI.toString().trim().toUpperCase()=="OK"?'1':'0';
+                                this.getDetail.portal=data.Portal.toString().trim().toUpperCase()=="OK"?'1':'0';
+                                this.getDetail._4G=data['4G'].toString().trim().toUpperCase()=="OK"?'1':'0';
+                                this.getDetail.plate_num=data.plate_num;
+                                this.getDetail.plate_sn=data.plate_sn;
                                 this.getDetail.ctime=result.ctime;
                                 // this.getDetail.hasNumber=true;
                                 this.flag_num=this.getDetail.plate_num?2:1;
                                 this.flag_sn=this.getDetail.plate_sn?2:1;
-                                this.flag_wifi=this.getDetail.wifi?2:1;
-                                this.flag_portal=this.getDetail.portal?2:1;
-                                this.flag_compass=this.getDetail.compass?2:1;
-                                this.flag_4G=this.getDetail._4G?2:1;
+                                this.flag_wifi=this.getDetail.wifi==1?2:1;
+                                this.flag_portal=this.getDetail.portal==1?2:1;
+                                this.flag_compass=this.getDetail.compass==1?2:1;
+                                this.flag_4G=this.getDetail._4G==1?2:1;
                                 this.getDetail.status=result.status;
                             }else{
                                 this.isIcon();
@@ -96,8 +98,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     if(this.isWifi==1){
                         // this.isWaiting=true;
                         // this.getDetail.hasNumber=false; // 1改
-                        this.flag_num=3;this.flag_sn=3;this.flag_wifi=3;this.flag_portal=3;this.flag_compass=3;
-                        this.flag_4G=3;
+                        this.flag_num=3;this.flag_sn=3;this.flag_wifi=3;this.flag_portal=3;this.flag_compass=3;this.flag_4G=3;
                         this.getSN()
                             .then((plate_sn)=>{
                                 // this.isWaiting=false;
@@ -184,9 +185,9 @@ window.addEventListener("DOMContentLoaded",()=>{
                                     "ctime":this.getDetail.ctime,
                                     "plate_num":this.getDetail.plate_num,
                                     "plate_sn":this.getDetail.plate_sn,
-                                    "wifi":this.getDetail.wifi,
-                                    "portal":this.getDetail.portal,
-                                    "compass":this.getDetail.compass,
+                                    "WIFI":this.getDetail.wifi,
+                                    "Portal":this.getDetail.portal,
+                                    "Compass":this.getDetail.compass,
                                     "4G":this.getDetail._4G
                             };
                             fetch(`${BASEINFO.host}${ADDREP}`,{
@@ -261,10 +262,10 @@ window.addEventListener("DOMContentLoaded",()=>{
                     .then(data=>{
                         // callN('msg',{content:data});
                         // this.isWaiting=false;
-                        this.getDetail.compass=data.Compass=="OK"?'1':'0';
-                        this.getDetail.wifi=data.WIFI=="OK"?'1':'0';
-                        this.getDetail.portal=data.Portal=="OK"?'1':'0';
-                        this.getDetail._4G=data['4G']=="OK"?'1':'0';
+                        this.getDetail.compass=data.Compass.toString().trim().toUpperCase()=="OK"?'1':'0';
+                        this.getDetail.wifi=data.WIFI.toString().trim().toUpperCase()=="OK"?'1':'0';
+                        this.getDetail.portal=data.Portal.toString().trim().toUpperCase()=="OK"?'1':'0';
+                        this.getDetail._4G=data['4G'].toString().trim().toUpperCase()=="OK"?'1':'0';
                         this.flag_wifi=this.getDetail.wifi==1?2:1;
                         this.flag_portal=this.getDetail.portal==1?2:1;
                         this.flag_compass=this.getDetail.compass==1?2:1;

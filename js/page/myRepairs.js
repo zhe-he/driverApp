@@ -36,6 +36,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         return str?str.slice(0,-4):'';
     });
     Vue.filter('descFormat',str=>{
+        str=typeof (str)=='string'?JSON.parse( str ):str;
         let msgArr=[];
         if(!str.plate_num){
             msgArr.push('车辆信息未读取');
