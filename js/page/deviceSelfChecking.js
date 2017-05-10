@@ -27,7 +27,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         "flag_wifi":0,//0-不显示图标 1-显示 .err 2-显示 .normal 3- 显示 .loading
         "flag_portal":0,//0-不显示图标 1-显示 .err 2-显示 .normal 3- 显示 .loading
         "flag_compass":0,//0-不显示图标 1-显示 .err 2-显示 .normal 3- 显示 .loading
-        // "flag_4G":0,//0-不显示图标 1-显示 .err 2-显示 .normal 3- 显示 .loading
+        "flag_4G":0,//0-不显示图标 1-显示 .err 2-显示 .normal 3- 显示 .loading
         "getDetail":{
             "ctime":"",
             "plate_num":"",
@@ -35,7 +35,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             "protal":"",
             "compass":"",
             "wifi":"",
-            // "_4G":"",
+            "_4G":"",
             "status":"",
             // "hasNumber":false
         }
@@ -54,7 +54,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                 if(NUMBER.number){
                     // this.isWaiting=true;
                     this.flag_num=3;this.flag_sn=3;this.flag_wifi=3;this.flag_portal=3;this.flag_compass=3;
-                    // this.flag_4G=3;
+                    this.flag_4G=3;
                     fetch( `${BASEINFO.host}${GETREPORT}?number=${NUMBER.number}&access_token=${BASEINFO.access_token}&format=json`,{
                         cache:"no-cache"
                     })
@@ -67,6 +67,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                                 // this.getDetail= JSON.parse( result.content );
                                 // if(result.type==1){this.getDetail= result.content}
                                 this.getDetail= result.content;
+                                this.getDetail._4G=this.getDetail['4G'];
                                 this.getDetail.ctime=result.ctime;
                                 // this.getDetail.hasNumber=true;
                                 this.flag_num=this.getDetail.plate_num?2:1;
@@ -74,7 +75,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                                 this.flag_wifi=this.getDetail.wifi?2:1;
                                 this.flag_portal=this.getDetail.portal?2:1;
                                 this.flag_compass=this.getDetail.compass?2:1;
-                                // this.flag_4G=this.getDetail._4G?2:1;
+                                this.flag_4G=this.getDetail._4G?2:1;
                                 this.getDetail.status=result.status;
                             }else{
                                 this.isIcon();
@@ -96,7 +97,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         // this.isWaiting=true;
                         // this.getDetail.hasNumber=false; // 1改
                         this.flag_num=3;this.flag_sn=3;this.flag_wifi=3;this.flag_portal=3;this.flag_compass=3;
-                        // this.flag_4G=3;
+                        this.flag_4G=3;
                         this.getSN()
                             .then((plate_sn)=>{
                                 // this.isWaiting=false;
@@ -111,11 +112,11 @@ window.addEventListener("DOMContentLoaded",()=>{
                                     this.getDetail.wifi=1;
                                     this.getDetail.portal=1;
                                     this.getDetail.compass=1;
-                                    // this.getDetail._4G=1;
+                                    this.getDetail._4G=1;
                                     this.flag_wifi=this.getDetail.wifi?2:1;
                                     this.flag_portal=this.getDetail.portal?2:1;
                                     this.flag_compass=this.getDetail.compass?2:1;
-                                    // this.flag_4G=this.getDetail._4G?2:1;
+                                    this.flag_4G=this.getDetail._4G?2:1;
                                 }else{
                                     this.getDetail.plate_sn='';
                                     this.getDetail.ctime='';
@@ -163,14 +164,13 @@ window.addEventListener("DOMContentLoaded",()=>{
                     return
                 }*/
                 this.getDetail.ctime=parseInt(Date.now()/1000);
-                this.flag_num=3;this.flag_sn=3;this.flag_wifi=3;this.flag_portal=3;this.flag_compass=3;
-                // this.flag_4G=3;
+                this.flag_num=3;this.flag_sn=3;this.flag_wifi=3;this.flag_portal=3;this.flag_compass=3;this.flag_4G=3;
                 this.getDetail.plate_num='';
                 this.getDetail.plate_sn='';
                 this.getDetail.wifi='';
                 this.getDetail.portal='';
                 this.getDetail.compass='';
-                // this.getDetail._4G='';
+                this.getDetail._4G='';
                 //获取设备sn
                 this.getSN().then(this.getPlateNum)
                     .then(()=>{
@@ -179,7 +179,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     })
                     .then(()=>{
                     // this.getDetail.hasNumber=true;
-                    if(!this.getDetail.plate_num || !this.getDetail.plate_sn || this.getDetail.wifi!=1 || this.getDetail.portal!=1 || this.getDetail.compass!=1/*|| this.getDetail._4G!=1*/){
+                    if(!this.getDetail.plate_num || !this.getDetail.plate_sn || this.getDetail.wifi!=1 || this.getDetail.portal!=1 || this.getDetail.compass!=1|| this.getDetail._4G!=1){
                             var content={
                                     "ctime":this.getDetail.ctime,
                                     "plate_num":this.getDetail.plate_num,
@@ -187,7 +187,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                                     "wifi":this.getDetail.wifi,
                                     "portal":this.getDetail.portal,
                                     "compass":this.getDetail.compass,
-                                    // "_4G":this.getDetail._4G
+                                    "4G":this.getDetail._4G
                             };
                             fetch(`${BASEINFO.host}${ADDREP}`,{
                                 method:"POST",
@@ -264,11 +264,11 @@ window.addEventListener("DOMContentLoaded",()=>{
                         this.getDetail.compass=data.Compass=="OK"?'1':'0';
                         this.getDetail.wifi=data.WIFI=="OK"?'1':'0';
                         this.getDetail.portal=data.Portal=="OK"?'1':'0';
-                        // this.getDetail._4G=data._4G=="OK"?'1':'0';
+                        this.getDetail._4G=data['4G']=="OK"?'1':'0';
                         this.flag_wifi=this.getDetail.wifi==1?2:1;
                         this.flag_portal=this.getDetail.portal==1?2:1;
                         this.flag_compass=this.getDetail.compass==1?2:1;
-                        // this.flag_4G=this.getDetail._4G==1?2:1;
+                        this.flag_4G=this.getDetail._4G==1?2:1;
                     })
             },
             noCheck(){
@@ -283,7 +283,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                 this.flag_wifi=0;
                 this.flag_portal=0;
                 this.flag_compass=0;
-                // this.flag_4G=0;
+                this.flag_4G=0;
             }
         },
         components: {
