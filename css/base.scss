@@ -319,6 +319,37 @@ $lineColor: #D5D5D5;
     }
 }
 
+.common-loading{
+	height: 0.74rem;
+	line-height: 0.74rem;
+	text-align: center;
+	color: $greyColor;
+	font-size: 0.28rem;
+
+	> i{
+		display: inline-block;
+		vertical-align: middle;
+		width: 0.28rem;
+		height: 0.28rem;
+		margin-top: -2px;
+		margin-right: 0.1rem;
+		border-radius: 50%;
+		border: 2px solid $greyColor;
+		border-bottom-color: transparent;
+		animation: rotate 0.75s linear infinite;
+	}
+}
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
 
 html,body{
 	height: 100%;

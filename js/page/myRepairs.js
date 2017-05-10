@@ -17,31 +17,25 @@ window.addEventListener("DOMContentLoaded",()=>{
     const PARAMS = querystring.parse(SEARCH);
     const BASEINFO = getN('getBase');
 
+
     var fnObj = {
         "repairList":[],
-        "isWaiting":true,
+        "isWaiting": true,  // 初次进入加载
+        "isShow": false,    // 加载中文案是否显示
         "backType": (PARAMS.type || 3)-0 , // 返回到车辆 or 我的
-        "isReady":false,
-        "curpage":1,
-        "pageCount":99
+        "isReady": false,   // 是否能加载下一页
+        "curpage":1,        // 当前页数
+        "pageCount":99,     // 总页数，只在第一次请求赋值
+        "size": 10          // 每页多少条数据
     };
-    var params = {
-        format: "json",
-        uid: BASEINFO.uid,
-        access_token: BASEINFO.access_token,
-        page:this.curpage,
-        size:20
-    };
+    
     Vue.filter('timeFormat',str=>{
-        str=str == undefined?'':dataFormat((str*1000),'YYYY-MM-dd hh:mm:ss');
-        return str;
+        return str?dataFormat((str*1000),'YYYY-MM-dd hh:mm:ss'):'';
     });
     Vue.filter('repairNum',str=>{
-        str=str == undefined?'':str.slice(0,-4);
-        return str;
+        return str?str.slice(0,-4):'';
     });
     Vue.filter('descFormat',str=>{
-        console.log(str);
         let msgArr=[];
         if(!str.plate_num){
             msgArr.push('车辆信息未读取');
@@ -49,17 +43,18 @@ window.addEventListener("DOMContentLoaded",()=>{
         if(!str.plate_sn){
             msgArr.push('设备信息未读取');
         }
-        if(str.wifi!=1){
+        // 设备字符可能是小写ok,设备返回可能带有前后空格的ok
+        if(str.WIFI.toString().trim().toUpperCase()!="OK"){
             msgArr.push('wifi功能检测错误');
         }
-        if(str.portal!=1){
+        if(str.Portal.toString().trim().toUpperCase()!="OK"){
             msgArr.push('Portal功能检测错误');
         }
-        if(str.compass!=1){
+        if(str.Compass.toString().trim().toUpperCase()!="OK"){
             msgArr.push('北斗定位功能检测错误');
         }
-        if(str._4G!=1){
-            msgArr.push('4G功能检测错误');
+        if(str['4G'].toString().trim().toUpperCase()!="OK"){
+            msgArr.push('设备4G功能检测错误');
         }
         return String(msgArr);
     });
@@ -74,31 +69,42 @@ window.addEventListener("DOMContentLoaded",()=>{
         },
         methods: {
             getData(){
+                var params = {
+                    format: "json",
+                    uid: BASEINFO.uid,
+                    access_token: BASEINFO.access_token,
+                    page: this.curpage,
+                    size: this.size
+                };
+                this.isReady = true;
                 fetch(`${BASEINFO.host}${REPLIST}?${querystring.stringify(params)}`,{
                     cache:"no-cache"
-                }).then(response=>response.json()).
-                then(data=>{
-                    this.isReady=false;
-                    this.isWaiting=false;
-                    if(data.code==0){
-                        this.repairList=this.repairList.concat(data.data.list);
-                        if (this.curpage===1) {
-                            this.pagecount = Math.ceil(data.data.total/20);
-                        }
-
-                        if (this.curpage++>=this.pagecount) {
-                            window.removeEventListener('scroll',this.addMore,false);
-                            this.isReady = true;
-                        }
-                    }else{
-                        callN('msg',{
-                            content:data.message
-                        });
-                    }
                 })
+                    .then(response=>response.json())
+                    .then(data=>{
+                        this.isReady=false;
+                        this.isWaiting=false;
+                        this.isShow = false;
+                        if(data.code==0){
+                            this.repairList=this.repairList.concat(data.data.list);
+                            if (this.curpage==1) {
+                                this.pagecount = Math.ceil(data.data.total/this.size);
+                            }
+                            if (this.curpage++>=this.pagecount) {
+                                window.removeEventListener('scroll',this.addMore,false);
+                                this.isReady = true;
+                            }
+                        }else{
+                            callN('msg',{
+                                content:data.message
+                            });
+                        }
+                    })
                     .catch(e=>{
                         console.log(e);
                         this.isWaiting=false;
+                        this.isShow = false;
+                        this.isReady=false;
                         callN('msg',{
                             content: errcode.m404
                         });
@@ -109,6 +115,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                 var h = window.innerHeight;
                 var t = document.documentElement.scrollTop||document.body.scrollTop;
                 if (H - (h + t) < 15 && !this.isReady){
+                    this.isShow = true;
                     this.getData();
                 }
             }
