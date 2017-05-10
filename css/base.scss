@@ -239,9 +239,9 @@ $shadowColorBtn: rgba(31,120,255,0.4);
 .common-top{
 	height: 0.88rem;
 	> div{
-		// z-index: 100;
-		// @include common-fixed;
-		// @include bg2('bg3',100%,auto);
+		 z-index: 100;
+		 @include common-fixed;
+		 @include bg2('bg3',100%,auto);
 		width: 100%;
 		display: flex;
 		> *{

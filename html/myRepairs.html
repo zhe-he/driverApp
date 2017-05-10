@@ -26,7 +26,7 @@
                     <dl>
                         <dt>故障描述：</dt>
                         <dd v-if="item.type==2">{{item.content}}</dd>
-                        <dd v-else></dd>
+                        <dd v-else>{{item.content | descFormat}}</dd>
                     </dl>
                     <p>
                         <i class="submit" v-if="item.status==1">已提交</i>

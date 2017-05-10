@@ -40,6 +40,29 @@ window.addEventListener("DOMContentLoaded",()=>{
         str=str == undefined?'':str.slice(0,-4);
         return str;
     });
+    Vue.filter('descFormat',str=>{
+        console.log(str);
+        let msgArr=[];
+        if(!str.plate_num){
+            msgArr.push('车辆信息未读取');
+        }
+        if(!str.plate_sn){
+            msgArr.push('设备信息未读取');
+        }
+        if(str.wifi!=1){
+            msgArr.push('wifi功能检测错误');
+        }
+        if(str.portal!=1){
+            msgArr.push('Portal功能检测错误');
+        }
+        if(str.compass!=1){
+            msgArr.push('北斗定位功能检测错误');
+        }
+        if(str._4G!=1){
+            msgArr.push('4G功能检测错误');
+        }
+        return String(msgArr);
+    });
     new Vue({
         el: "#myRepairs",
         data:fnObj,

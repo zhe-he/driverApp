@@ -21,8 +21,6 @@
 	@include bg2("icon_been_submitted");
 }
 .content {
-	height:12.24rem;
-	overflow: scroll;
 	ul {
 		width: 6.9rem;
 		margin: 0 auto;
@@ -40,12 +38,12 @@
 				display: flex;
 				padding: .11rem 0;
 				dt {
-					flex: 1.5;
+					width:1.8rem;
 					color: $greyColor;
 					text-align: right;
 				}
 				dd {
-					flex: 3;
+					width:3.6rem;
 					color: #121212;
 				}
 			}

@@ -138,6 +138,7 @@ app.use('/app-dms/report/getReport',function (req,res){
                 "wifi":0,//wifi链接 0-异常 1-正常
                 "portal":1,//Portal页面 0-异常 1-正常
                 "compass":1,//北斗定位 0-异常 1-正常
+                "_4G":0,//4G 0-异常 1-正常
             },
             "type": 1,
             "status": 2,//1-已报修 2-已处理
@@ -170,6 +171,109 @@ app.use('/app-dms/report/lists',function (req,res){
                 "type": 1 ,//1-自动 2-手动
                 "status": 1,//1-未修复 2-已修复
                 "ctime": "2017-04-17 11:36:54"
+            },{
+                "cid": 2,
+                "number": "BX000002",
+                "plate_num": "xxx",
+                "content": {
+                    "plate_num":"豫A22231",
+                    "plate_sn":643262,
+                    "wifi":1,
+                    "portal":0,
+                    "compass":0,
+                    "_4G":0
+                },
+                "type": 1 ,
+                "status": 2,
+                "ctime": "1494345284346"
+            },{
+                "cid": 2,
+                "number": "BX000002",
+                "plate_num": "xxx",
+                "content": "xxx",
+                "type": 2 ,
+                "status": 2,
+                "ctime": "2017-04-11"
+            },{
+                "cid": 2,
+                "number": "BX000002",
+                "plate_num": "xxx",
+                "content": "xxx",
+                "type": 2 ,
+                "status": 2,
+                "ctime": "2017-04-11"
+            },{
+                "cid": 2,
+                "number": "BX000002",
+                "plate_num": "xxx",
+                "content": "xxx",
+                "type": 2 ,
+                "status": 2,
+                "ctime": "2017-04-11"
+            },{
+                "cid": 2,
+                "number": "BX000002",
+                "plate_num": "xxx",
+                "content": "xxx",
+                "type": 2 ,
+                "status": 2,
+                "ctime": "2017-04-11"
+            },{
+                "cid": 2,
+                "number": "BX000002",
+                "plate_num": "xxx",
+                "content": "xxx",
+                "type": 2 ,
+                "status": 2,
+                "ctime": "2017-04-11"
+            },{
+                "cid": 2,
+                "number": "BX000002",
+                "plate_num": "xxx",
+                "content": "xxx",
+                "type": 2 ,
+                "status": 2,
+                "ctime": "2017-04-11"
+            },{
+                "cid": 2,
+                "number": "BX000002",
+                "plate_num": "xxx",
+                "content": "xxx",
+                "type": 2 ,
+                "status": 2,
+                "ctime": "2017-04-11"
+            },{
+                "cid": 2,
+                "number": "BX000002",
+                "plate_num": "xxx",
+                "content": "xxx",
+                "type": 2 ,
+                "status": 2,
+                "ctime": "2017-04-11"
+            },{
+                "cid": 2,
+                "number": "BX000002",
+                "plate_num": "xxx",
+                "content": "xxx",
+                "type": 2 ,
+                "status": 2,
+                "ctime": "2017-04-11"
+            },{
+                "cid": 2,
+                "number": "BX000002",
+                "plate_num": "xxx",
+                "content": "xxx",
+                "type": 2 ,
+                "status": 2,
+                "ctime": "2017-04-11"
+            },{
+                "cid": 2,
+                "number": "BX000002",
+                "plate_num": "xxx",
+                "content": "xxx",
+                "type": 2 ,
+                "status": 2,
+                "ctime": "2017-04-11"
             },{
                 "cid": 2,
                 "number": "BX000002",
@@ -249,6 +353,123 @@ app.use('/app-dms/message/lists',function (req,res){
                     "description": "xxx",
                     "status": 0,
                     "ctime": "2017.04.01 10:11:11"
+                },
+                {
+                    "id": 2,
+                    "title": "阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网",
+                    "author": "xx",
+                    "cover": "xxx" ,
+                    "description": "xxx",
+                    "status": 1,//0-未读 1-已读
+                    "ctime": "2017.04.11 16:31:22"
+                },
+                {
+                    "id": 2,
+                    "title": "阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网",
+                    "author": "xx",
+                    "cover": "xxx" ,
+                    "description": "xxx",
+                    "status": 1,//0-未读 1-已读
+                    "ctime": "2017.04.11 16:31:22"
+                },
+                {
+                    "id": 2,
+                    "title": "阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网",
+                    "author": "xx",
+                    "cover": "xxx" ,
+                    "description": "xxx",
+                    "status": 1,//0-未读 1-已读
+                    "ctime": "2017.04.11 16:31:22"
+                },
+                {
+                    "id": 2,
+                    "title": "阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网",
+                    "author": "xx",
+                    "cover": "xxx" ,
+                    "description": "xxx",
+                    "status": 1,//0-未读 1-已读
+                    "ctime": "2017.04.11 16:31:22"
+                },
+                {
+                    "id": 2,
+                    "title": "阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网",
+                    "author": "xx",
+                    "cover": "xxx" ,
+                    "description": "xxx",
+                    "status": 1,//0-未读 1-已读
+                    "ctime": "2017.04.11 16:31:22"
+                },
+                {
+                    "id": 2,
+                    "title": "阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网",
+                    "author": "xx",
+                    "cover": "xxx" ,
+                    "description": "xxx",
+                    "status": 1,//0-未读 1-已读
+                    "ctime": "2017.04.11 16:31:22"
+                },
+                {
+                    "id": 2,
+                    "title": "阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网",
+                    "author": "xx",
+                    "cover": "xxx" ,
+                    "description": "xxx",
+                    "status": 1,//0-未读 1-已读
+                    "ctime": "2017.04.11 16:31:22"
+                },
+                {
+                    "id": 2,
+                    "title": "阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网",
+                    "author": "xx",
+                    "cover": "xxx" ,
+                    "description": "xxx",
+                    "status": 1,//0-未读 1-已读
+                    "ctime": "2017.04.11 16:31:22"
+                },
+                {
+                    "id": 2,
+                    "title": "阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网",
+                    "author": "xx",
+                    "cover": "xxx" ,
+                    "description": "xxx",
+                    "status": 1,//0-未读 1-已读
+                    "ctime": "2017.04.11 16:31:22"
+                },
+                {
+                    "id": 2,
+                    "title": "阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网",
+                    "author": "xx",
+                    "cover": "xxx" ,
+                    "description": "xxx",
+                    "status": 1,//0-未读 1-已读
+                    "ctime": "2017.04.11 16:31:22"
+                },
+                {
+                    "id": 2,
+                    "title": "阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网",
+                    "author": "xx",
+                    "cover": "xxx" ,
+                    "description": "xxx",
+                    "status": 1,//0-未读 1-已读
+                    "ctime": "2017.04.11 16:31:22"
+                },
+                {
+                    "id": 2,
+                    "title": "阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网",
+                    "author": "xx",
+                    "cover": "xxx" ,
+                    "description": "xxx",
+                    "status": 1,//0-未读 1-已读
+                    "ctime": "2017.04.11 16:31:22"
+                },
+                {
+                    "id": 2,
+                    "title": "阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网阿里大文娱全资收购大麦网",
+                    "author": "xx",
+                    "cover": "xxx" ,
+                    "description": "xxx",
+                    "status": 1,//0-未读 1-已读
+                    "ctime": "2017.04.11 16:31:22"
                 },
                 {
                     "id": 2,
