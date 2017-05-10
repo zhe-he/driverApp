@@ -49,35 +49,35 @@
                     <li>
                         WiFi连接 <span></span>
                         <p>
-                            <span v-if="getDetail.wifi==0&&getDetail.status==1">已报修</span>
+                            <span v-if="getDetail.wifi!=1&&getDetail.status==1">已报修</span>
                             <template v-else>
-                                <span v-if="getDetail.wifi==0&&getDetail.status==2">已处理</span>
+                                <span v-if="getDetail.wifi!=1&&getDetail.status==2">已处理</span>
                             </template>
                             <i :class="[flag_wifi==0?'':flag_wifi==3?'loading':flag_wifi==2?'normal':'err']"></i>
                         </p>
                     </li>
                     <li>Portal页面 <span></span>
                         <p>
-                            <span v-if="getDetail.portal==0&&getDetail.status==1">已报修</span>
+                            <span v-if="getDetail.portal!=1&&getDetail.status==1">已报修</span>
                             <template v-else>
-                                <span v-if="getDetail.portal==0&&getDetail.status==2">已处理</span>
+                                <span v-if="getDetail.portal!=1&&getDetail.status==2">已处理</span>
                             </template>
                             <i :class="[flag_portal==0?'':flag_portal==3?'loading':flag_portal==2?'normal':'err']"></i>
                         </p>
                     <li>北斗定位 <span></span>
                         <p>
-                            <span v-if="getDetail.compass==0&&getDetail.status==1">已报修</span>
+                            <span v-if="getDetail.compass!=1&&getDetail.status==1">已报修</span>
                             <template v-else>
-                                <span v-if="getDetail.compass==0&&getDetail.status==2">已处理</span>
+                                <span v-if="getDetail.compass!=1&&getDetail.status==2">已处理</span>
                             </template>
                             <i :class="[flag_compass==0?'':flag_compass==3?'loading':flag_compass==2?'normal':'err']"></i>
                         </p>
                     </li>
                     <li>4G <span></span>
                         <p>
-                            <span v-if="getDetail._4G==0&&getDetail.status==1">已报修</span>
+                            <span v-if="getDetail._4G!=1&&getDetail.status==1">已报修</span>
                             <template v-else>
-                                <span v-if="getDetail._4G==0&&getDetail.status==2">已处理</span>
+                                <span v-if="getDetail._4G!=1&&getDetail.status==2">已处理</span>
                             </template>
                             <i :class="[flag_4G==0?'':flag_4G==3?'loading':flag_4G==2?'normal':'err']"></i>
                         </p>
@@ -85,7 +85,7 @@
                 </ul>
             </div>
 
-            <a class="a_c bottomBtn" v-if="getDetail.status==2 && isWifi==1" @click="selfCheck">
+            <a class="a_c bottomBtn" v-if="getDetail.status_flag==2 && isWifi==1" @click="selfCheck">
                 <b><u></u>自检刷新</b>
             </a>
 

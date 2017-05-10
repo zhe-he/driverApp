@@ -51,6 +51,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             "wifi":"",
             "_4G":"",
             "status":"",
+            "status_flag":""
             // "hasNumber":false
         }
 
@@ -78,10 +79,10 @@ window.addEventListener("DOMContentLoaded",()=>{
                             var result=data.data;
                             if(data.code==0){
                                 let data=typeof (result.content)=='string'?JSON.parse( result.content ):result.content;
-                                this.getDetail.compass=data.Compass.toString().trim().toUpperCase()=="OK"?'1':'0';
-                                this.getDetail.wifi=data.WIFI.toString().trim().toUpperCase()=="OK"?'1':'0';
-                                this.getDetail.portal=data.Portal.toString().trim().toUpperCase()=="OK"?'1':'0';
-                                this.getDetail._4G=data['4G'].toString().trim().toUpperCase()=="OK"?'1':'0';
+                                this.getDetail.compass=data.Compass.toString().trim().toUpperCase()=="OK"?'1':data.Compass;
+                                this.getDetail.wifi=data.WIFI.toString().trim().toUpperCase()=="OK"?'1':data.WIFI;
+                                this.getDetail.portal=data.Portal.toString().trim().toUpperCase()=="OK"?'1':data.Portal;
+                                this.getDetail._4G=data['4G'].toString().trim().toUpperCase()=="OK"?'1':data['4G'];
                                 this.getDetail.plate_num=data.plate_num;
                                 this.getDetail.plate_sn=data.plate_sn;
                                 this.getDetail.ctime=result.ctime;
@@ -93,6 +94,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                                 this.flag_compass=this.getDetail.compass==1?2:1;
                                 this.flag_4G=this.getDetail._4G==1?2:1;
                                 this.getDetail.status=result.status;
+                                this.getDetail.status_flag=result.status;
                             }else{
                                 this.isIcon();
                                 callN('msg',{
@@ -128,14 +130,16 @@ window.addEventListener("DOMContentLoaded",()=>{
                                     this.getDetail.portal=1;
                                     this.getDetail.compass=1;
                                     this.getDetail._4G=1;
-                                    this.flag_wifi=this.getDetail.wifi?2:1;
-                                    this.flag_portal=this.getDetail.portal?2:1;
-                                    this.flag_compass=this.getDetail.compass?2:1;
-                                    this.flag_4G=this.getDetail._4G?2:1;
+                                    this.flag_wifi=this.getDetail.wifi==1?2:1;
+                                    this.flag_portal=this.getDetail.portal==1?2:1;
+                                    this.flag_compass=this.getDetail.compass==1?2:1;
+                                    this.flag_4G=this.getDetail._4G==1?2:1;
                                 }else{
                                     this.getDetail.plate_sn='';
                                     this.getDetail.ctime='';
-                                    this.noCheck();
+                                    // this.noCheck();
+                                    this.isIcon();
+                                    this.selfCheck();
                                 }
                             }).catch(e=>{
                                 console.log(e);
@@ -197,11 +201,12 @@ window.addEventListener("DOMContentLoaded",()=>{
                                     "ctime":this.getDetail.ctime,
                                     "plate_num":this.getDetail.plate_num,
                                     "plate_sn":this.getDetail.plate_sn,
-                                    "WIFI":this.getDetail.wifi,
-                                    "Portal":this.getDetail.portal,
-                                    "Compass":this.getDetail.compass,
-                                    "4G":this.getDetail._4G
+                                    "WIFI":this.getDetail.wifi==1?'OK':this.getDetail.wifi,
+                                    "Portal":this.getDetail.portal==1?'OK':this.getDetail.portal,
+                                    "4G":this.getDetail._4G==1?'OK':this.getDetail._4G,
+                                    "Compass":this.getDetail.compass==1?'OK':this.getDetail.compass
                             };
+
                             fetch(`${BASEINFO.host}${ADDREP}`,{
                                 method:"POST",
                                 mode: "cors",
@@ -220,19 +225,34 @@ window.addEventListener("DOMContentLoaded",()=>{
                             })
                                 .then(response=>response.json())
                                 .then(data=>{
-                                    // *****     
-                                    var param=data.data;
-                                    callN('sendCheckNumber',param);
+                                    // *****
+                                    if(data.code==0){
+                                        this.getDetail.status=1;
+                                        this.getDetail.status_flag=1;
+                                        let param=data.data;
+                                        param.isChecked=1;
+                                        callN('sendCheckNumber',param);
+                                    }else{
+                                        this.getDetail.status='';
+                                        this.getDetail.status_flag=2;
+                                    }
+
                                 })
                                 .catch(e=>{
+                                    this.getDetail.status_flag=2;
                                     console.log(e);
                                     callN('msg',{content: errcode.m404});
                                 });
                         }else{
                             // *****
+                            let param={
+                                "isChecked":1
+                            };
+                            callN('sendCheckNumber',param);
                         }
                     })
                     .catch(e=>{
+                        // this.getDetail.status_flag=2;
                         console.log(e);
                         // this.isWaiting=false;
                         this.isIcon();
@@ -262,6 +282,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     .catch(e=>{
                         console.log(e);
                         this.flag_num=1;
+                        // this.getDetail.status_flag=2;
                         callN('msg',{content: errcode.m404})
                     })
             },
@@ -277,10 +298,10 @@ window.addEventListener("DOMContentLoaded",()=>{
                         // callN('msg',{content:data});
                         // this.isWaiting=false;
                         // *****
-                        this.getDetail.compass=data.Compass.toString().trim().toUpperCase()=="OK"?'1':'0';
-                        this.getDetail.wifi=data.WIFI.toString().trim().toUpperCase()=="OK"?'1':'0';
-                        this.getDetail.portal=data.Portal.toString().trim().toUpperCase()=="OK"?'1':'0';
-                        this.getDetail._4G=data['4G'].toString().trim().toUpperCase()=="OK"?'1':'0';
+                        this.getDetail.compass=data.Compass.toString().trim().toUpperCase()=="OK"?'1':data.Compass;
+                        this.getDetail.wifi=data.WIFI.toString().trim().toUpperCase()=="OK"?'1':data.WIFI;
+                        this.getDetail.portal=data.Portal.toString().trim().toUpperCase()=="OK"?'1':data.Portal;
+                        this.getDetail._4G=data['4G'].toString().trim().toUpperCase()=="OK"?'1':data['4G'];
                         this.flag_wifi=this.getDetail.wifi==1?2:1;
                         this.flag_portal=this.getDetail.portal==1?2:1;
                         this.flag_compass=this.getDetail.compass==1?2:1;
