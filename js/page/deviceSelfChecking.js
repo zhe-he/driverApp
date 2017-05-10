@@ -31,8 +31,6 @@ window.addEventListener("DOMContentLoaded",()=>{
     const BASEINFO = getN('getBase');
     const NUMBER = getN('getAutoCheckNumber');
     const WIFI = getN('wifi');
-    // WIFI.wangfan=0;
-    // NUMBER.number='111';
     var fnObj = {
         "isWifi":WIFI.wangfan,
         // "isWaiting":false,
@@ -52,8 +50,8 @@ window.addEventListener("DOMContentLoaded",()=>{
             "_4G":"",
             "status":"",
             "status_flag":""
-            // "hasNumber":false
-        }
+        },
+        "selfChecking": false // 设备自检中 
 
     };
     Vue.filter('ymdhms',str=>{
@@ -86,7 +84,6 @@ window.addEventListener("DOMContentLoaded",()=>{
                                 this.getDetail.plate_num=data.plate_num;
                                 this.getDetail.plate_sn=data.plate_sn;
                                 this.getDetail.ctime=result.ctime;
-                                // this.getDetail.hasNumber=true;
                                 this.flag_num=this.getDetail.plate_num?2:1;
                                 this.flag_sn=this.getDetail.plate_sn?2:1;
                                 this.flag_wifi=this.getDetail.wifi==1?2:1;
@@ -113,15 +110,11 @@ window.addEventListener("DOMContentLoaded",()=>{
                 }else{
                     if(this.isWifi==1){
                         // this.isWaiting=true;
-                        // this.getDetail.hasNumber=false; // 1改
                         this.flag_num=3;this.flag_sn=3;this.flag_wifi=3;this.flag_portal=3;this.flag_compass=3;this.flag_4G=3;
                         this.getSN()
                             .then((plate_sn)=>{
                                 // this.isWaiting=false;
-                                // this.getDetail.hasNumber=true;// 1改
-                                // NUMBER.plate_sn='6010306';
                                 if(plate_sn==NUMBER.plate_sn){
-                                    // NUMBER.ctime=1492600167612;
                                     // this.isWaiting=true;
                                     this.getDetail.ctime=NUMBER.ctime;
                                     this.getDetail.plate_sn=plate_sn;
@@ -135,9 +128,6 @@ window.addEventListener("DOMContentLoaded",()=>{
                                     this.flag_compass=this.getDetail.compass==1?2:1;
                                     this.flag_4G=this.getDetail._4G==1?2:1;
                                 }else{
-                                    this.getDetail.plate_sn='';
-                                    this.getDetail.ctime='';
-                                    // this.noCheck();
                                     this.isIcon();
                                     this.selfCheck();
                                 }
@@ -149,12 +139,10 @@ window.addEventListener("DOMContentLoaded",()=>{
                             })
                     }else{
 
-                        // this.getDetail.hasNumber=false;
                         callN('msg',{
                             content: errcode.deviceCheck
                         })
                     }
-
                 }
             }else{
                 this.noCheck();
@@ -168,18 +156,12 @@ window.addEventListener("DOMContentLoaded",()=>{
                         this.getDetail.plate_sn=data.deviceSN;
                         this.flag_sn=this.getDetail.plate_sn?2:1;
                         this.getDetail.plate_num='';
-                        // this.getDetail.ctime=parseInt(Date.now()/1000);
                         return data.deviceSN;
                     })
             },
             selfCheck(){
+                this.selfChecking = true;
                 // this.isWaiting=true;
-                //html页面有判断
-                /*if(this.isWifi==0){
-                    callN('msg',{content:errcode.deviceCheck});
-                    this.isWaiting=false;
-                    return
-                }*/
                 this.getDetail.ctime=parseInt(Date.now()/1000);
                 this.flag_num=3;this.flag_sn=3;this.flag_wifi=3;this.flag_portal=3;this.flag_compass=3;this.flag_4G=3;
                 this.getDetail.plate_num='';
@@ -188,6 +170,8 @@ window.addEventListener("DOMContentLoaded",()=>{
                 this.getDetail.portal='';
                 this.getDetail.compass='';
                 this.getDetail._4G='';
+                this.getDetail.status='';
+                
                 //获取设备sn
                 this.getSN().then(this.getPlateNum)
                     .then(()=>{
@@ -195,7 +179,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         return this.getHealth();
                     })
                     .then(()=>{
-                        // this.getDetail.hasNumber=true;
+                        this.selfChecking = false;
                         if(!this.getDetail.plate_num || !this.getDetail.plate_sn || this.getDetail.wifi!=1 || this.getDetail.portal!=1 || this.getDetail.compass!=1|| this.getDetail._4G!=1){
                             var content={
                                     "ctime":this.getDetail.ctime,
@@ -225,7 +209,6 @@ window.addEventListener("DOMContentLoaded",()=>{
                             })
                                 .then(response=>response.json())
                                 .then(data=>{
-                                    // *****
                                     if(data.code==0){
                                         this.getDetail.status=1;
                                         this.getDetail.status_flag=1;
@@ -244,14 +227,16 @@ window.addEventListener("DOMContentLoaded",()=>{
                                     callN('msg',{content: errcode.m404});
                                 });
                         }else{
-                            // *****
                             let param={
-                                "isChecked":1
+                                "isChecked":1,
+                                "number": "",
+                                "ctime": Date.now()
                             };
                             callN('sendCheckNumber',param);
                         }
                     })
                     .catch(e=>{
+                        this.selfChecking = false;
                         // this.getDetail.status_flag=2;
                         console.log(e);
                         // this.isWaiting=false;
@@ -259,7 +244,6 @@ window.addEventListener("DOMContentLoaded",()=>{
                         callN('msg',{content: errcode.m404});
                     });
 
-                this.getDetail.status='';
             },
             getPlateNum(){
                 //根据sn获取车牌号
@@ -284,7 +268,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         this.flag_num=1;
                         // this.getDetail.status_flag=2;
                         callN('msg',{content: errcode.m404})
-                    })
+                    });
             },
             getHealth(){
                 //获取设备检测详情
@@ -295,9 +279,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                 })
                     .then(response=>response.json())
                     .then(data=>{
-                        // callN('msg',{content:data});
                         // this.isWaiting=false;
-                        // *****
                         this.getDetail.compass=data.Compass.toString().trim().toUpperCase()=="OK"?'1':data.Compass;
                         this.getDetail.wifi=data.WIFI.toString().trim().toUpperCase()=="OK"?'1':data.WIFI;
                         this.getDetail.portal=data.Portal.toString().trim().toUpperCase()=="OK"?'1':data.Portal;
@@ -309,9 +291,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     })
             },
             noCheck(){
-                // this.getDetail.hasNumber=false;//置空
                 this.isIcon();
-                // this.getDetail.ctime=new Date().getTime();
                 callN('msg',{content: errcode.deviceNoCheck});
             },
             isIcon(){
@@ -325,7 +305,6 @@ window.addEventListener("DOMContentLoaded",()=>{
         },
         components: {
             commonTop,
-            // msg,
             loading
         }
     });
