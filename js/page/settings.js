@@ -11,6 +11,7 @@ import {getN,callN} from "nativeA";
 import msg from "msg";
 import eventHub from "eventHub";
 import {GETVER} from "inter";
+import {isAndroid} from "method";
 
 window.addEventListener("DOMContentLoaded",()=>{
     const BASEINFO = getN("getBase");
@@ -47,7 +48,8 @@ window.addEventListener("DOMContentLoaded",()=>{
         methods: {
             getCanupdata(){
                 this.checkUpdate = true;
-                fetch(`${BASEINFO.host}${GETVER}?access_token=${BASEINFO.access_token}&format=json`,{
+                var type = isAndroid?'1':'2';
+                fetch(`${BASEINFO.host}${GETVER}?type=${type}&access_token=${BASEINFO.access_token}&format=json`,{
                     cache: "no-cache"
                 })
                     .then(response=>response.json())
@@ -66,7 +68,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     });
             },
             cleanCache(){
-                eventHub.$emit("msg-show","确定清除本地缓存吗？",1);
+                eventHub.$emit("msg-show",errcode.cleanCache,1);
             },
             updateApp(){
                 if (this.checkUpdate) {
@@ -76,13 +78,13 @@ window.addEventListener("DOMContentLoaded",()=>{
 
                 // 当前为最新版本
                 if (this.isCanUpdate) {
-                    eventHub.$emit("msg-show","检测到新版本，确定进行版本更新吗？",2);
+                    eventHub.$emit("msg-show",errcode.updateMsg,2);
                 }else{
                     callN("msg",{"content": errcode.update});
                 }
             },
             signOut(){
-                eventHub.$emit("msg-show","确定注销吗？",3);
+                eventHub.$emit("msg-show",errcode.signOut,3);
             }
         },
         components: {

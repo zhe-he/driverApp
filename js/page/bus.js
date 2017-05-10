@@ -118,7 +118,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             },
             // 获取当前连接用户
             getUserstats(){
-                this.$http.get(URL_USERS,{timeout:10000},{
+                this.$http.get(URL_USERS,{timeout:15000},{
                     headers: {
                         "cache-control": "no-cache"
                     }

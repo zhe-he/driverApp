@@ -1,4 +1,4 @@
-var isTest = !/(iOSApp|AndroidApp)\/wangfanDriver\s+(\d\.?)+/i.test(window.navigator.userAgent);
+// var isTest = !/(iOSApp|AndroidApp)\/wangfanDriver\s+(\d\.?)+/i.test(window.navigator.userAgent);
 // const HOST = isTest?'http://10.10.61.218:8081':'http://www.wangfanwifi.com:16621';
 const HOST = 'http://www.wangfanwifi.com:16621';
 const URL_GETINFO = HOST+'/api/getinfo';     // 获取设备SN MAC

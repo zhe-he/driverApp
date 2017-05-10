@@ -95,10 +95,10 @@ window.addEventListener("DOMContentLoaded",()=>{
                 });
                 input.addEventListener('change',()=>{
                     if(this.getDetail.plate_num){
-                        var re=/^[\u4e00-\u9fa5]{1}[A-Z]{1}[A-Z_0-9]{5}$/;
-                        if(this.getDetail.plate_num.search(re)==-1)
+                        var re=/^[\u4e00-\u9fa5\uFE30-\uFFA0][A-Za-z]\w{5}\s*$/;
+                        if(!re.test(this.getDetail.plate_num))
                         {
-                            this.input_flag=2;//.err
+                            this.input_flag=2; //.err
                             this.isSubmit=false;
                         }else{
                             if(this.getDetail.plate_num!='' &&  this.input_flag!=2 && this.getDetail.content!=''){
@@ -147,7 +147,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         format: "json",
                         token: BASEINFO.token,
                         uid:BASEINFO.uid,
-                        plate_num:this.getDetail.plate_num,
+                        plate_num:this.getDetail.plate_num.trim().toLocaleUpperCase(),
                         content:this.getDetail.content.trim(),
                         type:2,
                         access_token:BASEINFO.access_token
