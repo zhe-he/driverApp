@@ -58,7 +58,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         if(str.compass!=1){
             msgArr.push('北斗定位功能检测错误');
         }
-        if(str._4G!=1){
+        if(str['4G']!=1){
             msgArr.push('4G功能检测错误');
         }
         return String(msgArr);
