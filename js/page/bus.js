@@ -103,7 +103,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                             lng = (lng+'').replace(/[a-zA-Z\u4E00-\u9FA5\uFE30-\uFFA0]+/g,'');
                         }
                         if (!lat || lat=='0' || !lng || lng=='0') {
-                            callN("msg",{"content":errcode.deviceGPS});
+                            callN("msg",{"content":errcode.deviceGPS2});
                         }else{
                             this.gpsList = [{
                                 lat: lat,

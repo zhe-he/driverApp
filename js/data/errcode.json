@@ -4,6 +4,7 @@
     "device":           "无法获取设备信息，请确保您已连接往返wifi",
     "deviceUser":       "无法获取当前上网用户人数",
     "deviceGPS":        "无法获取设备经纬度",
+    "deviceGPS2":       "设备经纬度获取失败",
     "deviceCheck":      "设备日检需要连接往返WIFI！",
     "deviceNoCheck":    "车辆启动后，将进行设备检测！",
     "checkinWiFi":      "请连接往返wifi签到",
@@ -11,7 +12,6 @@
     "checkinManual":    "签到成功",
 
     "repair":           "提交成功，感谢您的报修！",
-
 
     "update":           "当前已是最新版本",
     "updateCheck":      "获取最新版本信息中...",
