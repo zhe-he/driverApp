@@ -103,13 +103,12 @@ Object {
 }   
 1. 后台接口说明(/Driver/report/getReport)需要得到的"content"的json
 "content"{
-    "type":1,//1-json 2-描述
-    "ctime":"xxxx-xx-xx xx:xx:xx",//检测时间
     "plate_num":"xxx",//车牌号
     "plate_sn":"xxx",//设备SN
-    "wifi":1,//wifi链接 0-异常 1-正常
-    "portal":1,//Portal页面 0-异常 1-正常
-    "compass":1,//北斗定位 0-异常 1-正常
+    "WIFI": "OK",//wifi链接 
+    "Portal": "OK",//Portal页面 
+    "Compass": "OK",//北斗定位 
+    "4G": "OK" // 4G
 }
 ##### 消息（systemMessage.html）    
 1. 获取个人中心的消息列表(news feed,移除)  

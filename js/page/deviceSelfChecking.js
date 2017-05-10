@@ -53,8 +53,7 @@ window.addEventListener("DOMContentLoaded",()=>{
             if(NUMBER.isChecked==1){
                 if(NUMBER.number){
                     // this.isWaiting=true;
-                    this.flag_num=3;this.flag_sn=3;this.flag_wifi=3;this.flag_portal=3;this.flag_compass=3;
-                    this.flag_4G=3;
+                    this.flag_num=3;this.flag_sn=3;this.flag_wifi=3;this.flag_portal=3;this.flag_compass=3;this.flag_4G=3;
                     fetch( `${BASEINFO.host}${GETREPORT}?number=${NUMBER.number}&access_token=${BASEINFO.access_token}&format=json`,{
                         cache:"no-cache"
                     })

@@ -136,6 +136,7 @@ app.use('/app-dms/report/getReport',function (req,res){
             "status": "2",
             "ctime": "1494298960",
             "utime": "0"
+
         }
     };
     res.setHeader('Access-Control-Allow-Origin','*');
@@ -147,139 +148,63 @@ app.use('/app-dms/report/getReport',function (req,res){
 // 3.5.1 获取报修列表
 app.use('/app-dms/report/lists',function (req,res){
     var data = req.query || req.body;
+    var page = data.page || 1;
+    var total = 32;
+    var size = data.size || 20;
+
+    var aList = [];
+    
+    if (page*size<total) {
+        for(var i=0;i<size;i++){
+            item = createList();
+            item.cid = (page-1)*size+i;
+            aList[i] = item;
+        }
+    }else{
+        var len = total-(page-1)*size;
+        for(var i=0;i<len;i++){
+            item = createList();
+            item.cid = (page-1)*size+i;
+            aList[i] = item;
+        }
+    }
+
     var message = {
         "code": 0,
         "data": {
-            "total": 12,
-            "list": [{
-                "cid": 1,
-                "number": "BX000001",
-                "plate_num": "xxx",
-                "content":{
-                    "type":2,
-                    "describe":"设备无法连接WIFI"
-                },
-                "type": 1 ,//1-自动 2-手动
-                "status": 1,//1-未修复 2-已修复
-                "ctime": "2017-04-17 11:36:54"
-            },{
-                "cid": 2,
-                "number": "BX000002",
-                "plate_num": "xxx",
-                "content": {
-                    "plate_num":"豫A22231",
-                    "plate_sn":643262,
-                    "wifi":1,
-                    "portal":0,
-                    "compass":0,
-                    "4G":0
-                },
-                "type": 1 ,
-                "status": 2,
-                "ctime": "1494345284346"
-            },{
-                "cid": 2,
-                "number": "BX000002",
-                "plate_num": "xxx",
-                "content": "xxx",
-                "type": 2 ,
-                "status": 2,
-                "ctime": "2017-04-11"
-            },{
-                "cid": 2,
-                "number": "BX000002",
-                "plate_num": "xxx",
-                "content": "xxx",
-                "type": 2 ,
-                "status": 2,
-                "ctime": "2017-04-11"
-            },{
-                "cid": 2,
-                "number": "BX000002",
-                "plate_num": "xxx",
-                "content": "xxx",
-                "type": 2 ,
-                "status": 2,
-                "ctime": "2017-04-11"
-            },{
-                "cid": 2,
-                "number": "BX000002",
-                "plate_num": "xxx",
-                "content": "xxx",
-                "type": 2 ,
-                "status": 2,
-                "ctime": "2017-04-11"
-            },{
-                "cid": 2,
-                "number": "BX000002",
-                "plate_num": "xxx",
-                "content": "xxx",
-                "type": 2 ,
-                "status": 2,
-                "ctime": "2017-04-11"
-            },{
-                "cid": 2,
-                "number": "BX000002",
-                "plate_num": "xxx",
-                "content": "xxx",
-                "type": 2 ,
-                "status": 2,
-                "ctime": "2017-04-11"
-            },{
-                "cid": 2,
-                "number": "BX000002",
-                "plate_num": "xxx",
-                "content": "xxx",
-                "type": 2 ,
-                "status": 2,
-                "ctime": "2017-04-11"
-            },{
-                "cid": 2,
-                "number": "BX000002",
-                "plate_num": "xxx",
-                "content": "xxx",
-                "type": 2 ,
-                "status": 2,
-                "ctime": "2017-04-11"
-            },{
-                "cid": 2,
-                "number": "BX000002",
-                "plate_num": "xxx",
-                "content": "xxx",
-                "type": 2 ,
-                "status": 2,
-                "ctime": "2017-04-11"
-            },{
-                "cid": 2,
-                "number": "BX000002",
-                "plate_num": "xxx",
-                "content": "xxx",
-                "type": 2 ,
-                "status": 2,
-                "ctime": "2017-04-11"
-            },{
-                "cid": 2,
-                "number": "BX000002",
-                "plate_num": "xxx",
-                "content": "xxx",
-                "type": 2 ,
-                "status": 2,
-                "ctime": "2017-04-11"
-            },{
-                "cid": 2,
-                "number": "BX000002",
-                "plate_num": "xxx",
-                "content": "xxx",
-                "type": 2 ,
-                "status": 2,
-                "ctime": "2017-04-11"
-            }]
+            "total": total,
+            "list": aList
         }
     };
     res.setHeader('Access-Control-Allow-Origin','*');
     setTimeout(()=>{
         res.send(message);
     },SLEEPTIME);
+
+    function createList(){
+        var type = Math.random()<0.5?1:2;
+        var content = "";
+        if (type==1) {
+            content = {
+                "plate_num": (Math.random()<0.5?"辽CL8765":""),
+                "plate_sn": (Math.random()<0.5?"HMAPA01160700537":""),
+                "WIFI": (Math.random()<0.5?"OK":""),
+                "Portal": (Math.random()<0.5?"OK":""),
+                "Compass": (Math.random()<0.5?"OK":""),
+                "4G": (Math.random()<0.5?"OK":"")
+            }
+        }else{
+            content = "用户提交的错误信息";
+        }
+        return {
+            "number": "BX000001",
+            "plate_num": "xxx",
+            "content": content,
+            "type":  type,//1-自动 2-手动
+            "status": (Math.random()<0.5?1:2),//1-未修复 2-已修复
+            "ctime": Date.now()/1000
+        }
+    }
 });
 // 3.5.2 添加报修
 app.use('/app-dms/report/add',function (req,res){
