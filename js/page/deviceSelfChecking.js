@@ -160,6 +160,9 @@ window.addEventListener("DOMContentLoaded",()=>{
                     })
             },
             selfCheck(){
+                if (this.selfChecking) {
+                    return ;
+                }
                 this.selfChecking = true;
                 // this.isWaiting=true;
                 this.getDetail.ctime=parseInt(Date.now()/1000);
