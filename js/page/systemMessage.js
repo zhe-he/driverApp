@@ -55,7 +55,8 @@ window.addEventListener("DOMContentLoaded",()=>{
                     uid: BASEINFO.uid,
                     access_token: BASEINFO.access_token,
                     page: this.curpage,
-                    size: this.size
+                    size: this.size,
+                    type:1
                 };
                 this.isReady=true;
                 fetch(`${BASEINFO.host}${MESLIST}?${querystring.stringify(params)}`,{
