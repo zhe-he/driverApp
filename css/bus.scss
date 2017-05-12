@@ -50,8 +50,8 @@ body{
             $w: nth($aWidth,$i)/2;
             $h: nth($aHeight,$i)/2;
             &:nth-child(#{$i}) > i:nth-of-type(1){
-                width: $w;
-                height: $h;
+                width: $w+0.03rem;
+                height: $h+0.03rem;
                 margin-top: -$h/2;
                 @include bg2(nth($aImg,$i),$w,$h);
             }
