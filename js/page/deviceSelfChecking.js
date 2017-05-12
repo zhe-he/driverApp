@@ -230,10 +230,12 @@ window.addEventListener("DOMContentLoaded",()=>{
                                     callN('msg',{content: errcode.m404});
                                 });
                         }else{
+                            this.getDetail.status_flag=1;
                             let param={
                                 "isChecked":1,
                                 "number": "",
-                                "ctime": Date.now()
+                                "ctime": Date.now(),
+                                "plate_sn":this.getDetail.plate_sn
                             };
                             callN('sendCheckNumber',param);
                         }
