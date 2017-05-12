@@ -99,7 +99,8 @@ Object {
     "callbackId": "sendCheckNumber",    
     "number": "111111",
     "id":1,
-    "ctime":"xxx"
+    "ctime":"xxx", // \s
+    "plate_sn":"xxx"
 }   
 1. 后台接口说明(/Driver/report/getReport)需要得到的"content"的json
 "content"{

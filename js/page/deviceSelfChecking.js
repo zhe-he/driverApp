@@ -217,6 +217,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                                         this.getDetail.status_flag=1;
                                         let param=data.data;
                                         param.isChecked=1;
+                                        param.plate_sn=this.getDetail.plate_sn;
                                         callN('sendCheckNumber',param);
                                     }else{
                                         this.getDetail.status='';
