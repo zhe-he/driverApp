@@ -16,11 +16,12 @@ body{
 }
 .new{
 	position: absolute;
-	top:.04rem;
+	top: 50%;
 	right:.36rem;
-	width: .16rem;
-	height: .16rem;
-	border-radius: .08rem;
+	margin-top:-4px;
+	width: 8px;
+	height: 8px;
+	border-radius: 4px;
 	background-color: $redColor;
 }
 .select{
@@ -62,7 +63,7 @@ body{
 					padding-right: 1rem;
 					@include eps;
 				}
-				u{
+				span{
 					@include bg2("Stroke");
 					position: absolute;
 					width:.14rem;

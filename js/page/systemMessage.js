@@ -101,6 +101,10 @@ window.addEventListener("DOMContentLoaded",()=>{
                     this.isShow = true;
                     this.getData();
                 }
+            },
+            check(num,id){
+                this.messageList[num].status=1;
+                window.location.href = 'messageContent.html?type=0&setting=hmbrf&id='+id;
             }
         },
         components: {

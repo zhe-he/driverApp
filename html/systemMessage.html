@@ -16,12 +16,13 @@
 
         <div class="content">
             <ul>
-                <li v-for="item in messageList">
-                    <a :href="'messageContent.html?type=4&id='+item.id">
+                <li v-for="(item,index) in messageList">
+                    <a href="javascript:;" @click="check(index,item.id)">
                         <h3>
                             <i class="message"></i>
                             <p>{{item.title}}</p>
-                            <u><b :class="[item.status==0?'new':'']"></b></u>
+                            <span></span>
+                            <b :class="[item.status==0?'new':'']"></b>
                         </h3>
                         <p><span>{{item.ctime | timeFormat}}</span></p>
                     </a>
