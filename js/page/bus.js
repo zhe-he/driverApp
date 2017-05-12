@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 1. 检测是否处在往返wifi下，如果不是，弹窗提示(弹窗移除)
  * 1. 获取设备sn，通过sn获取当前车牌号
  * 1. 每分钟获取车内上网用户
@@ -132,6 +132,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         if (this.connect_num==" ") {
                             callN("msg",{"content": errcode.deviceUser});
                         }
+			this.connect_num = 0;
                     });
             },
             // 获取设备信息
