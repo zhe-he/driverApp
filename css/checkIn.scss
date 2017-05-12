@@ -53,22 +53,17 @@
         float: left;
         position: relative;
         width: 0.98rem;
-        background-position: 0.03rem 0.07rem;
-        &.cur:before{
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+        &.cur{
             @include bg2('dangqianweizhi',0.6rem,0.6rem);
             background-position: center center;
         }
         &.manual{
             @include bg2('rengongqiandao',0.74rem,0.77rem);
+            background-position: 0.03rem 0.07rem;
         }
         &.auto{
             @include bg2('zidongqiandao',0.74rem,0.77rem);
+            background-position: 0.03rem 0.07rem;
             color: #fff;
         }
     }
