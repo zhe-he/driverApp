@@ -44,7 +44,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                 })
                     .then(response=>response.json())
                     .then(data=>{
-                        return data.deviceSN;
+                        return data.deviceID || data.deviceSN;
                     })
                     .then(deviceSN=>{
                         //根据sn获取车牌号
