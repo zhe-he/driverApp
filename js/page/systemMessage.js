@@ -3,12 +3,10 @@
  */
 const querystring = require("querystring");
 import "css/systemMessage.scss"
-
-
-import Vue from "vue";
-import errcode from "errcode";
 //import msg from "msg";
 // import eventHub from 'eventHub';
+import Vue from "vue";
+import errcode from "errcode";
 import loading from 'loading';
 import {dataFormat} from "method";
 import commonTop from "common-top";

@@ -153,7 +153,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                 return this.$http.get(URL_GETINFO,{timeout:10000})
                     .then(response=>response.json())
                     .then(data=>{
-                        this.getDetail.plate_sn=data.deviceSN;
+                        this.getDetail.plate_sn=data.deviceSN || data.deviceID;
                         this.flag_sn=this.getDetail.plate_sn?2:1;
                         this.getDetail.plate_num='';
                         return data.deviceSN;
