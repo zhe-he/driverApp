@@ -156,7 +156,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         this.getDetail.plate_sn=data.deviceID || data.deviceSN;
                         this.flag_sn=this.getDetail.plate_sn?2:1;
                         this.getDetail.plate_num='';
-                        return data.deviceSN;
+                        return data.deviceID || data.deviceSN;
                     })
             },
             selfCheck(){

@@ -27,8 +27,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         el: "#bus",
         data: {
             isWaiting: false,
-            equ_sn: "",     // 设备sn
-            equ_mac: "",    // 设备mac
+            equ_sn: "",     // 设备id/sn
             plate_num: "",  // 车牌号
             connect_num: " ", // 当前连接用户人数
             gpsList: []     // 行驶轨迹             
@@ -140,8 +139,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                 return this.$http.get(URL_GETINFO,{timeout:10000})
                     .then(response=>response.json())
                     .then(data=>{
-                        this.equ_sn = data.deviceSN;
-                        this.equ_mac = data.deviceMac;
+                        this.equ_sn = data.deviceID || data.deviceSN;
                     });
             },
             // 获取车辆信息
@@ -155,7 +153,6 @@ window.addEventListener("DOMContentLoaded",()=>{
                     body: querystring.stringify({
                         format: "json",
                         equ_sn: this.equ_sn,
-                        equ_mac: this.equ_mac,
                         access_token:BASEINFO.access_token
                     })
                 })
