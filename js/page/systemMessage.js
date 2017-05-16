@@ -8,7 +8,7 @@ import "css/systemMessage.scss"
 import Vue from "vue";
 import errcode from "errcode";
 import loading from 'loading';
-import {dataFormat} from "method";
+import {dataFormat,isAndroid} from "method";
 import commonTop from "common-top";
 import {getN,callN} from "nativeA";
 import {MESLIST} from "inter";
@@ -24,12 +24,12 @@ window.addEventListener("DOMContentLoaded",()=>{
         "isReady": false,   // 是否能加载下一页
         "curpage":1,        // 当前页数
         "pageCount":99,     // 总页数，只在第一次请求赋值
-        "size": 10          // 每页多少条数据
+        "size": 10         // 每页多少条数据
     };
     Vue.filter('timeFormat',str=>{
         return str?dataFormat((str*1000),'YYYY-MM-dd hh:mm:ss'):"";
     });
-    new Vue({
+    var msgVue = new Vue({
         el: "#systemMsg",
         data: fnObj,
         /*created(){
@@ -54,7 +54,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     access_token: BASEINFO.access_token,
                     page: this.curpage,
                     size: this.size,
-                    type:1
+                    type: 1
                 };
                 this.isReady=true;
                 fetch(`${BASEINFO.host}${MESLIST}?${querystring.stringify(params)}`,{
@@ -111,4 +111,23 @@ window.addEventListener("DOMContentLoaded",()=>{
             commonTop
         }
     });
+
+
+    window.nativeCallback = function (type,param){
+        if (isAndroid) {
+            param = param?JSON.parse(param):'';
+        }
+        if (type == "refresh") {
+            var seach = param.link.split('?')[1] || '';
+            var id = querystring.parse(seach).id;
+            for (var i = 0; i < msgVue.$data.messageList.length; i++) {
+                if(msgVue.$data.messageList[i].id == id){
+                    msgVue.$data.messageList[i].status = 1;
+                    break;
+                }
+            }
+        }else{
+            console.log(`没有找到${type}方法，请确保H5有此回调方法`);
+        }
+    }
 },false);
