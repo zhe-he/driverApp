@@ -102,6 +102,10 @@ window.addEventListener("DOMContentLoaded",()=>{
             },
             check(num,id){
                 this.messageList[num].status=1;
+                var msg = window.sessionStorage.getItem('WF-SJ-APP-MSG') || "[]";
+                msg = JSON.parse(msg);
+                msg.push(id);
+                window.sessionStorage.setItem('WF-SJ-APP-MSG',JSON.stringify(msg));
                 window.location.href = 'messageContent.html?type=0&setting=hmbrf&id='+id;
             }
         },
@@ -120,10 +124,11 @@ window.addEventListener("DOMContentLoaded",()=>{
         if (type == "refresh") {
             var seach = param.link.split('?')[1] || '';
             var id = querystring.parse(seach).id;
-            for (var i = 0; i < msgVue.$data.messageList.length; i++) {
-                if(msgVue.$data.messageList[i].id == id){
-                    msgVue.$data.messageList[i].status = 1;
-                    break;
+            var msg = window.sessionStorage.getItem('WF-SJ-APP-MSG') || "[]";
+            msg = JSON.parse(msg);
+            for(var list of msgVue.$data.messageList){
+                if(list.id == id || msg.indexOf(list.id) != -1){
+                    list.status = 1;
                 }
             }
         }else{
