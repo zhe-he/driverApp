@@ -20,13 +20,13 @@ window.addEventListener("DOMContentLoaded",()=>{
             plate_num: '',  // 车牌号
             license_img: '',    // 行驶证
             equ_sn: '',         // 设备id/sn
+            equ_mac: ''
         },
         mounted(){
             if (WIFI.wangfan != 1) {
                 callN("msg",{"content": errcode.device});
                 return false;
             }
-
             this.isWaiting = true;
             this.getEqu().then(this.getBus).catch(e=>{
                 this.isWaiting = false;
@@ -41,6 +41,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     .then(response=>response.json())
                     .then(data=>{
                         this.equ_sn = data.deviceID || data.deviceSN;
+                        this.equ_mac = data.deviceMac;
                     });
             },
             // 获取车辆信息

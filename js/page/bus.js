@@ -79,7 +79,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                 setInterval(()=>{
                     this.getGpsList();
                     this.getUserstats();
-                },1000*60);
+                },1000*30);
             });
         },
         methods: {

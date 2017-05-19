@@ -17,7 +17,7 @@
         <nav class="bus-menu">
             <a href="busDetail.html">
                 <i></i>
-                <p>当前车辆：{{plate_num}}</p>
+                <p>当前车辆：<span v-html="plate_num"></span></p>
                 <i></i>
             </a>
             <a href="deviceSelfChecking.html">
@@ -32,7 +32,7 @@
             </a>
             <a href="javascript:;">
                 <i></i>
-                <p>车内目前上网用户<b>{{connect_num}}</b>人</p>
+                <p>车内目前上网用户<b v-html="connect_num"></b>人</p>
                 <i></i>
             </a>
         </nav>
