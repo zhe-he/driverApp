@@ -62,13 +62,13 @@ window.App.callNative("autoCheckIn")
 当自动签到失败，或正在自动签到时，用户点击签到按钮，会调用此方法 
 
 ##### 车辆（bus.html busDetail.html）   
-1. 获取本次行驶轨迹（移除）     
+1. 获取本次行驶轨迹          
 window.App.getNativeParam("getDriveLine")     
 return [
     {   
         "lat": 37,  
         "lng": 127,     
-        "time": 1490934526117   
+        "time": 1490934526117  // 暂时不需要，单位 /ms   
     },{同上},{同上},...
 ]   
 如果没有 返回当前的位置 return [{...}]

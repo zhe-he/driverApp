@@ -32,31 +32,6 @@ window.addEventListener("DOMContentLoaded",()=>{
             connect_num: " ", // 当前连接用户人数
             gpsList: []     // 行驶轨迹             
         },
-        watch: {
-            gpsList: {
-                handler(val){
-                    
-                    let ggPoint = new BMap.Point(val[0].lng, val[0].lat);
-                    let pointArr = [];
-                    pointArr.push(ggPoint);
-                    CONVERTOR.translate(pointArr,1,5,data=>{
-                        map.clearOverlays();
-                        
-                        if (data.status==0) {
-                            ggPoint = data.points[0];
-                        }
-                        let marker = new BMap.Marker(ggPoint);
-                        map.addOverlay(marker);
-                        if (map.getZoom()<12) {
-                            map.centerAndZoom(ggPoint,14);
-                        }else{
-                            map.setCenter(ggPoint);
-                        }
-                    });
-                },
-                deep: true
-            }
-        },
         mounted(){
 
             if (WIFI.wangfan != 1) {
@@ -79,45 +54,46 @@ window.addEventListener("DOMContentLoaded",()=>{
                 setInterval(()=>{
                     this.getGpsList();
                     this.getUserstats();
-                },1000*30);
+                },1000*60);
             });
         },
         methods: {
             // 获取行驶轨迹 经纬度
             getGpsList(){
-                this.$http.get(URL_GPS,{timeout: 10000},{
-                    headers: {
-                        "cache-control": "no-cache"
+                let line = getN('getDriveLine') || [];
+                this.gpsList = line;
+                this.drawLine(line);
+            },             
+            drawLine(line){ 
+                if (line.length==0) {return }       
+                let pointArr = [];                     
+                for (var i = 0; i < line.length; i++) { 
+                    let ggPoint = new BMap.Point(line[i].lng, line[i].lat); 
+                    pointArr.push(ggPoint); 
+                }
+                CONVERTOR.translate(pointArr,1,5,data=>{ 
+                    if (data.status==0) {
+                        map.clearOverlays(); 
+                        let aPolyline = []; 
+                        for (var i = 0; i < data.points.length; i++) { 
+                            aPolyline.push(data.points[i]);                             
+                        } 
+                        var lastPoint = data.points[data.points.length-1];
+                        let polyline = new BMap.Polyline(aPolyline,{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});                             
+                        let marker = new BMap.Marker(lastPoint); 
+                        map.addOverlay(polyline);
+                        map.addOverlay(marker);
+                        if (map.getZoom()<12) {
+                            map.centerAndZoom(lastPoint,13); 
+                        }else{ 
+                            map.setCenter(lastPoint);
+                        } 
                     }
-                })
-                    .then(response=>response.json())
-                    .then(data=>{
-                        // 暂不支持多点
-                        
-                        let lat = data.lat;
-                        let lng = data.lon;
-                        // 某些设备经纬度包含中文字母前缀/后缀
-                        if (lat && lng) {
-                            lat = (lat+'').replace(/[a-zA-Z\u4E00-\u9FA5\uFE30-\uFFA0]+/g,'');
-                            lng = (lng+'').replace(/[a-zA-Z\u4E00-\u9FA5\uFE30-\uFFA0]+/g,'');
-                        }
-                        if (!lat || lat=='0' || !lng || lng=='0') {
-                            callN("msg",{"content":errcode.deviceGPS2});
-                        }else{
-                            this.gpsList = [{
-                                lat: lat,
-                                lng: lng
-                            }];
-                        }
-                    })
-                    .catch(e=>{
-                        console.log(e);
-                        callN("msg",{"content":errcode.deviceGPS+'.'});
-                    });
+                });
             },
             // 获取当前连接用户
             getUserstats(){
-                this.$http.get(URL_USERS,{timeout:20000},{
+                this.$http.get(URL_USERS,{timeout:15000},{
                     headers: {
                         "cache-control": "no-cache"
                     }

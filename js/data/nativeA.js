@@ -33,13 +33,17 @@ if (isTest) {
                         "platfrom": PLATFORM
                     }
                     break;
-                case "getDriveLine":  // 移除
+                case "getDriveLine":  
                     isWarn && console.warn("获取行驶轨迹");
-                    return {
-                        "lat": 37,
-                        "lng": 127,
+                    return [{
+                        "lng": 116.575552,
+                        "lat": 40.096255,
                         "time": Date.now()
-                    }
+                    },{
+                        "lng": 116.57636,
+                        "lat": 40.087981,
+                        "time": Date.now()
+                    }]
                     break;
                 case "getAutoCheckNumber":
                     isWarn && console.warn("获取设备自检单号");
