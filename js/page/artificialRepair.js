@@ -35,7 +35,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         mounted(){
             const WIFI = getN('wifi');
             if(WIFI.wangfan==1){
-                this.isWaiting=true;
+                // this.isWaiting=true;
                 //获取设备sn
                 this.$http.get(URL_GETINFO,{timeout:10000},{
                     headers: {
@@ -58,7 +58,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         })
                             .then(response=>response.json())
                             .then(data=>{
-                                this.isWaiting=false;
+                                // this.isWaiting=false;
                                 if(data.code==0){
                                     this.getDetail.plate_num=data.data.plate_num;
                                     this.input_flag=1;
@@ -72,7 +72,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                     })
                     .catch(e=>{
                         console.log(e);
-                        this.isWaiting=false;
+                        // this.isWaiting=false;
                         callN('msg',{
                             content: errcode.m404
                         })

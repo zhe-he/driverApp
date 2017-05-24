@@ -61,8 +61,15 @@ window.addEventListener("DOMContentLoaded",()=>{
             // 获取行驶轨迹 经纬度
             getGpsList(){
                 let line = getN('getDriveLine') || [];
-                this.gpsList = line;
-                this.drawLine(line);
+                // 第一次进入的时候可能没有数据
+                if (line.length==0) {
+                    setTimeout(()=>{
+                        this.getGpsList();
+                    },3000);
+                }else{
+                    this.gpsList = line;
+                    this.drawLine(line);
+                }
             },             
             drawLine(line){ 
                 if (line.length==0) {return }       
