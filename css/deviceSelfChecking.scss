@@ -96,10 +96,10 @@ body{
 }
 .loading{
 	@include bg2("icon_loading");
-	@keyframes rotating{
-		from{transform:rotate(0)}
-		to{transform:rotate(360deg)}
-	}
 	animation:rotating 1.2s linear infinite
+}
 
+@keyframes rotating{
+	from{transform:rotate(0)}
+	to{transform:rotate(360deg)}
 }
