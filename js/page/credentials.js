@@ -185,9 +185,13 @@ window.addEventListener("DOMContentLoaded",()=>{
                     this.alertMsg('','');
                     this.isDisabled = false;
                 }else{
-                    let { name,mobile,license,license_photo } = this.$data;
-                    if (!this.cid) {
+                    let { cmp_name,name,mobile,license,license_photo } = this.$data;
+                    if(cmp_name.trim()===""){
                         this.alertMsg('error','请填写公司名称');
+                        return false;
+                    }
+                    if (!this.cid) {
+                        this.alertMsg('error',errcode.wfwifi);
                         return false;
                     }
                     if (name.trim()==='') {
