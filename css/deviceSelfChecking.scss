@@ -90,16 +90,21 @@ body{
 }
 .normal{
 	@include bg2("normal");
+	animation:rotatingNot 1.2s linear infinite;
 }
 .err{
 	@include bg2("icon_fail");
+	animation:rotatingNot 1.2s linear infinite;
 }
 .loading{
 	@include bg2("icon_loading");
-	@keyframes rotating{
-		from{transform:rotate(0)}
-		to{transform:rotate(360deg)}
-	}
-	animation:rotating 1.2s linear infinite
-
+	animation:rotating 1.2s linear infinite;
+}
+@keyframes rotating{
+	from{transform:rotate(0)}
+	to{transform:rotate(360deg)}
+}
+@keyframes rotatingNot{
+	from{transform:rotate(0)}
+	to{transform:rotate(0)}
 }
