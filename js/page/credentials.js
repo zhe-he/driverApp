@@ -191,7 +191,7 @@ window.addEventListener("DOMContentLoaded",()=>{
                         return false;
                     }
                     if (!this.cid) {
-                        this.alertMsg('error',errcode.wfwifi);
+                        this.alertMsg('error','没有查询到该公司名称，<br>请检查是否已连接往返免费wifi');
                         return false;
                     }
                     if (name.trim()==='') {
