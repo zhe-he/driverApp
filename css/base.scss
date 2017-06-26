@@ -3,19 +3,19 @@ $greyColor: #7d7d7d;
 $greyColor2: #979797;
 $blueColor: #3283ff;
 $redColor: #F43531;
-
+$bgColor: #F6FCFF;
 
 @mixin bg($img,$x:100%,$y:100%){
 	background-repeat: no-repeat;
-	background-image: url('../images/#{$img}');
+	background-image: url('../../images/#{$img}');
 	background-size: $x $y;
 }
 @mixin bg2($img,$x:100%,$y:100%){
 	background-repeat: no-repeat;
-	background-image: url('../images/#{$img}\@2x.png');
+	background-image: url('../../images/#{$img}\@2x.png');
 	background-image: -webkit-image-set(
-		url('../images/#{$img}\@2x.png') 2x,
-		url('../images/#{$img}\@3x.png') 3x);
+		url('../../images/#{$img}\@2x.png') 2x,
+		url('../../images/#{$img}\@3x.png') 3x);
 	background-size: $x $y;
 }
 @mixin common-fixed($top:0){
@@ -233,130 +233,4 @@ $shadowColorBtn: rgba(31,120,255,0.4);
 	&.disabled{
 		opacity: 0.3;
 	}
-}
-
-
-.common-top{
-	height: 0.88rem;
-	> div{
-		 z-index: 100;
-		 @include common-fixed;
-		 @include bg2('bg3',100%,auto);
-		width: 100%;
-		display: flex;
-		> *{
-			display: block;
-			height: 0.88rem;
-			line-height: 0.88rem;
-			color: #fff;
-		}
-		> a:nth-of-type(1){
-			width: 0.8rem;
-			&.goBack{
-				@include bg2('back',0.24rem,0.44rem);
-				background-position: center center;
-			}
-		}
-		h1{
-			width: 5.04rem; 
-			font-size: 0.36rem;
-			text-indent: 0.86rem;
-			font-weight: normal;
-			text-align: center;
-		}
-		> a:nth-of-type(2){
-			padding-right: 0.3rem;
-			width: 1.36rem;
-			font-size: 0.32rem;
-			text-align: right;
-		}
-	}
-}
-.height30{
-	height: 0.3rem;
-}
-
-$lineColor: #D5D5D5;
-.common-msg-mask{
-    z-index: 990;
-    @include common-fixed;
-    height: 100%;
-    background-color: rgba(0,0,0,0.5);
-}
-.common-msg{
-    z-index: 1000;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    width: 6.4rem;
-    margin-left: -3.2rem;
-    margin-top: -1.3rem;
-    border-radius: 0.4rem;
-    background-color: #fff;
-    > p{
-        padding: 0.6rem 0 0.3rem;
-        color: $blackColor;
-        font-size: 0.34rem;
-        line-height: 0.36rem;
-        text-align: center;
-    }
-    > nav{
-        border-top: 1px solid $lineColor;
-        display: flex;
-        > a{
-            display: block;
-            flex: 1;
-            height: 1.1rem;
-            line-height: 1.1rem;
-            text-align: center;
-            font-size: 0.34rem;
-            color: #1E77FF;
-            &:nth-child(1){
-                border-right: 1px solid $lineColor;
-                color: $greyColor;
-            }
-        }
-    }
-}
-
-.common-loading{
-	height: 0.74rem;
-	line-height: 0.74rem;
-	text-align: center;
-	color: $greyColor;
-	font-size: 0.28rem;
-
-	> i{
-		display: inline-block;
-		vertical-align: middle;
-		width: 0.28rem;
-		height: 0.28rem;
-		margin-top: -2px;
-		margin-right: 0.1rem;
-		border-radius: 50%;
-		border: 2px solid $greyColor;
-		border-bottom-color: transparent;
-		animation: rotate 0.75s linear infinite;
-	}
-}
-@keyframes rotate {
-    0% {
-        transform: rotate(0deg);
-    }
-    50% {
-        transform: rotate(180deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-html,body{
-	height: 100%;
-}
-body{
-	@include bg2('bg3',100%,auto);
-	background-position: center -0.56rem;
-	background-color: #F6FCFF;
-	background-attachment:fixed;
 }

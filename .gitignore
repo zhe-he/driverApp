@@ -6,6 +6,7 @@ node_modules
 *.diff
 *.zip
 assets
+www
 README.html
 upload
 .idea

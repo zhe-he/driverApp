@@ -1,15 +1,15 @@
 <template>
     <header class="common-top">
         <div>
-            <a @click="goBack()" :class="backType>-1?'goBack':''" :href="backLink"></a>
+            <a @click="goBack()" :class="backType>-2?'goBack':''"></a>
             <h1>{{title}}</h1>
-            <a v-if="link" :href="link">{{linkTitle}}</a>
+            <router-link tag="a" v-if="linkTitle" :to="link">{{linkTitle}}</router-link>
         </div>
     </header>
 </template>
 
 <script>
-    import {callN} from "nativeA";
+
     export default {
         props: {
             title: {
@@ -17,37 +17,61 @@
             },
             backType: {
                 type: Number,
-                default: 0
+                default: -1
             },
             link: {
-                type: String
+                type: String|Object
             },
             linkTitle: {
                 type: String
-            },
-            backLink:{
-                type:String,
-                default:"javascript:;"
             }
         },
         methods: {
             goBack(){
-                switch(this.backType){
-                    case 0:
-                        window.history.go(-1);
-                        break;
-                    case 1:
-                        // go app index-page
-                    case 2: 
-                        // go html bus-page
-                    case 3: 
-                        // go app my-page
-                        callN("close",{type:this.backType})
-                        break;
-                    case 4:
-                        break;
+                if (this.backType) {
+                    this.$router.go(this.backType);
                 }
             }
         }
     }
 </script>
+<style lang="sass">
+    @import "css/base";
+    .common-top{
+        height: 0.88rem;
+        > div{
+            z-index: 100;
+            @include common-fixed;
+            @include bg2('bg3',100%,auto);
+            width: 100%;
+            display: flex;
+            padding-top: 0.6rem;
+            > *{
+                display: block;
+                height: 0.88rem;
+                line-height: 0.88rem;
+                color: #fff;
+            }
+            > a:nth-of-type(1){
+                width: 0.8rem;
+                &.goBack{
+                    @include bg2('back',0.24rem,0.44rem);
+                    background-position: center center;
+                }
+            }
+            h1{
+                width: 5.04rem; 
+                font-size: 0.36rem;
+                text-indent: 0.86rem;
+                font-weight: normal;
+                text-align: center;
+            }
+            > a:nth-of-type(2){
+                padding-right: 0.3rem;
+                width: 1.36rem;
+                font-size: 0.32rem;
+                text-align: right;
+            }
+        }
+    }
+</style>

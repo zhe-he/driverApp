@@ -8,10 +8,12 @@ var port = process.argv[2]?process.argv[2].replace('--',''):3337;
 
 //entry 
 Object.getOwnPropertyNames((webpackBase.entry || {})).map(function (name) {
-    cfg.entry[name] = []
-    	.concat("webpack/hot/dev-server")
-        .concat(`webpack-dev-server/client?http:\/\/0.0.0.0:${port}`)
-        .concat(webpackBase.entry[name])
+    if (name != 'vendor') {
+        cfg.entry[name] = []
+            .concat("webpack/hot/dev-server")
+            .concat(`webpack-dev-server/client?http:\/\/0.0.0.0:${port}`)
+            .concat(webpackBase.entry[name])
+    }
 });
 
 cfg.plugins = (webpackBase.plugins || []).concat(
@@ -27,8 +29,9 @@ var compiler = webpack(cfg);
 //init server
 var app = new webpackDevServer(compiler, {
     publicPath: '',
-    contentBase: './assets',
-    hot: false,
+    contentBase: './www',
+    hot: true,
+    disableHostCheck: true,
     stats: { colors: true, chunks: false }
 });
 // 监听端口

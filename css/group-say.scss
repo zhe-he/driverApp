@@ -1,0 +1,28 @@
+@import "base";
+.group-say-box{
+    width: 6.9rem;
+    margin: 0.6rem auto 0;
+    @extend %common-shadow;
+    padding: 0.6rem 0.48rem;
+    box-sizing: border-box;
+
+    > h2{
+        height: 0.48rem;
+        line-height: 0.48rem;
+        margin-bottom: 0.3rem;
+        text-align: center;
+        font-size: 0.32rem;
+        color: $blackColor; 
+        font-weight: normal;
+    }
+    > p{
+        font-size: 0.32rem;
+        line-height: 0.6rem;
+        text-align: justify;
+        color: $greyColor;
+        margin-bottom: 0.3rem;
+        &:last-of-type{
+            margin-bottom: 0;
+        }
+    }
+}
